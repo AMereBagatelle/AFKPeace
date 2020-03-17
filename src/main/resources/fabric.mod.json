@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "afkpeace",
+  "version": "1",
+
+  "name": "AFKPeace",
+  "description": "A mod to make going AFK on servers much easier, with rejoining and respawning features.",
+  "authors": [
+    "AMereBagatelle"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": "https://github.com/AMereBagatelle/AFKPeace"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/afkpeace/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "client": ["net.fabricmc.afkpeace.AFKPeace"]
+  },
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.15.x"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}
