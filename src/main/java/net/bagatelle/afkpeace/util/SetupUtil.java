@@ -4,6 +4,7 @@ import org.lwjgl.glfw.GLFW;
 
 import net.fabricmc.fabric.api.client.keybinding.FabricKeyBinding;
 import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry;
+import net.fabricmc.fabric.api.event.client.ClientTickCallback;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
 
@@ -29,6 +30,8 @@ public class SetupUtil {
 	}
 
 	public void activateKeybinds() {
-
+		ClientTickCallback.EVENT.register(e -> {
+			
+		});
 	}
 }
