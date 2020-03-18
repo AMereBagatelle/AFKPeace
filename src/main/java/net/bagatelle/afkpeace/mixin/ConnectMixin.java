@@ -5,6 +5,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.At;
 
+import net.bagatelle.afkpeace.AFKPeace;
 import net.bagatelle.afkpeace.util.DisconnectRetryScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
@@ -35,7 +36,7 @@ public abstract class ConnectMixin {
     public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
         if(reason.getString().contains("Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host") && currentServer != null) {
-            mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, currentServer, reconnectActive));
+            mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, currentServer, !AFKPeace.connectUtil.getAutoReconnectActive()));
             cbi.cancel();
         }
         System.out.println(reason.getString());
