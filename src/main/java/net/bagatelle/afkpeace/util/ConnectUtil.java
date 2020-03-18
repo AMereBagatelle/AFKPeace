@@ -1,9 +1,12 @@
 package net.bagatelle.afkpeace.util;
 
+import java.net.Socket;
+
 import net.bagatelle.afkpeace.constants.ReconnectionConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.network.ServerInfo;
+import net.minecraft.network.ServerAddress;
 
 public class ConnectUtil {
 
@@ -18,8 +21,18 @@ public class ConnectUtil {
         }
     }
 
-    public void autoReconnectToServer(ServerInfo serverAddress) {
-        
+    public void autoReconnectToServer(ServerInfo serverInfo) {
+        MinecraftClient mc = MinecraftClient.getInstance();
+        ServerAddress serverAddress = ServerAddress.parse(serverInfo.address);
+        for(int attempt=0; attempt>ReconnectionConstants.maxReconnectTries; attempt++) {
+            try {
+                Socket connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
+                mc.openScreen(new ConnectScreen(mc.currentScreen, mc, serverInfo));
+                break;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void setAutoReconnectActive(boolean setpoint) {
