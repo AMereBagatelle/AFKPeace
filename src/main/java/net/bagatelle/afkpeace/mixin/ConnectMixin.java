@@ -20,7 +20,7 @@ public abstract class ConnectMixin {
 
     public ServerInfo currentServer;
 
-    @Inject(method="onGameJoin", at=@At("RETURN"))
+    @Inject(method="onGameJoin", at=@At("HEAD"))
     private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
         ServerInfo serverData = mc.getCurrentServerEntry();

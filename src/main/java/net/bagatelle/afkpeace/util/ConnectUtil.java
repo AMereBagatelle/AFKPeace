@@ -18,8 +18,13 @@ public class ConnectUtil {
         }
     }
 
+    public void autoReconnectToServer(ServerInfo serverAddress) {
+        
+    }
+
     public void setAutoReconnectActive(boolean setpoint) {
         autoReconnectActive = setpoint;
+        System.out.println(autoReconnectActive);
     }
 
     public boolean getAutoReconnectActive() {
