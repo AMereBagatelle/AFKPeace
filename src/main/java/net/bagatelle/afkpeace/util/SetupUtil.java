@@ -2,7 +2,6 @@ package net.bagatelle.afkpeace.util;
 
 import org.lwjgl.glfw.GLFW;
 
-import net.bagatelle.afkpeace.AFKPeace;
 import net.fabricmc.fabric.api.client.keybinding.FabricKeyBinding;
 import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry;
 import net.fabricmc.fabric.api.event.client.ClientTickCallback;
