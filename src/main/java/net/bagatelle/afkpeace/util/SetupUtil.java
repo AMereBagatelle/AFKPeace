@@ -2,6 +2,7 @@ package net.bagatelle.afkpeace.util;
 
 import org.lwjgl.glfw.GLFW;
 
+import net.bagatelle.afkpeace.AFKPeace;
 import net.fabricmc.fabric.api.client.keybinding.FabricKeyBinding;
 import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry;
 import net.fabricmc.fabric.api.event.client.ClientTickCallback;
@@ -36,6 +37,7 @@ public class SetupUtil {
 		ClientTickCallback.EVENT.register(e -> {
 			// Handling the toggle of the reconnect feature
 			if(toggleReconnectToServer.isPressed() && !toggleReconnectWasPressed) {
+				AFKPeace.connectUtil.setAutoReconnectActive(!AFKPeace.connectUtil.getAutoReconnectActive());
 			}
 			toggleReconnectWasPressed = toggleReconnectToServer.isPressed();
 		});

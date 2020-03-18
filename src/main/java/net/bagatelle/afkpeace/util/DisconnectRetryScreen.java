@@ -18,14 +18,14 @@ public class DisconnectRetryScreen extends Screen {
     private final Screen parent;
     private int reasonHeight;
     private String serverAddress;
-    private int serverPort;
+    private boolean reconnectButton;
 
-    public DisconnectRetryScreen(Screen parent, String title, Text reason, String serverAddress, Integer serverPort) {
+    public DisconnectRetryScreen(Screen parent, String title, Text reason, String serverAddress, boolean reconnectButton) {
         super(new TranslatableText(title, new Object[0]));
         this.parent = parent;
         this.reason = reason;
         this.serverAddress = serverAddress;
-        this.serverPort = serverPort;
+        this.reconnectButton = reconnectButton;
     }
 
     public boolean shouldCloseOnEsc() {
@@ -43,9 +43,9 @@ public class DisconnectRetryScreen extends Screen {
         this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30), 200, 20, I18n.translate("gui.toMenu"), (buttonWidget) -> {
             this.minecraft.openScreen(this.parent);
         }));
-        if(this.serverAddress == null) {
-            this.addButton(new ButtonWidget(var10003 - 100, Math.min(var10004 + 9, this.height - 30), 200, 20, "Reconnect", (buttonWidget) -> {
-                AFKPeace.connectUtil.connectToServer(serverAddress, serverPort);
+        if(reconnectButton) {
+            this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30) + 30, 200, 20, "Reconnect", (buttonWidget) -> {
+                AFKPeace.connectUtil.connectToServer(serverAddress);
             }));
         }
     }
