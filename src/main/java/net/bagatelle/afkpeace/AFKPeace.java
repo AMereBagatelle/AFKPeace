@@ -4,7 +4,8 @@ import net.bagatelle.afkpeace.util.SetupUtil;
 import net.fabricmc.api.ClientModInitializer;
 
 public class AFKPeace implements ClientModInitializer {
-	public SetupUtil setupUtil = new SetupUtil();
+	public static SetupUtil setupUtil = new SetupUtil();
+	public static ReconnectOnTimeout reconnectCommand = new ReconnectOnTimeout();
 
 	@Override
 	public void onInitializeClient() {

@@ -7,6 +7,10 @@ public class ReconnectOnTimeout {
         isActive = false;
     }
 
+    public void checkForTimeout() {
+        
+    }
+
     public void setActive(boolean setTo) {
         isActive = setTo;
     }

@@ -18,8 +18,11 @@
 
   "environment": "*",
   "entrypoints": {
-    "client": ["net.fabricmc.afkpeace.AFKPeace"]
+    "client": ["net.bagatelle.afkpeace.AFKPeace"]
   },
+  "mixins": [
+    "afkpeace.mixins.json"
+  ],
 
   "depends": {
     "fabricloader": ">=0.7.4",

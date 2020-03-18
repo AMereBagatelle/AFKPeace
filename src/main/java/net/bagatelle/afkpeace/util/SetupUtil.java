@@ -2,6 +2,7 @@ package net.bagatelle.afkpeace.util;
 
 import org.lwjgl.glfw.GLFW;
 
+import net.bagatelle.afkpeace.AFKPeace;
 import net.fabricmc.fabric.api.client.keybinding.FabricKeyBinding;
 import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry;
 import net.fabricmc.fabric.api.event.client.ClientTickCallback;
@@ -10,7 +11,9 @@ import net.minecraft.util.Identifier;
 
 public class SetupUtil {
 	
-	FabricKeyBinding toggleReconnectToServer;
+	private FabricKeyBinding toggleReconnectToServer;
+
+	private boolean toggleReconnectWasPressed;
 	
 	public void configureKeybinds() {
 		final String keybindCategory = "AFKPeace";
@@ -19,6 +22,7 @@ public class SetupUtil {
 
 		keyBindingRegistry.addCategory(keybindCategory);
 
+		// Keybind for reconnect feature
 		keyBindingRegistry.register(toggleReconnectToServer = FabricKeyBinding.Builder
 			.create(
 				new Identifier("afkpeace:togglereconnecttoserver"),
@@ -26,12 +30,17 @@ public class SetupUtil {
     			GLFW.GLFW_KEY_UNKNOWN,
     			keybindCategory
 			).build()); //
-		keyBindingRegistry.register(toggleReconnectToServer); // Toggle reconnecting to server
+		keyBindingRegistry.register(toggleReconnectToServer);
 	}
 
 	public void activateKeybinds() {
 		ClientTickCallback.EVENT.register(e -> {
-			
+			// Handling the toggle of the reconnect feature
+			if(toggleReconnectToServer.isPressed() && !toggleReconnectWasPressed) {
+				AFKPeace.reconnectCommand.setActive(!AFKPeace.reconnectCommand.getActive());
+				System.out.println(AFKPeace.reconnectCommand.getActive());
+			}
+			toggleReconnectWasPressed = toggleReconnectToServer.isPressed();
 		});
 	}
 }
