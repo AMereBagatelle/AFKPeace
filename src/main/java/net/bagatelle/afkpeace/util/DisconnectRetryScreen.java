@@ -7,6 +7,7 @@ import net.bagatelle.afkpeace.AFKPeace;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -17,14 +18,14 @@ public class DisconnectRetryScreen extends Screen {
     private List<String> reasonFormatted;
     private final Screen parent;
     private int reasonHeight;
-    private String serverAddress;
+    private ServerInfo serverInfo;
     private boolean reconnectButton;
 
-    public DisconnectRetryScreen(Screen parent, String title, Text reason, String serverAddress, boolean reconnectButton) {
+    public DisconnectRetryScreen(Screen parent, String title, Text reason, ServerInfo serverInfo, boolean reconnectButton) {
         super(new TranslatableText(title, new Object[0]));
         this.parent = parent;
         this.reason = reason;
-        this.serverAddress = serverAddress;
+        this.serverInfo = serverInfo;
         this.reconnectButton = reconnectButton;
     }
 
@@ -44,8 +45,8 @@ public class DisconnectRetryScreen extends Screen {
             this.minecraft.openScreen(this.parent);
         }));
         if(reconnectButton) {
-            this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30) + 30, 200, 20, "Reconnect", (buttonWidget) -> {
-                AFKPeace.connectUtil.connectToServer(serverAddress);
+            this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30) + 20, 200, 20, "Reconnect", (buttonWidget) -> {
+                AFKPeace.connectUtil.connectToServer(serverInfo);
             }));
         }
     }
