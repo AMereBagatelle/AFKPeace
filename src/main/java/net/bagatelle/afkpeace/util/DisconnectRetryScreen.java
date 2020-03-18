@@ -52,6 +52,7 @@ public class DisconnectRetryScreen extends Screen {
 
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground();
+        super.renderDirtBackground(0);
         TextRenderer var10001 = this.font;
         String var10002 = this.title.asFormattedString();
         int var10003 = this.width / 2;

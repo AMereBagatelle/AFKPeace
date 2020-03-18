@@ -29,7 +29,7 @@ public class SetupUtil {
     			InputUtil.Type.KEYSYM,
     			GLFW.GLFW_KEY_UNKNOWN,
     			keybindCategory
-			).build()); //
+			).build());
 		keyBindingRegistry.register(toggleReconnectToServer);
 	}
 
