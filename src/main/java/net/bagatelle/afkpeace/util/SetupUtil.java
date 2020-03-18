@@ -37,8 +37,6 @@ public class SetupUtil {
 		ClientTickCallback.EVENT.register(e -> {
 			// Handling the toggle of the reconnect feature
 			if(toggleReconnectToServer.isPressed() && !toggleReconnectWasPressed) {
-				AFKPeace.reconnectCommand.setActive(!AFKPeace.reconnectCommand.getActive());
-				System.out.println(AFKPeace.reconnectCommand.getActive());
 			}
 			toggleReconnectWasPressed = toggleReconnectToServer.isPressed();
 		});
