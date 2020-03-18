@@ -18,8 +18,7 @@ import net.minecraft.text.Text;
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ConnectMixin {
 
-    public String currentServer;
-    public Integer currentPort;
+    public ServerInfo currentServer;
 
     @Inject(method="onGameJoin", at=@At("RETURN"))
     private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
@@ -28,7 +27,7 @@ public abstract class ConnectMixin {
         if(serverData == null) {
             currentServer = null;
         } else {
-            currentServer = serverData.address;
+            currentServer = serverData;
         }
     }
 
@@ -36,6 +35,7 @@ public abstract class ConnectMixin {
     public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
         if(reason.getString().contains("Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host") && currentServer != null) {
+            mc.disconnect();
             mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, currentServer, !AFKPeace.connectUtil.getAutoReconnectActive()));
             cbi.cancel();
         }
