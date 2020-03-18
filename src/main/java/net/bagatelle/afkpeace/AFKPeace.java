@@ -5,7 +5,6 @@ import net.fabricmc.api.ClientModInitializer;
 
 public class AFKPeace implements ClientModInitializer {
 	public static SetupUtil setupUtil = new SetupUtil();
-	public static ReconnectOnTimeout reconnectCommand = new ReconnectOnTimeout();
 
 	@Override
 	public void onInitializeClient() {
