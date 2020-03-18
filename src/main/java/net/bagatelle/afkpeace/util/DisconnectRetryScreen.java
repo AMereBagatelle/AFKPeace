@@ -53,7 +53,9 @@ public class DisconnectRetryScreen extends Screen {
 
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground();
+        // * Don't touch if you can help it... rendering order
         super.renderDirtBackground(0);
+        // Logout error text
         TextRenderer var10001 = this.font;
         String var10002 = this.title.asFormattedString();
         int var10003 = this.width / 2;
@@ -66,6 +68,23 @@ public class DisconnectRetryScreen extends Screen {
                 String string = (String)var5.next();
                 this.drawCenteredString(this.font, string, this.width / 2, i, 16777215);
                 this.font.getClass();
+            }
+        }
+        // Rendering Reconnect Text
+        if(!reconnectButton) {
+            TextRenderer var100001 = this.font;
+            String var100002 = "Reconnecting feature on, attempting now...";
+            int var100003 = this.width / 2;
+            int var100004 = this.height / 2 - this.reasonHeight / 2 - 30;
+            this.font.getClass();
+            this.drawCenteredString(var100001, var100002, var100003, var100004 - 9 * 2, 11184810);
+            int o = this.height / 2 - this.reasonHeight / 2;
+            if (this.reasonFormatted != null) {
+                for(Iterator var5 = this.reasonFormatted.iterator(); var5.hasNext(); o += 9) {
+                    String string = (String)var5.next();
+                    this.drawCenteredString(this.font, string, this.width / 2, o, 16777215);
+                    this.font.getClass();
+                }
             }
         }
 
