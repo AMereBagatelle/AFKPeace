@@ -1,12 +1,14 @@
 package net.bagatelle.afkpeace;
 
 import net.bagatelle.afkpeace.util.ConnectUtil;
+import net.bagatelle.afkpeace.util.DamageUtil;
 import net.bagatelle.afkpeace.util.SetupUtil;
 import net.fabricmc.api.ClientModInitializer;
 
 public class AFKPeace implements ClientModInitializer {
 	public static SetupUtil setupUtil = new SetupUtil();
 	public static ConnectUtil connectUtil = new ConnectUtil();
+	public static DamageUtil damageUtil = new DamageUtil();
 
 	@Override
 	public void onInitializeClient() {

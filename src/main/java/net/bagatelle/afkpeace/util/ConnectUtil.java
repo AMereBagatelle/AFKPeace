@@ -1,16 +1,10 @@
 package net.bagatelle.afkpeace.util;
 
-import java.net.Socket;
-
-import net.bagatelle.afkpeace.constants.ReconnectionConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConnectScreen;
-import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ServerInfo;
-import net.minecraft.network.ServerAddress;
-import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
 public class ConnectUtil {
@@ -23,7 +17,7 @@ public class ConnectUtil {
         if (serverAddress != null) {
             mc.openScreen(new ConnectScreen(mc.currentScreen, mc, serverAddress));
         } else {
-            // TODO PUT CODE HERE TO HANDLE NOT HAVING A SERVER IP
+            mc.openScreen(new MultiplayerScreen(new TitleScreen()));
         }
     }
 
