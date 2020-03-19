@@ -19,14 +19,12 @@ public class DisconnectRetryScreen extends Screen {
     private final Screen parent;
     private int reasonHeight;
     private ServerInfo serverInfo;
-    private boolean reconnectButton;
 
-    public DisconnectRetryScreen(Screen parent, String title, Text reason, ServerInfo serverInfo, boolean reconnectButton) {
+    public DisconnectRetryScreen(Screen parent, String title, Text reason, ServerInfo serverInfo) {
         super(new TranslatableText(title, new Object[0]));
         this.parent = parent;
         this.reason = reason;
         this.serverInfo = serverInfo;
-        this.reconnectButton = reconnectButton;
     }
 
     public boolean shouldCloseOnEsc() {
@@ -44,11 +42,9 @@ public class DisconnectRetryScreen extends Screen {
         this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30), 200, 20, I18n.translate("gui.toMenu"), (buttonWidget) -> {
             this.minecraft.openScreen(this.parent);
         }));
-        if(!reconnectButton) {
-            this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30) + 20, 200, 20, "Reconnect", (buttonWidget) -> {
-                AFKPeace.connectUtil.connectToServer(serverInfo);
-            }));
-        }
+        this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30) + 20, 200, 20, "Reconnect", (buttonWidget) -> {
+            AFKPeace.connectUtil.connectToServer(serverInfo);
+        }));
     }
 
     public void render(int mouseX, int mouseY, float delta) {
@@ -68,23 +64,6 @@ public class DisconnectRetryScreen extends Screen {
                 String string = (String)var5.next();
                 this.drawCenteredString(this.font, string, this.width / 2, i, 16777215);
                 this.font.getClass();
-            }
-        }
-        // Rendering Reconnect Text
-        if(reconnectButton) {
-            TextRenderer var100001 = this.font;
-            String var100002 = "Reconnecting feature on, attempting now...";
-            int var100003 = this.width / 2;
-            int var100004 = this.height / 2 - this.reasonHeight / 2 - 30;
-            this.font.getClass();
-            this.drawCenteredString(var100001, var100002, var100003, var100004 - 9 * 2, 11184810);
-            int o = this.height / 2 - this.reasonHeight / 2;
-            if (this.reasonFormatted != null) {
-                for(Iterator var5 = this.reasonFormatted.iterator(); var5.hasNext(); o += 9) {
-                    String string = (String)var5.next();
-                    this.drawCenteredString(this.font, string, this.width / 2, o, 16777215);
-                    this.font.getClass();
-                }
             }
         }
 

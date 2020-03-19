@@ -34,16 +34,12 @@ public abstract class ConnectMixin {
     @Inject(method="onDisconnected", at=@At("HEAD"), cancellable=true)
     public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
-        if(reason.getString().contains("Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host") && currentServer != null) {
+        if(reason.getString().contains("Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host") || reason.getString().contains("Timed out") && currentServer != null) {
             mc.disconnect();
             if(AFKPeace.connectUtil.getAutoReconnectActive()) {
-                DisconnectRetryScreen disconnectRetryScreen = new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, currentServer, true);
-                mc.openScreen(disconnectRetryScreen);
-                while(mc.currentScreen != disconnectRetryScreen) {
-                }
                 AFKPeace.connectUtil.autoReconnectToServer(currentServer);
             } else {
-                mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, currentServer, false));
+                mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, currentServer));
             }
             cbi.cancel();
         }
