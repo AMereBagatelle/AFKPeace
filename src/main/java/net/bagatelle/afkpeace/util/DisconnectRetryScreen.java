@@ -44,7 +44,7 @@ public class DisconnectRetryScreen extends Screen {
         this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30), 200, 20, I18n.translate("gui.toMenu"), (buttonWidget) -> {
             this.minecraft.openScreen(this.parent);
         }));
-        if(reconnectButton) {
+        if(!reconnectButton) {
             this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30) + 20, 200, 20, "Reconnect", (buttonWidget) -> {
                 AFKPeace.connectUtil.connectToServer(serverInfo);
             }));
@@ -71,7 +71,7 @@ public class DisconnectRetryScreen extends Screen {
             }
         }
         // Rendering Reconnect Text
-        if(!reconnectButton) {
+        if(reconnectButton) {
             TextRenderer var100001 = this.font;
             String var100002 = "Reconnecting feature on, attempting now...";
             int var100003 = this.width / 2;

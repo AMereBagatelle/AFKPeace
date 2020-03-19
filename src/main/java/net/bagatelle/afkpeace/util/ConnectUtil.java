@@ -11,10 +11,11 @@ import net.minecraft.network.ServerAddress;
 public class ConnectUtil {
 
     private boolean autoReconnectActive = false;
-    
+    public int reconnectTimer = 0;
+
     public void connectToServer(ServerInfo serverAddress) {
         MinecraftClient mc = MinecraftClient.getInstance();
-        if(serverAddress != null) {
+        if (serverAddress != null) {
             mc.openScreen(new ConnectScreen(mc.currentScreen, mc, serverAddress));
         } else {
             // TODO PUT CODE HERE TO HANDLE NOT HAVING A SERVER IP
@@ -23,15 +24,28 @@ public class ConnectUtil {
 
     public void autoReconnectToServer(ServerInfo serverInfo) {
         MinecraftClient mc = MinecraftClient.getInstance();
-        ServerAddress serverAddress = ServerAddress.parse(serverInfo.address);
-        for(int attempt=0; attempt>ReconnectionConstants.maxReconnectTries; attempt++) {
+        ReconnectTestThread reconnectTestThread = new ReconnectTestThread(serverInfo);
+        reconnectTestThread.start();
+        boolean canConnect = false;
+        boolean reachedMaxAttempts = false;
+        while (!canConnect || !reachedMaxAttempts) {
+            canConnect = reconnectTestThread.getCanReconnect();
+            reachedMaxAttempts = reconnectTestThread.getReachedMaxAttempts();
+        }
+        try {
+            reconnectTestThread.join();
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
+        if(canConnect) {
             try {
-                Socket connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
                 mc.openScreen(new ConnectScreen(mc.currentScreen, mc, serverInfo));
-                break;
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else if (reachedMaxAttempts) {
+            System.out.println("Can't connect, reached max number of attempts");
+            // TODO Make this show up ingame somehow
         }
     }
 
