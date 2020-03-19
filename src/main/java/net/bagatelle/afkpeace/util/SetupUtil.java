@@ -40,8 +40,8 @@ public class SetupUtil {
 		ClientTickCallback.EVENT.register(e -> {
 			// Handling the toggle of the reconnect feature
 			if(toggleReconnectToServer.isPressed() && !toggleReconnectWasPressed) {
-				AFKPeace.connectUtil.setAutoReconnectActive(!AFKPeace.connectUtil.getAutoReconnectActive());
-				MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoReconnect " + AFKPeace.connectUtil.getAutoReconnectActive()));
+				AFKPeace.activeStates.isReconnectOnTimeoutActive = !AFKPeace.activeStates.isReconnectOnTimeoutActive;
+				MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoReconnect " + AFKPeace.activeStates.isReconnectOnTimeoutActive));
 			}
 			toggleReconnectWasPressed = toggleReconnectToServer.isPressed();
 		});

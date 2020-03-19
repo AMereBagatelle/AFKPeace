@@ -36,7 +36,7 @@ public abstract class ConnectMixin {
         MinecraftClient mc = MinecraftClient.getInstance();
         if(reason.getString().contains("Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host") || reason.getString().contains("Timed out") && currentServer != null) {
             mc.disconnect();
-            if(AFKPeace.connectUtil.getAutoReconnectActive()) {
+            if(AFKPeace.activeStates.isReconnectOnTimeoutActive) {
                 AFKPeace.connectUtil.autoReconnectToServer(currentServer);
             } else {
                 mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, currentServer));
