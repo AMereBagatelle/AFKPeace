@@ -7,3 +7,4 @@ AFK Timeout Protection:  Will try to reconnect on timeout.  Turns on by keybind 
 
 Future Features:
 Logout on being attacked
+(UNDER CONSIDERATION) Player shadow button in pause menu
