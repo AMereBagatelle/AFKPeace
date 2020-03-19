@@ -9,7 +9,6 @@ import net.minecraft.text.TranslatableText;
 
 public class ConnectUtil {
 
-    private boolean autoReconnectActive = false;
     public int reconnectTimer = 0;
 
     public void connectToServer(ServerInfo serverAddress) {
@@ -40,15 +39,6 @@ public class ConnectUtil {
             System.out.println("Can't connect, reached max number of attempts!");
             mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", new TranslatableText("Was not able to reconnect!"), serverInfo));
         }
-    }
-
-    public void setAutoReconnectActive(boolean setpoint) {
-        autoReconnectActive = setpoint;
-        System.out.println(autoReconnectActive);
-    }
-
-    public boolean getAutoReconnectActive() {
-        return autoReconnectActive;
     }
 
 }
