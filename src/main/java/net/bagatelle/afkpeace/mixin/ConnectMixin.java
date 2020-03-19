@@ -37,7 +37,11 @@ public abstract class ConnectMixin {
         if(reason.getString().contains("Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host") && currentServer != null) {
             mc.disconnect();
             if(AFKPeace.connectUtil.getAutoReconnectActive()) {
-                mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, currentServer, true));
+                DisconnectRetryScreen disconnectRetryScreen = new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, currentServer, true);
+                mc.openScreen(disconnectRetryScreen);
+                while(mc.currentScreen != disconnectRetryScreen) {
+                }
+                AFKPeace.connectUtil.autoReconnectToServer(currentServer);
             } else {
                 mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, currentServer, false));
             }
