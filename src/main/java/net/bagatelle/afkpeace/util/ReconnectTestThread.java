@@ -10,48 +10,35 @@ import net.minecraft.network.ServerAddress;
 
 public class ReconnectTestThread extends Thread {
 
-    private boolean canReconnect;
-    private boolean reachedMaxAttempts;
+    private int canReconnect;
 
-    private ServerInfo serverInfo;
     private ServerAddress serverAddress;
 
     public ReconnectTestThread(ServerInfo serverInfo) {
         super();
-        this.canReconnect = false;
-        this.reachedMaxAttempts = false;
-        this.serverInfo = serverInfo;
+        this.canReconnect = 0;
         this.serverAddress = ServerAddress.parse(serverInfo.address);
     }
 
     public void run() {
         for (int i = 0; i <= ReconnectionConstants.maxReconnectTries; i++) {
             try {
-                Thread.sleep(1000);
                 Socket connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
-                synchronized(this) {canReconnect = true;}
+                synchronized(this) {canReconnect = 1;}
                 break;
             } catch (UnknownHostException e) {
-                e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
             System.out.println("Attempt: " + i);
         }
-        if(!canReconnect) {
-            reachedMaxAttempts = true;
+        if(canReconnect != 1) {
+            canReconnect = 2;
         }
         return;
     }
 
-    public boolean getCanReconnect() {
+    public int getCanReconnect() {
         synchronized(this) {return canReconnect;}
-    }
-
-    public boolean getReachedMaxAttempts() {
-        synchronized(this) {return reachedMaxAttempts;}
     }
 
 }
