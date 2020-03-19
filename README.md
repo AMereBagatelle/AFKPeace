@@ -1,16 +1,9 @@
-# Fabric Example Mod
+# AFKPeace
 
-## Setup
+The mod to give you peace of mind while AFK!
 
-1. Edit build.gradle and mod.json to suit your needs.
-    * The "mixins" object can be removed from mod.json if you do not need to use mixins.
-    * Please replace all occurences of "modid" with your own mod ID - sometimes, a different string may also suffice.
-2. Run the following command:
+Current Features:
+AFK Timeout Protection:  Will try to reconnect on timeout.  Turns on by keybind in the Controls menu, by default none.
 
-```
-./gradlew idea
-```
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+Future Features:
+Logout on being attacked
