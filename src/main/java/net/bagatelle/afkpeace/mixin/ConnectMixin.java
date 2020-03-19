@@ -43,6 +43,5 @@ public abstract class ConnectMixin {
             }
             cbi.cancel();
         }
-        System.out.println(reason.getString());
     }
 }

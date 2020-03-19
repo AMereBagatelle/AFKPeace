@@ -29,7 +29,6 @@ public class ReconnectTestThread extends Thread {
             } catch (UnknownHostException e) {
             } catch (IOException e) {
             }
-            System.out.println("Attempt: " + i);
         }
         if(canReconnect != 1) {
             canReconnect = 2;

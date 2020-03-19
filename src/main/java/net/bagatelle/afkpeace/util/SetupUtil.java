@@ -6,7 +6,10 @@ import net.bagatelle.afkpeace.AFKPeace;
 import net.fabricmc.fabric.api.client.keybinding.FabricKeyBinding;
 import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry;
 import net.fabricmc.fabric.api.event.client.ClientTickCallback;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.network.MessageType;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 public class SetupUtil {
@@ -38,6 +41,7 @@ public class SetupUtil {
 			// Handling the toggle of the reconnect feature
 			if(toggleReconnectToServer.isPressed() && !toggleReconnectWasPressed) {
 				AFKPeace.connectUtil.setAutoReconnectActive(!AFKPeace.connectUtil.getAutoReconnectActive());
+				MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoReconnect " + AFKPeace.connectUtil.getAutoReconnectActive()));
 			}
 			toggleReconnectWasPressed = toggleReconnectToServer.isPressed();
 		});

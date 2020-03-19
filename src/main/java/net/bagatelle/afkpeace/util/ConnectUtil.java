@@ -43,7 +43,7 @@ public class ConnectUtil {
         if(canConnect == 1) {
             mc.openScreen(new ConnectScreen(mc.currentScreen, mc, serverInfo));
         } else if (canConnect == 2) {
-            System.out.println("Can't connect, reached max number of attempts");
+            System.out.println("Can't connect, reached max number of attempts!");
             mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", new TranslatableText("Was not able to reconnect!"), serverInfo));
         }
     }
