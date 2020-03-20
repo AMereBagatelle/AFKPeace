@@ -1,5 +1,7 @@
 package net.bagatelle.afkpeace.mixin;
 
+import com.ibm.icu.util.BytesTrie.Iterator;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -13,6 +15,7 @@ import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
+import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.text.Text;
@@ -32,7 +35,6 @@ public abstract class ConnectMixin {
         } else {
             currentServer = serverData;
         }
-        AFKPeace.activeStates.canDisconnect = true;
     }
 
     @Inject(method="onDisconnected", at=@At("HEAD"), cancellable=true)
@@ -53,9 +55,9 @@ public abstract class ConnectMixin {
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
         System.out.println("Health updated");
         MinecraftClient mc = MinecraftClient.getInstance();
-        if(packet.getHealth() != mc.player.getMaximumHealth() && AFKPeace.activeStates.canDisconnect) {
-            mc.getNetworkHandler().onDisconnected(new TranslatableText("You got hurt!"));
-            AFKPeace.activeStates.canDisconnect = false;
+        if(packet.getHealth() != mc.player.getMaximumHealth() && AFKPeace.activeStates.isDamageProtectActive) {
+            mc.getNetworkHandler().getConnection().disconnect(new TranslatableText("Logged out on damage"));
+            mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", new TranslatableText("Saved ya"), currentServer));
         }
     }
 }
