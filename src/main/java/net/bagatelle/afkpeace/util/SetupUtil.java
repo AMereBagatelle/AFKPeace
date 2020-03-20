@@ -15,8 +15,10 @@ import net.minecraft.util.Identifier;
 public class SetupUtil {
 	
 	private FabricKeyBinding toggleReconnectToServer;
+	private FabricKeyBinding toggleDamageLogout;
 
 	private boolean toggleReconnectWasPressed;
+	private boolean toggleDamageLogoutWasPressed;
 	
 	public void configureKeybinds() {
 		final String keybindCategory = "AFKPeace";
@@ -34,16 +36,33 @@ public class SetupUtil {
     			keybindCategory
 			).build());
 		keyBindingRegistry.register(toggleReconnectToServer);
+		// Keybind for damage logout feature
+		keyBindingRegistry.register(toggleDamageLogout = FabricKeyBinding.Builder
+			.create(
+				new Identifier("afkpeace:toggledamagelogout"),
+    			InputUtil.Type.KEYSYM,
+    			GLFW.GLFW_KEY_UNKNOWN,
+    			keybindCategory
+			).build());
+		keyBindingRegistry.register(toggleDamageLogout);
 	}
 
-	public void activateKeybinds() {
+	public void clientTickCallbackActivation() {
 		ClientTickCallback.EVENT.register(e -> {
+			MinecraftClient mc = MinecraftClient.getInstance();
+			// * Keybind handling
 			// Handling the toggle of the reconnect feature
 			if(toggleReconnectToServer.isPressed() && !toggleReconnectWasPressed) {
-				AFKPeace.connectUtil.setAutoReconnectActive(!AFKPeace.connectUtil.getAutoReconnectActive());
-				MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoReconnect " + AFKPeace.connectUtil.getAutoReconnectActive()));
+				AFKPeace.activeStates.isReconnectOnTimeoutActive = !AFKPeace.activeStates.isReconnectOnTimeoutActive;
+				mc.inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoReconnect " + AFKPeace.activeStates.isReconnectOnTimeoutActive));
 			}
 			toggleReconnectWasPressed = toggleReconnectToServer.isPressed();
+			// Handling the toggle of the logout on damage feature
+			if(toggleDamageLogout.isPressed() && !toggleDamageLogoutWasPressed) {
+				AFKPeace.activeStates.isDamageProtectActive = !AFKPeace.activeStates.isDamageProtectActive;
+				mc.inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoLogoutOnDamage " + AFKPeace.activeStates.isDamageProtectActive));
+			}
+			toggleDamageLogoutWasPressed = toggleDamageLogout.isPressed();
 		});
 	}
 }

@@ -1,32 +1,28 @@
 package net.bagatelle.afkpeace.util;
 
-import java.net.Socket;
-
-import net.bagatelle.afkpeace.constants.ReconnectionConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConnectScreen;
-import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ServerInfo;
-import net.minecraft.network.ServerAddress;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
 public class ConnectUtil {
 
-    private boolean autoReconnectActive = false;
     public int reconnectTimer = 0;
 
-    public void connectToServer(ServerInfo serverAddress) {
+    // Tries to connect to server, and if it doesn't have a serverInfo entry to connect to just boots to multiplayer screen
+    public void connectToServer(ServerInfo serverInfo) {
         MinecraftClient mc = MinecraftClient.getInstance();
-        if (serverAddress != null) {
-            mc.openScreen(new ConnectScreen(mc.currentScreen, mc, serverAddress));
+        if (serverInfo != null) {
+            mc.openScreen(new ConnectScreen(mc.currentScreen, mc, serverInfo));
         } else {
-            // TODO PUT CODE HERE TO HANDLE NOT HAVING A SERVER IP
+            mc.openScreen(new MultiplayerScreen(new TitleScreen()));
         }
     }
 
+    // Tries to reconnect to the server, and if it can't just takes to a DisconnectRetryScreen
     public void autoReconnectToServer(ServerInfo serverInfo) {
         MinecraftClient mc = MinecraftClient.getInstance();
         ReconnectTestThread reconnectTestThread = new ReconnectTestThread(serverInfo);
@@ -48,13 +44,11 @@ public class ConnectUtil {
         }
     }
 
-    public void setAutoReconnectActive(boolean setpoint) {
-        autoReconnectActive = setpoint;
-        System.out.println(autoReconnectActive);
-    }
-
-    public boolean getAutoReconnectActive() {
-        return autoReconnectActive;
+    // ! Deprecated code, handled in ConnectMixin (maybe move to here?)
+    public void disconnectFromServer(ServerInfo serverInfo, Text reason) {
+        MinecraftClient mc = MinecraftClient.getInstance();
+        mc.disconnect();
+        mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, serverInfo));
     }
 
 }
