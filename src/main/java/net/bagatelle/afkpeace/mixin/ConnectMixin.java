@@ -29,6 +29,7 @@ public abstract class ConnectMixin {
         } else {
             currentServer = serverData;
         }
+        AFKPeace.canDisconnect = true;
     }
 
     @Inject(method="onDisconnected", at=@At("HEAD"), cancellable=true)
