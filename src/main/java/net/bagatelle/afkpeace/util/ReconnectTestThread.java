@@ -20,10 +20,12 @@ public class ReconnectTestThread extends Thread {
         this.serverAddress = ServerAddress.parse(serverInfo.address);
     }
 
+    // Tries to connect to the server using a socket as many times as is set, and returns if it could
     public void run() {
         for (int i = 0; i <= ReconnectionConstants.maxReconnectTries; i++) {
             try {
                 Socket connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
+                connectionAttempt.close();
                 synchronized(this) {canReconnect = 1;}
                 break;
             } catch (UnknownHostException e) {

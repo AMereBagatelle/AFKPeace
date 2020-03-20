@@ -22,6 +22,7 @@ public abstract class ConnectMixin {
 
     public ServerInfo currentServer;
 
+    // Sets the server data so that we know what to reconnect to.
     @Inject(method="onGameJoin", at=@At("HEAD"))
     private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
@@ -33,6 +34,7 @@ public abstract class ConnectMixin {
         }
     }
 
+    // Checks if we should try to automatically reconnect, and if not opens a custom screen with a reconnect button
     @Inject(method="onDisconnected", at=@At("HEAD"), cancellable=true)
     public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
@@ -47,9 +49,9 @@ public abstract class ConnectMixin {
         }
     }
 
+    // Gets when the player's health changes, and logs the player out if it has taken damage
     @Inject(method="onHealthUpdate", at=@At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
-        System.out.println("Health updated");
         MinecraftClient mc = MinecraftClient.getInstance();
         if(packet.getHealth() != mc.player.getMaximumHealth() && AFKPeace.activeStates.isDamageProtectActive) {
             mc.getNetworkHandler().getConnection().disconnect(new TranslatableText("Logged out on damage"));

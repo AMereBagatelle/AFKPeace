@@ -39,9 +39,11 @@ public class DisconnectRetryScreen extends Screen {
         int var10003 = this.width / 2 - 100;
         int var10004 = this.height / 2 + this.reasonHeight / 2;
         this.font.getClass();
+        // Opens multiplayer screen
         this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30), 200, 20, I18n.translate("gui.toMenu"), (buttonWidget) -> {
             this.minecraft.openScreen(this.parent);
         }));
+        // Attempts to reconnect to the server you got disconnected from
         this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30) + 20, 200, 20, "Reconnect", (buttonWidget) -> {
             AFKPeace.connectUtil.connectToServer(serverInfo);
         }));
