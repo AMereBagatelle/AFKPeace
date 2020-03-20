@@ -1,5 +1,6 @@
 package net.bagatelle.afkpeace;
 
+import net.bagatelle.afkpeace.util.ActiveStates;
 import net.bagatelle.afkpeace.util.ConnectUtil;
 import net.bagatelle.afkpeace.util.SetupUtil;
 import net.fabricmc.api.ClientModInitializer;
@@ -7,6 +8,7 @@ import net.fabricmc.api.ClientModInitializer;
 public class AFKPeace implements ClientModInitializer {
 	public static SetupUtil setupUtil = new SetupUtil();
 	public static ConnectUtil connectUtil = new ConnectUtil();
+	public static ActiveStates activeStates = new ActiveStates();
 
 	@Override
 	public void onInitializeClient() {
@@ -15,6 +17,6 @@ public class AFKPeace implements ClientModInitializer {
 		// Proceed with mild caution.
 
 		setupUtil.configureKeybinds();
-		setupUtil.activateKeybinds();
+		setupUtil.clientTickCallbackActivation();
 	}
 }
