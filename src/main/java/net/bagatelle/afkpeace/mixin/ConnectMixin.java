@@ -1,7 +1,5 @@
 package net.bagatelle.afkpeace.mixin;
 
-import com.ibm.icu.util.BytesTrie.Iterator;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -10,12 +8,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import net.bagatelle.afkpeace.AFKPeace;
 import net.bagatelle.afkpeace.util.DisconnectRetryScreen;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
-import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.text.Text;
