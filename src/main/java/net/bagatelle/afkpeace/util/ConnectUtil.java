@@ -1,21 +1,21 @@
 package net.bagatelle.afkpeace.util;
 
-import net.bagatelle.afkpeace.AFKPeace;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ServerInfo;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
 public class ConnectUtil {
 
     public int reconnectTimer = 0;
 
-    public void connectToServer(ServerInfo serverAddress) {
+    public void connectToServer(ServerInfo serverInfo) {
         MinecraftClient mc = MinecraftClient.getInstance();
-        if (serverAddress != null) {
-            mc.openScreen(new ConnectScreen(mc.currentScreen, mc, serverAddress));
+        if (serverInfo != null) {
+            mc.openScreen(new ConnectScreen(mc.currentScreen, mc, serverInfo));
         } else {
             mc.openScreen(new MultiplayerScreen(new TitleScreen()));
         }
@@ -40,6 +40,12 @@ public class ConnectUtil {
             System.out.println("Can't connect, reached max number of attempts!");
             mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", new TranslatableText("Was not able to reconnect!"), serverInfo));
         }
+    }
+
+    public void disconnectFromServer(ServerInfo serverInfo, Text reason) {
+        MinecraftClient mc = MinecraftClient.getInstance();
+        mc.disconnect();
+        mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, serverInfo));
     }
 
 }

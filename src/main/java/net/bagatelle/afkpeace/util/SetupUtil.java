@@ -50,9 +50,10 @@ public class SetupUtil {
 		keyBindingRegistry.register(toggleDamageLogout);
 	}
 
-	public void activateKeybinds() {
+	public void clientTickCallbackActivation() {
 		ClientTickCallback.EVENT.register(e -> {
 			MinecraftClient mc = MinecraftClient.getInstance();
+			// * Keybind handling
 			// Handling the toggle of the reconnect feature
 			if(toggleReconnectToServer.isPressed() && !toggleReconnectWasPressed) {
 				AFKPeace.activeStates.isReconnectOnTimeoutActive = !AFKPeace.activeStates.isReconnectOnTimeoutActive;
@@ -65,6 +66,7 @@ public class SetupUtil {
 				mc.inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoLogoutOnDamage " + AFKPeace.activeStates.isDamageProtectActive));
 			}
 			toggleDamageLogoutWasPressed = toggleDamageLogout.isPressed();
+			// * Damage logout stuff
 		});
 	}
 }

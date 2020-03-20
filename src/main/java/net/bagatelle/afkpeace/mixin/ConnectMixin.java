@@ -16,6 +16,7 @@ import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ConnectMixin {
@@ -53,8 +54,7 @@ public abstract class ConnectMixin {
         System.out.println("Health updated");
         MinecraftClient mc = MinecraftClient.getInstance();
         if(packet.getHealth() != mc.player.getMaximumHealth() && AFKPeace.activeStates.canDisconnect) {
-            mc.disconnect();
-            mc.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AutoDamageLogout", new TranslatableText("I saved you.")));
+            mc.getNetworkHandler().onDisconnected(new TranslatableText("You got hurt!"));
             AFKPeace.activeStates.canDisconnect = false;
         }
     }
