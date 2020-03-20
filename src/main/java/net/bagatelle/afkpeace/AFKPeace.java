@@ -10,8 +10,6 @@ public class AFKPeace implements ClientModInitializer {
 	public static ConnectUtil connectUtil = new ConnectUtil();
 	public static ActiveStates activeStates = new ActiveStates();
 
-	public static boolean canDisconnect = false;
-
 	@Override
 	public void onInitializeClient() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.

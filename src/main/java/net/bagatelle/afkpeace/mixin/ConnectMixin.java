@@ -8,11 +8,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import net.bagatelle.afkpeace.AFKPeace;
 import net.bagatelle.afkpeace.util.DisconnectRetryScreen;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
+import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.text.Text;
 
 @Mixin(ClientPlayNetworkHandler.class)
@@ -29,7 +31,7 @@ public abstract class ConnectMixin {
         } else {
             currentServer = serverData;
         }
-        AFKPeace.canDisconnect = true;
+        AFKPeace.activeStates.canDisconnect = true;
     }
 
     @Inject(method="onDisconnected", at=@At("HEAD"), cancellable=true)
@@ -43,6 +45,17 @@ public abstract class ConnectMixin {
                 mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, currentServer));
             }
             cbi.cancel();
+        }
+    }
+
+    @Inject(method="onHealthUpdate", at=@At("TAIL"))
+    public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
+        System.out.println("Health updated");
+        MinecraftClient mc = MinecraftClient.getInstance();
+        if(packet.getHealth() != mc.player.getMaximumHealth() && AFKPeace.activeStates.canDisconnect) {
+            mc.disconnect();
+            mc.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AutoDamageLogout", new TranslatableText("I saved you.")));
+            AFKPeace.activeStates.canDisconnect = false;
         }
     }
 }
