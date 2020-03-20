@@ -12,6 +12,7 @@ public class ConnectUtil {
 
     public int reconnectTimer = 0;
 
+    // Tries to connect to server, and if it doesn't have a serverInfo entry to connect to just boots to multiplayer screen
     public void connectToServer(ServerInfo serverInfo) {
         MinecraftClient mc = MinecraftClient.getInstance();
         if (serverInfo != null) {
@@ -21,6 +22,7 @@ public class ConnectUtil {
         }
     }
 
+    // Tries to reconnect to the server, and if it can't just takes to a DisconnectRetryScreen
     public void autoReconnectToServer(ServerInfo serverInfo) {
         MinecraftClient mc = MinecraftClient.getInstance();
         ReconnectTestThread reconnectTestThread = new ReconnectTestThread(serverInfo);
@@ -42,6 +44,7 @@ public class ConnectUtil {
         }
     }
 
+    // ! Deprecated code, handled in ConnectMixin (maybe move to here?)
     public void disconnectFromServer(ServerInfo serverInfo, Text reason) {
         MinecraftClient mc = MinecraftClient.getInstance();
         mc.disconnect();
