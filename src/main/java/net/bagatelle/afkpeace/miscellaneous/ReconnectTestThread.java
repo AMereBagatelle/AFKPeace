@@ -25,7 +25,7 @@ public class ReconnectTestThread extends Thread {
     public void run() {
         for (int i = 0; i <= ReconnectionConstants.maxReconnectTries; i++) {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(ReconnectionConstants.secondsBetweenReconnectAttempts * 1000);
                 Socket connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
                 connectionAttempt.close();
                 canReconnect = 1;
