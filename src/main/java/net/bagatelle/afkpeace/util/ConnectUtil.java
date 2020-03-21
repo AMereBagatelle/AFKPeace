@@ -25,19 +25,13 @@ public class ConnectUtil {
     }
 
     // Tries to reconnect to the server, and if it can't just takes to a DisconnectRetryScreen
-    public void autoReconnectToServer(ServerInfo serverInfo) {
-        MinecraftClient mc = MinecraftClient.getInstance();
+    public void startReconnect(ServerInfo serverInfo) {
         ReconnectTestThread reconnectTestThread = new ReconnectTestThread(serverInfo);
         reconnectTestThread.start();
-        int canConnect = 0;
-        while (canConnect == 0) {
-            canConnect = reconnectTestThread.getCanReconnect();
-        }
-        try {
-            reconnectTestThread.join();
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        }
+    }
+
+    public void finishReconnect(int canConnect, ServerInfo serverInfo) {
+        MinecraftClient mc = MinecraftClient.getInstance();
         if(canConnect == 1) {
             mc.openScreen(new ConnectScreen(mc.currentScreen, mc, serverInfo));
         } else if (canConnect == 2) {

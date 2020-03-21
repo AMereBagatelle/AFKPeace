@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import net.bagatelle.afkpeace.AFKPeace;
 import net.bagatelle.afkpeace.constants.ReconnectionConstants;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.ServerAddress;
@@ -26,7 +27,7 @@ public class ReconnectTestThread extends Thread {
             try {
                 Socket connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
                 connectionAttempt.close();
-                synchronized(this) {canReconnect = 1;}
+                canReconnect = 1;
                 break;
             } catch (UnknownHostException e) {
             } catch (IOException e) {
@@ -35,11 +36,7 @@ public class ReconnectTestThread extends Thread {
         if(canReconnect != 1) {
             canReconnect = 2;
         }
-        return;
-    }
-
-    public int getCanReconnect() {
-        synchronized(this) {return canReconnect;}
+        synchronized(this) {AFKPeace.stateVariables.canReconnect = canReconnect;}
     }
 
 }
