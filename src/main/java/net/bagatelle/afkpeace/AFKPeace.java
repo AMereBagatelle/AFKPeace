@@ -1,6 +1,6 @@
 package net.bagatelle.afkpeace;
 
-import net.bagatelle.afkpeace.util.ActiveStates;
+import net.bagatelle.afkpeace.settings.ActiveStates;
 import net.bagatelle.afkpeace.util.ConnectUtil;
 import net.bagatelle.afkpeace.util.SetupUtil;
 import net.fabricmc.api.ClientModInitializer;
