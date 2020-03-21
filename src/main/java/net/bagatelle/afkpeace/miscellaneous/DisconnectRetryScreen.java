@@ -1,4 +1,4 @@
-package net.bagatelle.afkpeace.util;
+package net.bagatelle.afkpeace.miscellaneous;
 
 import java.util.Iterator;
 import java.util.List;

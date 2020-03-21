@@ -63,6 +63,11 @@ public class SetupUtil {
 				mc.inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoLogoutOnDamage " + AFKPeace.activeStates.isDamageProtectActive));
 			}
 			toggleDamageLogoutWasPressed = toggleDamageLogout.isPressed();
+			// * Reconnect feature related stuff
+			if(AFKPeace.stateVariables.canReconnect != 0) {
+				AFKPeace.connectUtil.finishReconnect(AFKPeace.stateVariables.canReconnect, AFKPeace.stateVariables.currentServer);
+				AFKPeace.stateVariables.canReconnect = 0;
+			}
 		});
 	}
 }
