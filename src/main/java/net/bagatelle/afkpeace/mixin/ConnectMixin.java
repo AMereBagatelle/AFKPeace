@@ -20,17 +20,13 @@ import net.minecraft.text.TranslatableText;
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ConnectMixin {
 
-    public ServerInfo currentServer;
-
     // Sets the server data so that we know what to reconnect to.
     @Inject(method="onGameJoin", at=@At("HEAD"))
     private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
         ServerInfo serverData = mc.getCurrentServerEntry();
-        if(serverData == null) {
-            currentServer = null;
-        } else {
-            currentServer = serverData;
+        if(serverData != null) {
+            AFKPeace.stateVariables.currentServer = serverData;
         }
     }
 
@@ -38,12 +34,12 @@ public abstract class ConnectMixin {
     @Inject(method="onDisconnected", at=@At("HEAD"), cancellable=true)
     public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
-        if(reason.getString().contains("Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host") || reason.getString().contains("Timed out") && currentServer != null) {
+        if(reason.getString().contains("Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host") || reason.getString().contains("Timed out") && AFKPeace.stateVariables.currentServer != null) {
             mc.disconnect();
             if(AFKPeace.activeStates.isReconnectOnTimeoutActive) {
-                AFKPeace.connectUtil.autoReconnectToServer(currentServer);
+                AFKPeace.connectUtil.startReconnect(AFKPeace.stateVariables.currentServer);
             } else {
-                mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, currentServer));
+                mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, AFKPeace.stateVariables.currentServer));
             }
             cbi.cancel();
         }
@@ -55,7 +51,7 @@ public abstract class ConnectMixin {
         MinecraftClient mc = MinecraftClient.getInstance();
         if(packet.getHealth() != mc.player.getMaximumHealth() && AFKPeace.activeStates.isDamageProtectActive) {
             mc.getNetworkHandler().getConnection().disconnect(new TranslatableText("Logged out on damage"));
-            mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", new TranslatableText("Saved ya"), currentServer));
+            mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", new TranslatableText("Saved ya"), AFKPeace.stateVariables.currentServer));
         }
     }
 }
