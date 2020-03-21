@@ -24,12 +24,15 @@ public class ConnectUtil {
         }
     }
 
-    // Tries to reconnect to the server, and if it can't just takes to a DisconnectRetryScreen
+    // * Find what happens between these two methods in SetupUtil
+    // Tries to reconnect to the server, sends the result to StateVariables
     public void startReconnect(ServerInfo serverInfo) {
         ReconnectTestThread reconnectTestThread = new ReconnectTestThread(serverInfo);
+        reconnectTestThread.setName("Reconnect Thread");
         reconnectTestThread.start();
     }
 
+    // Handles the actual connection part of the reconnect
     public void finishReconnect(int canConnect, ServerInfo serverInfo) {
         MinecraftClient mc = MinecraftClient.getInstance();
         if(canConnect == 1) {
