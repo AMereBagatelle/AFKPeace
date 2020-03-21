@@ -25,12 +25,14 @@ public class ReconnectTestThread extends Thread {
     public void run() {
         for (int i = 0; i <= ReconnectionConstants.maxReconnectTries; i++) {
             try {
+                Thread.sleep(5000);
                 Socket connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
                 connectionAttempt.close();
                 canReconnect = 1;
                 break;
             } catch (UnknownHostException e) {
             } catch (IOException e) {
+            } catch (InterruptedException e) {
             }
         }
         if(canReconnect != 1) {
