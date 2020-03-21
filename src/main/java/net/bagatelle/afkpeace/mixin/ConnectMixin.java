@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.At;
 
 import net.bagatelle.afkpeace.AFKPeace;
-import net.bagatelle.afkpeace.util.DisconnectRetryScreen;
+import net.bagatelle.afkpeace.miscellaneous.DisconnectRetryScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
