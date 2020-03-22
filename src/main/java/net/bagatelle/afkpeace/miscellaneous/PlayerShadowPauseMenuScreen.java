@@ -95,7 +95,7 @@ public class PlayerShadowPauseMenuScreen extends Screen {
 
         }));
         this.addButton(new ButtonWidget(this.width / 2 - 102, this.height / 4 + 134 + -16, 204, 20, "Player Shadow", (buttonWidgetx) -> {
-            System.out.println("It works");
+            
         }));
         if (!this.minecraft.isInSingleplayer()) {
             buttonWidget2.setMessage(I18n.translate("menu.disconnect"));
