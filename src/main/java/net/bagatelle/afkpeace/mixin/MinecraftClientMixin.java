@@ -14,7 +14,6 @@ import net.minecraft.client.MinecraftClient;
 public class MinecraftClientMixin {
     @Inject(method="openPauseMenu", at=@At("HEAD"), cancellable=true)
     public void addPlayerShadowButton(boolean bl, CallbackInfo cbi) {
-        System.out.println("Mixin worked");
         MinecraftClient mc = MinecraftClient.getInstance();
         if (mc.currentScreen == null && mc.player.networkHandler.getCommandDispatcher().findNode(Arrays.asList("player")) != null) {
             boolean bl2 = mc.isIntegratedServerRunning() && !mc.getServer().isRemote();
