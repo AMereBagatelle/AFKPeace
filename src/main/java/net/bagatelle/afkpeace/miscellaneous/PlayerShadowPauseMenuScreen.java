@@ -3,6 +3,7 @@ package net.bagatelle.afkpeace.miscellaneous;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.SharedConstants;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConfirmChatLinkScreen;
 import net.minecraft.client.gui.screen.OpenToLanScreen;
 import net.minecraft.client.gui.screen.SaveLevelScreen;
@@ -94,8 +95,9 @@ public class PlayerShadowPauseMenuScreen extends Screen {
             }
 
         }));
-        this.addButton(new ButtonWidget(this.width / 2 - 102, this.height / 4 + 134 + -16, 204, 20, "Player Shadow", (buttonWidgetx) -> {
-            
+        this.addButton(new ButtonWidget(this.width / 2 - 102, this.height / 4 + 144 + -16, 204, 20, "Player Shadow", (buttonWidgetx) -> {
+            MinecraftClient mc = MinecraftClient.getInstance();
+            mc.player.sendChatMessage("/player " + mc.player.getName().asString() + " shadow");;
         }));
         if (!this.minecraft.isInSingleplayer()) {
             buttonWidget2.setMessage(I18n.translate("menu.disconnect"));
