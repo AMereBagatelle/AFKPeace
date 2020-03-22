@@ -48,7 +48,7 @@ public class DisconnectRetryScreen extends Screen {
             AFKPeace.connectUtil.connectToServer(serverInfo);
         }));
     }
-
+    
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground();
         // * Don't touch if you can help it... rendering order
