@@ -3,11 +3,12 @@ package net.bagatelle.afkpeace.settings;
 import java.util.Properties;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 public class SettingsManager {
-    // * Settings File.  DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING
+    // * Settings File. DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING
     public static final String settingsFilePath = "";
 
     // * Reconnection
@@ -19,23 +20,22 @@ public class SettingsManager {
     public static boolean isDamageProtectActive = false;
 
     public static void loadSettings() {
-	    InputStream inputStream;
+        InputStream inputStream;
 
-		try {
-			Properties prop = new Properties();
-
-			inputStream = new FileInputStream(settingsFilePath);
-
-			prop.load(inputStream);
+        try {
+            Properties prop = new Properties();
             
+            inputStream = new FileInputStream(settingsFilePath);
+
+            prop.load(inputStream);
+
             inputStream.close();
-            
+
             maxReconnectTries = Integer.parseInt(prop.getProperty("maxReconnectTries", "3"));
             secondsBetweenReconnectionAttempts = Integer.parseInt(prop.getProperty("secondsBetweenReconnectionAttempts", "10"));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void writeSetting(String setting, String setpoint) {
