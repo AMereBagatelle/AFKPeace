@@ -3,6 +3,7 @@ package net.bagatelle.afkpeace.util;
 import org.lwjgl.glfw.GLFW;
 
 import net.bagatelle.afkpeace.AFKPeace;
+import net.bagatelle.afkpeace.settings.SettingsManager;
 import net.fabricmc.fabric.api.client.keybinding.FabricKeyBinding;
 import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry;
 import net.fabricmc.fabric.api.event.client.ClientTickCallback;
@@ -53,14 +54,14 @@ public class SetupUtil {
 			// * Keybind handling
 			// Handling the toggle of the reconnect feature
 			if(toggleReconnectToServer.isPressed() && !toggleReconnectWasPressed) {
-				AFKPeace.activeStates.isReconnectOnTimeoutActive = !AFKPeace.activeStates.isReconnectOnTimeoutActive;
-				mc.inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoReconnect " + AFKPeace.activeStates.isReconnectOnTimeoutActive));
+				SettingsManager.isReconnectOnTimeoutActive = !SettingsManager.isReconnectOnTimeoutActive;
+				mc.inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoReconnect " + SettingsManager.isReconnectOnTimeoutActive));
 			}
 			toggleReconnectWasPressed = toggleReconnectToServer.isPressed();
 			// Handling the toggle of the logout on damage feature
 			if(toggleDamageLogout.isPressed() && !toggleDamageLogoutWasPressed) {
-				AFKPeace.activeStates.isDamageProtectActive = !AFKPeace.activeStates.isDamageProtectActive;
-				mc.inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoLogoutOnDamage " + AFKPeace.activeStates.isDamageProtectActive));
+				SettingsManager.isDamageProtectActive = !SettingsManager.isDamageProtectActive;
+				mc.inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoLogoutOnDamage " + SettingsManager.isDamageProtectActive));
 			}
 			toggleDamageLogoutWasPressed = toggleDamageLogout.isPressed();
 			// * Reconnect feature related stuff
