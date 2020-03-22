@@ -1,4 +1,0 @@
-{
-    "maxReconnectTries": 10,
-    "secondsBetweenReconnectAttempts": 3
-}
