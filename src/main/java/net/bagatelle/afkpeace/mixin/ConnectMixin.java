@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import net.bagatelle.afkpeace.AFKPeace;
 import net.bagatelle.afkpeace.miscellaneous.DisconnectRetryScreen;
+import net.bagatelle.afkpeace.settings.SettingsManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
@@ -36,7 +37,7 @@ public abstract class ConnectMixin {
         MinecraftClient mc = MinecraftClient.getInstance();
         if(reason.getString().contains("Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host") || reason.getString().contains("Timed out") && AFKPeace.stateVariables.currentServer != null) {
             mc.disconnect();
-            if(AFKPeace.activeStates.isReconnectOnTimeoutActive) {
+            if(SettingsManager.isReconnectOnTimeoutActive) {
                 AFKPeace.connectUtil.startReconnect(AFKPeace.stateVariables.currentServer);
             } else {
                 mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, AFKPeace.stateVariables.currentServer));
@@ -49,7 +50,7 @@ public abstract class ConnectMixin {
     @Inject(method="onHealthUpdate", at=@At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
-        if(packet.getHealth() != mc.player.getMaximumHealth() && AFKPeace.activeStates.isDamageProtectActive) {
+        if(packet.getHealth() != mc.player.getMaximumHealth() && SettingsManager.isDamageProtectActive) {
             mc.getNetworkHandler().getConnection().disconnect(new TranslatableText("Logged out on damage"));
             mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", new TranslatableText("Saved ya"), AFKPeace.stateVariables.currentServer));
         }
