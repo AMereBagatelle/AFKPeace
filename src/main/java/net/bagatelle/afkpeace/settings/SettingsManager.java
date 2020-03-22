@@ -1,6 +1,7 @@
 package net.bagatelle.afkpeace.settings;
 
 import java.util.Properties;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -18,19 +19,15 @@ public class SettingsManager {
     public static boolean isReconnectOnTimeoutActive = false;
     public static boolean isDamageProtectActive = false;
 
-    public void loadSettings() {
+    public static void loadSettings() {
 	    InputStream inputStream;
 
 		try {
 			Properties prop = new Properties();
 
-			inputStream = getClass().getClassLoader().getResourceAsStream(settingsFilePath);
+			inputStream = new FileInputStream(settingsFilePath);
 
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + settingsFilePath + "' not found in the classpath");
-            }
+			prop.load(inputStream);
             
             inputStream.close();
             
@@ -42,7 +39,7 @@ public class SettingsManager {
 		}
     }
 
-    public void writeSetting(String setting, String setpoint) {
+    public static void writeSetting(String setting, String setpoint) {
         OutputStream outputStream;
 
         try {
@@ -53,9 +50,12 @@ public class SettingsManager {
             prop.setProperty(setting, setpoint);
 
             prop.store(outputStream, null);
+            
+            outputStream.close();
 
         } catch(Exception e) {
             e.printStackTrace();
         }
+        loadSettings();
     }
 }
