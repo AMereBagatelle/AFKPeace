@@ -36,8 +36,6 @@ public class PlayerShadowPauseMenuScreen extends Screen {
     }
 
     private void initWidgets() {
-        int i = 1;
-        int j = 1;
         this.addButton(new ButtonWidget(this.width / 2 - 102, this.height / 4 + 24 + -16, 204, 20, I18n.translate("menu.returnToGame"), (buttonWidgetx) -> {
             this.minecraft.openScreen((Screen)null);
             this.minecraft.mouse.lockCursor();
