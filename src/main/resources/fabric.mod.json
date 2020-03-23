@@ -29,7 +29,9 @@
     "fabric": "*",
     "minecraft": "1.14.x"
   },
-  "suggests": {
-    "flamingo": "*"
+
+  "custom": {
+      "modmenu:api": true,
+      "modmenu:clientsideOnly": "A mod to make going AFK on servers much easier, with rejoining and respawning features."
   }
 }
