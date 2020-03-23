@@ -18,7 +18,8 @@
 
   "environment": "*",
   "entrypoints": {
-    "client": ["net.bagatelle.afkpeace.AFKPeace"]
+    "client": ["net.bagatelle.afkpeace.AFKPeace"],
+    "modmenu": ["net.bagatelle.afkpeace.settings.ModMenuImpl"]
   },
   "mixins": [
     "afkpeace.mixins.json"
