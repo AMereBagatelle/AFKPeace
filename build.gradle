@@ -13,7 +13,7 @@ group = project.maven_group
 repositories {
 	maven {
 		name = 'CottonMC'
-		url = 'https://server.bbkr.space:8081/artifactory/libs-release'
+		url = 'https://server.bbkr.space:443/artifactory/libs-release'
 	}
 }
 
@@ -31,8 +31,7 @@ dependencies {
 	
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 	
-    modCompile "io.github.cottonmc:cotton-client-commands:${project.cotton_client_command_version}"
-	include "io.github.cottonmc:cotton-client-commands:${project.cotton_client_command_version}"
+    modImplementation "io.github.cottonmc:cotton-client-commands:${project.cotton_client_command_version}"
 }
 
 processResources {
