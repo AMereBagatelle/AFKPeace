@@ -18,7 +18,8 @@
 
   "environment": "*",
   "entrypoints": {
-    "client": ["net.bagatelle.afkpeace.AFKPeace"]
+    "client": ["net.bagatelle.afkpeace.AFKPeace"],
+    "cotton-client-commands": ["net.bagatelle.afkpeace.commands"]
   },
   "mixins": [
     "afkpeace.mixins.json"
@@ -27,6 +28,7 @@
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
-    "minecraft": "1.15.x"
+    "minecraft": "1.15.x",
+    "cotton-client-commands": "^1.0.0"
   }
 }

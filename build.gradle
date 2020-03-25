@@ -10,6 +10,13 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+repositories {
+	maven {
+		name = 'CottonMC'
+		url = 'https://server.bbkr.space:8081/artifactory/libs-release'
+	}
+}
+
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -23,6 +30,9 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 	
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+	
+    modCompile "io.github.cottonmc:cotton-client-commands:${project.cotton_client_command_version}"
+	include "io.github.cottonmc:cotton-client-commands:${project.cotton_client_command_version}"
 }
 
 processResources {
