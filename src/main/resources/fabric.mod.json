@@ -18,8 +18,7 @@
 
   "environment": "*",
   "entrypoints": {
-    "client": ["net.bagatelle.afkpeace.AFKPeace"],
-    "modmenu": ["net.bagatelle.afkpeace.settings.ModMenuImpl"]
+    "client": ["net.bagatelle.afkpeace.AFKPeace"]
   },
   "mixins": [
     "afkpeace.mixins.json"
@@ -29,10 +28,5 @@
     "fabricloader": ">=0.7.4",
     "fabric": "*",
     "minecraft": "1.15.x"
-  },
-
-  "custom": {
-      "modmenu:api": true,
-      "modmenu:clientsideOnly": "A mod to make going AFK on servers much easier, with rejoining and respawning features."
   }
 }
