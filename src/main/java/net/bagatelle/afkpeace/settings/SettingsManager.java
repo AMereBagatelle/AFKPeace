@@ -33,8 +33,7 @@ public class SettingsManager {
             inputStream.close();
 
             maxReconnectTries = Integer.parseInt(prop.getProperty("maxReconnectTries", "3"));
-            secondsBetweenReconnectionAttempts = Integer
-                    .parseInt(prop.getProperty("secondsBetweenReconnectionAttempts", "10"));
+            secondsBetweenReconnectionAttempts = Integer.parseInt(prop.getProperty("secondsBetweenReconnectionAttempts", "10"));
         } catch (IOException e) {
             e.printStackTrace();
         }
