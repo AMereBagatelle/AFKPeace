@@ -53,7 +53,6 @@ public class SettingsManager {
 
         inputStream = new BufferedReader(new FileReader(settingsFilePath));
         prop.load(inputStream);
-        System.out.println(inputStream);
         inputStream.close();
 
         outputStream = new BufferedWriter(new FileWriter(settingsFilePath));
