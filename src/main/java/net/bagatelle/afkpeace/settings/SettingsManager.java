@@ -1,17 +1,23 @@
 package net.bagatelle.afkpeace.settings;
 
 import java.util.Properties;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 
 public class SettingsManager {
     // * Settings File. DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING
-    public static final String settingsFilePath = "afkpeace.properties";
+    public static final File settingsFilePath = new File("afkpeace.properties");
 
     // * Reconnection
     public static int maxReconnectTries;
@@ -22,19 +28,13 @@ public class SettingsManager {
     public static boolean isDamageProtectActive = false;
 
     public static void loadSettings() {
-        InputStream inputStream;
+        BufferedReader inputStream;
 
         try {
             Properties prop = new Properties();
 
-            inputStream = SettingsManager.class.getClassLoader().getResourceAsStream(settingsFilePath);
-
-            if (inputStream != null) {
-                prop.load(inputStream);
-            } else {
-                throw new IOException("Could not find properties file");
-            }
-
+            inputStream = new BufferedReader(new FileReader(settingsFilePath));
+            prop.load(inputStream);
             inputStream.close();
 
             maxReconnectTries = Integer.parseInt(prop.getProperty("maxReconnectTries", "3"));
@@ -45,33 +45,23 @@ public class SettingsManager {
     }
 
     public static void writeSetting(String setting, String setpoint) throws IOException {
-        InputStream inputStream;
-        OutputStream outputStream;
+        BufferedReader inputStream;
+        BufferedWriter outputStream;
         Properties prop = new Properties();
 
-        inputStream = SettingsManager.class.getClassLoader().getResourceAsStream(settingsFilePath);
+        System.out.println(settingsFilePath.getAbsolutePath());
 
-        if (inputStream != null) {
-            prop.load(inputStream);
-        } else {
-            throw new IOException("Could not get properties file");
-        }
-
+        inputStream = new BufferedReader(new FileReader(settingsFilePath));
+        prop.load(inputStream);
+        System.out.println(inputStream);
         inputStream.close();
 
-        URL settingsFileURL = SettingsManager.class.getClassLoader().getResource(settingsFilePath);
-        try {
-            File settingsFile = new File(settingsFileURL.toURI());
-            outputStream = new FileOutputStream(settingsFile);
-        } catch (URISyntaxException e) {
-            throw new IOException("URIException");
-        }
-
+        outputStream = new BufferedWriter(new FileWriter(settingsFilePath));
         prop.setProperty(setting, setpoint);
-
         prop.store(outputStream, null);
-        
+        outputStream.flush();
         outputStream.close();
+
         loadSettings();
     }
 }
