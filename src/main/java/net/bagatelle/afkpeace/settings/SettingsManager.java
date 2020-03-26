@@ -2,6 +2,7 @@ package net.bagatelle.afkpeace.settings;
 
 import java.util.Properties;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,7 +10,7 @@ import java.io.OutputStream;
 
 public class SettingsManager {
     // * Settings File. DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING
-    public static final String settingsFilePath = "";
+    public static final String settingsFilePath = "afkpeace.properties";
 
     // * Reconnection
     public static int maxReconnectTries;
@@ -24,7 +25,7 @@ public class SettingsManager {
 
         try {
             Properties prop = new Properties();
-            
+
             inputStream = new FileInputStream(settingsFilePath);
 
             prop.load(inputStream);
@@ -32,29 +33,24 @@ public class SettingsManager {
             inputStream.close();
 
             maxReconnectTries = Integer.parseInt(prop.getProperty("maxReconnectTries", "3"));
-            secondsBetweenReconnectionAttempts = Integer.parseInt(prop.getProperty("secondsBetweenReconnectionAttempts", "10"));
+            secondsBetweenReconnectionAttempts = Integer
+                    .parseInt(prop.getProperty("secondsBetweenReconnectionAttempts", "10"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void writeSetting(String setting, String setpoint) {
+    public static void writeSetting(String setting, String setpoint) throws IOException {
         OutputStream outputStream;
+        Properties prop = new Properties();
 
-        try {
-            Properties prop = new Properties();
+        outputStream = new FileOutputStream(settingsFilePath);
 
-            outputStream = new FileOutputStream(settingsFilePath);
+        prop.setProperty(setting, setpoint);
 
-            prop.setProperty(setting, setpoint);
-
-            prop.store(outputStream, null);
-            
-            outputStream.close();
-
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        prop.store(outputStream, null);
+        
+        outputStream.close();
         loadSettings();
     }
 }
