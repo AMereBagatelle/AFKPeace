@@ -24,7 +24,7 @@ public class ConfigCommand implements ClientCommandPlugin {
     @Override
     public void registerCommands(CommandDispatcher<CottonClientCommandSource> dispatcher) {
         LiteralArgumentBuilder<CottonClientCommandSource> afkpeace = literal("afkpeace")
-            .then(literal("maxReconnectTries")
+            .then(literal("maxReconnectTries") // * Configuration options
                 .then(argument("tries", integer())
                     .executes(ctx -> {
                         MinecraftClient mc = MinecraftClient.getInstance();
@@ -38,11 +38,22 @@ public class ConfigCommand implements ClientCommandPlugin {
                             mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("Was not able to set setting."));
                             return -1;
                         }
-                    })
-                ))
-            .executes(ctx -> {
-                return 1;
-            });
+                    })))
+            .then(literal("secondsBetweenReconnectionAttempts")
+                .then(argument("seconds", integer())
+                    .executes(ctx -> {
+                        MinecraftClient mc = MinecraftClient.getInstance();
+                        try {
+                            String seconds = Integer.toString(IntegerArgumentType.getInteger(ctx, "seconds"));
+                            SettingsManager.writeSetting("secondsBetweenReconnectionAttempts", seconds);
+                            mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("secondsBetweenReconnectionAttempts set to: " + seconds));
+                            return 1;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("Was not able to set setting."));
+                            return -1;
+                        }
+                    })));
 
         dispatcher.register(afkpeace);
     }
