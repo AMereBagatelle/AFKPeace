@@ -24,6 +24,12 @@ public class ConfigCommand implements ClientCommandPlugin {
     @Override
     public void registerCommands(CommandDispatcher<CottonClientCommandSource> dispatcher) {
         LiteralArgumentBuilder<CottonClientCommandSource> afkpeace = literal("afkpeace")
+            .then(literal("maxReconnectTries")
+                .executes(ctx -> {
+                    MinecraftClient mc = MinecraftClient.getInstance();
+                    mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("MaxReconnectTries is currently " + SettingsManager.maxReconnectTries));
+                    return 1;
+                }))
             .then(literal("maxReconnectTries") // * Configuration options
                 .then(argument("tries", integer())
                     .executes(ctx -> {
@@ -39,6 +45,12 @@ public class ConfigCommand implements ClientCommandPlugin {
                             return -1;
                         }
                     })))
+            .then(literal("secondsBetweenReconnectionAttempts")
+                .executes(ctx -> {
+                    MinecraftClient mc = MinecraftClient.getInstance();
+                    mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("SecondsBetweenReconnectionAttempts is currently " + SettingsManager.secondsBetweenReconnectionAttempts));
+                    return 1;
+                }))
             .then(literal("secondsBetweenReconnectionAttempts")
                 .then(argument("seconds", integer())
                     .executes(ctx -> {
