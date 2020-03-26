@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "client": ["net.bagatelle.afkpeace.AFKPeace"],
-    "cotton-client-commands": ["net.bagatelle.afkpeace.commands"]
+    "cotton-client-commands": ["net.bagatelle.afkpeace.commands.ConfigCommand"]
   },
   "mixins": [
     "afkpeace.mixins.json"
