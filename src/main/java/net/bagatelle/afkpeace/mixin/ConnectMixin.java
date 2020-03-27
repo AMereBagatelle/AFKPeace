@@ -35,6 +35,7 @@ public abstract class ConnectMixin {
     @Inject(method="onDisconnected", at=@At("HEAD"), cancellable=true)
     public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
+        // TODO: check for more things than timeout (everything but kick)
         if(reason.getString().contains("Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host") || reason.getString().contains("Timed out") && AFKPeace.stateVariables.currentServer != null) {
             mc.disconnect();
             if(SettingsManager.isReconnectOnTimeoutActive) {
