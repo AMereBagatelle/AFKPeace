@@ -13,6 +13,7 @@ Player shadow button in pause menu
 Configuration via client commands
 
 Future Features:
+Auto-AFK, turns on all features when it detects a AFK session
 Suggest things that you think might be useful!  Use the issues and add the "enhancement" tag.
 
 # Command Documentation
