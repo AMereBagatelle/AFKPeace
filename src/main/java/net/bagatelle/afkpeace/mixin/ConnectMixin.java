@@ -53,6 +53,7 @@ public abstract class ConnectMixin {
         if(packet.getHealth() != mc.player.getMaximumHealth() && SettingsManager.isDamageProtectActive) {
             mc.getNetworkHandler().getConnection().disconnect(new TranslatableText("Logged out on damage"));
             mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", new TranslatableText("Saved ya"), AFKPeace.stateVariables.currentServer));
+            SettingsManager.isDamageProtectActive = false;
         }
     }
 }
