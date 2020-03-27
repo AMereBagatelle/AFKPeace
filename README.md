@@ -9,7 +9,14 @@ The toggles for all the current features are at the bottom of the controls menu,
 Current Features:
 AFK Timeout Protection:  Will try to reconnect on timeout.
 Logout on being attacked
+Player shadow button in pause menu
+Configuration via client commands
 
 Future Features:
-Better configuration options
-(UNDER CONSIDERATION) Player shadow button in pause menu
+Suggest things that you think might be useful!  Use the issues and add the "enhancement" tag.
+
+# Command Documentation
+There is only one command, `/afkpeace`.
+After this command, you will have a few configuration options, to be used such as:
+`/afkpeace maxReconnectTries 1`
+or you may just enter the name of a configuration value to get its current value.
