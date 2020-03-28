@@ -55,13 +55,13 @@ public class SetupUtil {
 			// Handling the toggle of the reconnect feature
 			if(toggleReconnectToServer.isPressed() && !toggleReconnectWasPressed) {
 				SettingsManager.isReconnectOnTimeoutActive = !SettingsManager.isReconnectOnTimeoutActive;
-				mc.inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoReconnect " + SettingsManager.isReconnectOnTimeoutActive));
+				mc.inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoReconnect set to: " + SettingsManager.isReconnectOnTimeoutActive));
 			}
 			toggleReconnectWasPressed = toggleReconnectToServer.isPressed();
 			// Handling the toggle of the logout on damage feature
 			if(toggleDamageLogout.isPressed() && !toggleDamageLogoutWasPressed) {
 				SettingsManager.isDamageProtectActive = !SettingsManager.isDamageProtectActive;
-				mc.inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoLogoutOnDamage " + SettingsManager.isDamageProtectActive));
+				mc.inGameHud.addChatMessage(MessageType.SYSTEM, new TranslatableText("AutoLogoutOnDamage set to: " + SettingsManager.isDamageProtectActive));
 			}
 			toggleDamageLogoutWasPressed = toggleDamageLogout.isPressed();
 			// * Reconnect feature related stuff
