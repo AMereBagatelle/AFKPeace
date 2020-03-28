@@ -34,11 +34,11 @@ public abstract class ConnectMixin {
     // Checks if we should try to automatically reconnect, and if not opens a custom screen with a reconnect button
     @Inject(method="onDisconnected", at=@At("HEAD"), cancellable=true)
     public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
+        System.out.println(reason.toString());
         MinecraftClient mc = MinecraftClient.getInstance();
-        // TODO: check for more things than timeout (everything but kick)
-        if(reason.getString().contains("Internal Exception: java.io.IOException: An existing connection was forcibly closed by the remote host") || reason.getString().contains("Timed out") && AFKPeace.stateVariables.currentServer != null) {
+        if(AFKPeace.stateVariables.currentServer != null) {
             mc.disconnect();
-            if(SettingsManager.isReconnectOnTimeoutActive) {
+            if(SettingsManager.isReconnectOnTimeoutActive && !reason.toString().contains("multiplayer.disconnect.kicked") || !reason.toString().contains("multiplayer.disconnect.banned")) {
                 AFKPeace.connectUtil.startReconnect(AFKPeace.stateVariables.currentServer);
             } else {
                 mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, AFKPeace.stateVariables.currentServer));
