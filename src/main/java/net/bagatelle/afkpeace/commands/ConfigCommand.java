@@ -1,11 +1,10 @@
 package net.bagatelle.afkpeace.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.ArgumentType;
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
-import io.github.cottonmc.clientcommands.ArgumentBuilders;
 import io.github.cottonmc.clientcommands.ClientCommandPlugin;
 import io.github.cottonmc.clientcommands.CottonClientCommandSource;
 import net.bagatelle.afkpeace.settings.SettingsManager;
@@ -18,19 +17,20 @@ import static io.github.cottonmc.clientcommands.ArgumentBuilders.*;
 import java.io.IOException;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
+import static com.mojang.brigadier.arguments.BoolArgumentType.bool;
 
 public class ConfigCommand implements ClientCommandPlugin {
 
     @Override
     public void registerCommands(CommandDispatcher<CottonClientCommandSource> dispatcher) {
         LiteralArgumentBuilder<CottonClientCommandSource> afkpeace = literal("afkpeace")
-            .then(literal("maxReconnectTries")
+            .then(literal("maxReconnectTries")  // * Configuration Options
                 .executes(ctx -> {
                     MinecraftClient mc = MinecraftClient.getInstance();
                     mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("MaxReconnectTries is currently " + SettingsManager.maxReconnectTries));
                     return 1;
                 }))
-            .then(literal("maxReconnectTries") // * Configuration options
+            .then(literal("maxReconnectTries")
                 .then(argument("tries", integer())
                     .executes(ctx -> {
                         MinecraftClient mc = MinecraftClient.getInstance();
@@ -65,6 +65,36 @@ public class ConfigCommand implements ClientCommandPlugin {
                             mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("Was not able to set setting."));
                             return -1;
                         }
+                    })))
+            .then(literal("autoReconnect") // * Toggle Options
+                .executes(ctx -> {
+                    MinecraftClient mc = MinecraftClient.getInstance();
+                    mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("AutoReconnect is currently " + SettingsManager.isReconnectOnTimeoutActive));
+                    return 1;
+                }))
+            .then(literal("autoReconnect")
+                .then(argument("setpoint", bool())
+                    .executes(ctx -> {
+                        MinecraftClient mc = MinecraftClient.getInstance();
+                        boolean setpoint = BoolArgumentType.getBool(ctx, "setpoint");
+                        SettingsManager.isReconnectOnTimeoutActive = setpoint;
+                        mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("AutoReconnect set to: " + setpoint));
+                        return 1;
+                    })))
+            .then(literal("damageLogout")
+                .executes(ctx -> {
+                    MinecraftClient mc = MinecraftClient.getInstance();
+                    mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("DamageLogout is currently " + SettingsManager.isDamageProtectActive));
+                    return 1;
+                }))
+            .then(literal("damageLogout")
+                .then(argument("setpoint", bool())
+                    .executes(ctx -> {
+                        MinecraftClient mc = MinecraftClient.getInstance();
+                        boolean setpoint = BoolArgumentType.getBool(ctx, "setpoint");
+                        SettingsManager.isDamageProtectActive = setpoint;
+                        mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("DamageLogout set to: " + setpoint));
+                        return 1;
                     })));
 
         dispatcher.register(afkpeace);
