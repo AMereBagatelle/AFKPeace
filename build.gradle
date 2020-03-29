@@ -32,6 +32,7 @@ dependencies {
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 	
     modImplementation "io.github.cottonmc:cotton-client-commands:${project.cotton_client_command_version}"
+	include "io.github.cottonmc:cotton-client-commands:${project.cotton_client_command_version}"
 }
 
 processResources {
