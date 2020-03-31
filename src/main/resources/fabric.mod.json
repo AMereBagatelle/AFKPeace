@@ -9,7 +9,7 @@
     "AMereBagatelle"
   ],
   "contact": {
-    "homepage": "",
+    "homepage": "https://amerebagatelle.github.io/",
     "sources": "https://github.com/AMereBagatelle/AFKPeace"
   },
 
@@ -18,8 +18,8 @@
 
   "environment": "*",
   "entrypoints": {
-    "client": ["net.bagatelle.afkpeace.AFKPeace"],
-    "cotton-client-commands": ["net.bagatelle.afkpeace.commands.ConfigCommand"]
+    "client": ["amerebagatelle.github.io.afkpeace.AFKPeace"],
+    "cotton-client-commands": ["amerebagatelle.github.io.afkpeace.commands.ConfigCommand"]
   },
   "mixins": [
     "afkpeace.mixins.json"
