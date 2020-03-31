@@ -1,9 +1,9 @@
-package net.bagatelle.afkpeace.miscellaneous;
+package amerebagatelle.github.io.afkpeace.miscellaneous;
 
 import java.util.Iterator;
 import java.util.List;
 
-import net.bagatelle.afkpeace.AFKPeace;
+import amerebagatelle.github.io.afkpeace.AFKPeace;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;

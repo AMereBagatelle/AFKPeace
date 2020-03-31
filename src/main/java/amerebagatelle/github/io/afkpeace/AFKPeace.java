@@ -1,9 +1,7 @@
-package net.bagatelle.afkpeace;
+package amerebagatelle.github.io.afkpeace;
 
-import net.bagatelle.afkpeace.settings.SettingsManager;
-import net.bagatelle.afkpeace.util.ConnectUtil;
-import net.bagatelle.afkpeace.util.SetupUtil;
-import net.bagatelle.afkpeace.util.StateVariables;
+import amerebagatelle.github.io.afkpeace.util.*;
+import amerebagatelle.github.io.afkpeace.settings.*;
 import net.fabricmc.api.ClientModInitializer;
 
 public class AFKPeace implements ClientModInitializer {

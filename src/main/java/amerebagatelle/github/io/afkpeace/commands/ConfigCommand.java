@@ -1,4 +1,4 @@
-package net.bagatelle.afkpeace.commands;
+package amerebagatelle.github.io.afkpeace.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
@@ -7,7 +7,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
 import io.github.cottonmc.clientcommands.ClientCommandPlugin;
 import io.github.cottonmc.clientcommands.CottonClientCommandSource;
-import net.bagatelle.afkpeace.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.LiteralText;

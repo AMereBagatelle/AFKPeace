@@ -1,7 +1,7 @@
-package net.bagatelle.afkpeace.util;
+package amerebagatelle.github.io.afkpeace.util;
 
-import net.bagatelle.afkpeace.miscellaneous.DisconnectRetryScreen;
-import net.bagatelle.afkpeace.miscellaneous.ReconnectTestThread;
+import amerebagatelle.github.io.afkpeace.miscellaneous.DisconnectRetryScreen;
+import amerebagatelle.github.io.afkpeace.miscellaneous.ReconnectTestThread;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.TitleScreen;

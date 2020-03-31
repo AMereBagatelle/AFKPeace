@@ -1,4 +1,4 @@
-package net.bagatelle.afkpeace.util;
+package amerebagatelle.github.io.afkpeace.util;
 
 import net.minecraft.client.network.ServerInfo;
 

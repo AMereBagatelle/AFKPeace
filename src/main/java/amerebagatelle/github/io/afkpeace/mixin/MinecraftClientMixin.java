@@ -1,4 +1,4 @@
-package net.bagatelle.afkpeace.mixin;
+package amerebagatelle.github.io.afkpeace.mixin;
 
 import java.util.Arrays;
 
@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.bagatelle.afkpeace.miscellaneous.PlayerShadowPauseMenuScreen;
+import amerebagatelle.github.io.afkpeace.miscellaneous.PlayerShadowPauseMenuScreen;
 import net.minecraft.client.MinecraftClient;
 
 @Mixin(MinecraftClient.class)
