@@ -1,4 +1,4 @@
-package net.bagatelle.afkpeace.settings;
+package amerebagatelle.github.io.afkpeace.settings;
 
 import java.util.Properties;
 import java.io.BufferedReader;

@@ -1,11 +1,11 @@
-package net.bagatelle.afkpeace.miscellaneous;
+package amerebagatelle.github.io.afkpeace.miscellaneous;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import net.bagatelle.afkpeace.AFKPeace;
-import net.bagatelle.afkpeace.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.AFKPeace;
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.ServerAddress;
 

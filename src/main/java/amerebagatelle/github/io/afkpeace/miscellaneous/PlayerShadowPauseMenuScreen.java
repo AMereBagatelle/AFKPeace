@@ -1,4 +1,4 @@
-package net.bagatelle.afkpeace.miscellaneous;
+package amerebagatelle.github.io.afkpeace.miscellaneous;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

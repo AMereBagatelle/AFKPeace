@@ -1,13 +1,13 @@
-package net.bagatelle.afkpeace.mixin;
+package amerebagatelle.github.io.afkpeace.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.At;
 
-import net.bagatelle.afkpeace.AFKPeace;
-import net.bagatelle.afkpeace.miscellaneous.DisconnectRetryScreen;
-import net.bagatelle.afkpeace.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.AFKPeace;
+import amerebagatelle.github.io.afkpeace.miscellaneous.DisconnectRetryScreen;
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
