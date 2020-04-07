@@ -1,5 +1,7 @@
 package net.bagatelle.afkpeace.mixin;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -22,6 +24,7 @@ import net.minecraft.text.TranslatableText;
 public abstract class ConnectMixin {
 
     // Sets the server data so that we know what to reconnect to.
+    @Environment(EnvType.CLIENT)
     @Inject(method="onGameJoin", at=@At("HEAD"))
     private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
@@ -32,6 +35,7 @@ public abstract class ConnectMixin {
     }
 
     // Checks if we should try to automatically reconnect, and if not opens a custom screen with a reconnect button
+    @Environment(EnvType.CLIENT)
     @Inject(method="onDisconnected", at=@At("HEAD"), cancellable=true)
     public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
         System.out.println(reason.toString());
@@ -48,6 +52,7 @@ public abstract class ConnectMixin {
     }
 
     // Gets when the player's health changes, and logs the player out if it has taken damage
+    @Environment(EnvType.CLIENT)
     @Inject(method="onHealthUpdate", at=@At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
