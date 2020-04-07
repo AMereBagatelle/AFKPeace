@@ -8,6 +8,8 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.cottonmc.clientcommands.ClientCommandPlugin;
 import io.github.cottonmc.clientcommands.CottonClientCommandSource;
 import net.bagatelle.afkpeace.settings.SettingsManager;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.LiteralText;
@@ -21,6 +23,7 @@ import static com.mojang.brigadier.arguments.BoolArgumentType.bool;
 
 public class ConfigCommand implements ClientCommandPlugin {
 
+    @Environment(EnvType.CLIENT)
     @Override
     public void registerCommands(CommandDispatcher<CottonClientCommandSource> dispatcher) {
         LiteralArgumentBuilder<CottonClientCommandSource> afkpeace = literal("afkpeace")
