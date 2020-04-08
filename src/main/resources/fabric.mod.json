@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "afkpeace",
-  "version": "2.2.1",
+  "version": "${project.mod_version}",
 
   "name": "AFKPeace",
   "description": "A mod to make going AFK on servers much easier, with rejoining and respawning features.",
@@ -9,7 +9,7 @@
     "AMereBagatelle"
   ],
   "contact": {
-    "homepage": "",
+    "homepage": "amerebagatelle.github.io",
     "sources": "https://github.com/AMereBagatelle/AFKPeace"
   },
 
