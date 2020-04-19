@@ -40,9 +40,9 @@ public abstract class ConnectMixin {
     public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
         System.out.println(reason.toString());
         MinecraftClient mc = MinecraftClient.getInstance();
-        if(AFKPeace.stateVariables.currentServer != null) {
+        if(AFKPeace.stateVariables.currentServer != null && SettingsManager.isReconnectOnTimeoutActive) {
             mc.disconnect();
-            if(SettingsManager.isReconnectOnTimeoutActive && !reason.toString().contains("multiplayer.disconnect.kicked") || !reason.toString().contains("multiplayer.disconnect.banned")) {
+            if(!reason.toString().contains("multiplayer.disconnect.kicked") || !reason.toString().contains("multiplayer.disconnect.banned")) {
                 AFKPeace.connectUtil.startReconnect(AFKPeace.stateVariables.currentServer);
             } else {
                 mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, AFKPeace.stateVariables.currentServer));
