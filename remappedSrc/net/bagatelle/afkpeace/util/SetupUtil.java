@@ -1,5 +1,7 @@
 package net.bagatelle.afkpeace.util;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import org.lwjgl.glfw.GLFW;
 
 import net.bagatelle.afkpeace.AFKPeace;
@@ -20,7 +22,8 @@ public class SetupUtil {
 
 	private boolean toggleReconnectWasPressed;
 	private boolean toggleDamageLogoutWasPressed;
-	
+
+	@Environment(EnvType.CLIENT)
 	public void configureKeybinds() {
 		final String keybindCategory = "AFKPeace";
 
@@ -48,6 +51,7 @@ public class SetupUtil {
 		keyBindingRegistry.register(toggleDamageLogout);
 	}
 
+	@Environment(EnvType.CLIENT)
 	public void clientTickCallbackActivation() {
 		ClientTickCallback.EVENT.register(e -> {
 			MinecraftClient mc = MinecraftClient.getInstance();

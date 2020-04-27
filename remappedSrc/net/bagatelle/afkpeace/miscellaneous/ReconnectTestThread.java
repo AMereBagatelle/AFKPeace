@@ -34,9 +34,7 @@ public class ReconnectTestThread extends Thread {
                 connectionAttempt.close();
                 canReconnect = 1;
                 break;
-            } catch (UnknownHostException e) {
-            } catch (IOException e) {
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | IOException e) {
             }
         }
         if(canReconnect != 1) {
