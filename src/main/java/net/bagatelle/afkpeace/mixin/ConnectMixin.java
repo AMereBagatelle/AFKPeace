@@ -40,15 +40,18 @@ public abstract class ConnectMixin {
     public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
         System.out.println(reason.toString());
         MinecraftClient mc = MinecraftClient.getInstance();
-        if(AFKPeace.stateVariables.currentServer != null && SettingsManager.isReconnectOnTimeoutActive) {
-            mc.disconnect();
+        if(AFKPeace.stateVariables.currentServer != null) {
             if(!reason.toString().contains("multiplayer.disconnect.kicked") || !reason.toString().contains("multiplayer.disconnect.banned")) {
-                AFKPeace.connectUtil.startReconnect(AFKPeace.stateVariables.currentServer);
-            } else {
-                mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, AFKPeace.stateVariables.currentServer));
+                mc.disconnect();
+                if (SettingsManager.isReconnectOnTimeoutActive) {
+                    AFKPeace.connectUtil.startReconnect(AFKPeace.stateVariables.currentServer);
+                } else {
+                    mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, AFKPeace.stateVariables.currentServer));
+                }
+                cbi.cancel();
             }
-            cbi.cancel();
         }
+        SettingsManager.isDamageProtectActive = false;
     }
 
     // Gets when the player's health changes, and logs the player out if it has taken damage
@@ -59,7 +62,6 @@ public abstract class ConnectMixin {
         if(packet.getHealth() != mc.player.getMaximumHealth() && SettingsManager.isDamageProtectActive) {
             mc.getNetworkHandler().getConnection().disconnect(new TranslatableText("Logged out on damage"));
             mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", new TranslatableText("Saved ya"), AFKPeace.stateVariables.currentServer));
-            SettingsManager.isDamageProtectActive = false;
         }
     }
 }

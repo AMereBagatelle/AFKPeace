@@ -9,13 +9,15 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
 public class DisconnectRetryScreen extends Screen {
 
     private final Text reason;
-    private List<String> reasonFormatted;
+    private List<Text> reasonFormatted;
     private final Screen parent;
     private int reasonHeight;
     private ServerInfo serverInfo;
@@ -32,44 +34,40 @@ public class DisconnectRetryScreen extends Screen {
     }
 
     protected void init() {
-        this.reasonFormatted = this.font.wrapStringToWidthAsList(this.reason.asFormattedString(), this.width - 50);
+        this.reasonFormatted = this.textRenderer.wrapLines(this.reason, this.width - 50);
         int var10001 = this.reasonFormatted.size();
-        this.font.getClass();
+        this.textRenderer.getClass();
         this.reasonHeight = var10001 * 9;
         int var10003 = this.width / 2 - 100;
         int var10004 = this.height / 2 + this.reasonHeight / 2;
-        this.font.getClass();
-        // Opens multiplayer screen
-        this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30), 200, 20, I18n.translate("gui.toMenu"), (buttonWidget) -> {
-            this.minecraft.openScreen(this.parent);
+        this.textRenderer.getClass();
+        this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30), 200, 20, new TranslatableText("gui.toMenu"), (buttonWidget) -> {
+            this.client.openScreen(this.parent);
         }));
         // Attempts to reconnect to the server you got disconnected from
-        this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30) + 20, 200, 20, "Reconnect", (buttonWidget) -> {
+        this.addButton(new ButtonWidget(var10003, Math.min(var10004 + 9, this.height - 30) + 20, 200, 20, new LiteralText("Reconnect"), (buttonWidget) -> {
             AFKPeace.connectUtil.connectToServer(serverInfo);
         }));
     }
     
-    public void render(int mouseX, int mouseY, float delta) {
-        this.renderBackground();
-        // * Don't touch if you can help it... rendering order
-        super.renderDirtBackground(0);
-        // Logout error text
-        TextRenderer var10001 = this.font;
-        String var10002 = this.title.asFormattedString();
-        int var10003 = this.width / 2;
-        int var10004 = this.height / 2 - this.reasonHeight / 2;
-        this.font.getClass();
-        this.drawCenteredString(var10001, var10002, var10003, var10004 - 9 * 2, 11184810);
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        this.renderBackground(matrices);
+        TextRenderer var10002 = this.textRenderer;
+        Text var10003 = this.title;
+        int var10004 = this.width / 2;
+        int var10005 = this.height / 2 - this.reasonHeight / 2;
+        this.textRenderer.getClass();
+        this.method_27534(matrices, var10002, var10003, var10004, var10005 - 9 * 2, 11184810);
         int i = this.height / 2 - this.reasonHeight / 2;
         if (this.reasonFormatted != null) {
-            for(Iterator var5 = this.reasonFormatted.iterator(); var5.hasNext(); i += 9) {
-                String string = (String)var5.next();
-                this.drawCenteredString(this.font, string, this.width / 2, i, 16777215);
-                this.font.getClass();
+            for(Iterator var6 = this.reasonFormatted.iterator(); var6.hasNext(); i += 9) {
+                Text text = (Text)var6.next();
+                this.method_27534(matrices, this.textRenderer, text, this.width / 2, i, 16777215);
+                this.textRenderer.getClass();
             }
         }
 
-        super.render(mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
 }
