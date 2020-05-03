@@ -21,7 +21,7 @@ public class DisconnectRetryScreen extends Screen {
     private ServerInfo serverInfo;
 
     public DisconnectRetryScreen(Screen parent, String title, Text reason, ServerInfo serverInfo) {
-        super(new TranslatableText(title, new Object[0]));
+        super(new TranslatableText(title));
         this.parent = parent;
         this.reason = reason;
         this.serverInfo = serverInfo;
