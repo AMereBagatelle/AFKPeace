@@ -20,6 +20,16 @@ public class SettingsManager {
     public static boolean isReconnectOnTimeoutActive = false;
     public static boolean isDamageProtectActive = false;
 
+    public static void initSettings() {
+        if(!settingsFilePath.exists()) {
+            try {
+                settingsFilePath.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException("Can't create a properties file for AFKPeace!");
+            }
+        }
+    }
+
     public static void loadSettings() {
         BufferedReader inputStream;
 

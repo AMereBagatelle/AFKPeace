@@ -18,6 +18,7 @@ public class AFKPeace implements ClientModInitializer {
 	public void onInitializeClient() {
 		setupUtil.configureKeybinds();
 		setupUtil.clientTickCallbackActivation();
+		SettingsManager.initSettings();
 		SettingsManager.loadSettings();
 	}
 }
