@@ -1,11 +1,11 @@
-package net.bagatelle.afkpeace.util;
+package amerebagatelle.github.io.afkpeace.util;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import org.lwjgl.glfw.GLFW;
 
-import net.bagatelle.afkpeace.AFKPeace;
-import net.bagatelle.afkpeace.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.AFKPeace;
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.fabricmc.fabric.api.client.keybinding.FabricKeyBinding;
 import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry;
 import net.fabricmc.fabric.api.event.client.ClientTickCallback;

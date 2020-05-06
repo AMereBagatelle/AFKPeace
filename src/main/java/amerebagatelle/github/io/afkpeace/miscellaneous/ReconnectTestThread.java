@@ -1,13 +1,11 @@
-package net.bagatelle.afkpeace.miscellaneous;
+package amerebagatelle.github.io.afkpeace.miscellaneous;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import net.bagatelle.afkpeace.AFKPeace;
-import net.bagatelle.afkpeace.settings.SettingsManager;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import amerebagatelle.github.io.afkpeace.AFKPeace;
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.ServerAddress;
 
@@ -17,7 +15,6 @@ public class ReconnectTestThread extends Thread {
 
     private ServerAddress serverAddress;
 
-    @Environment(EnvType.CLIENT)
     public ReconnectTestThread(ServerInfo serverInfo) {
         super();
         this.canReconnect = 0;
@@ -25,7 +22,6 @@ public class ReconnectTestThread extends Thread {
     }
 
     // Tries to connect to the server using a socket as many times as is set, and returns if it could connect
-    @Environment(EnvType.CLIENT)
     public void run() {
         for (int i = 0; i <= SettingsManager.maxReconnectTries; i++) {
             try {
