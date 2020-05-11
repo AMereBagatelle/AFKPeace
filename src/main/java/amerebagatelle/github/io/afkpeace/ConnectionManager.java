@@ -4,10 +4,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConnectScreen;
+import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ServerInfo;
-import net.minecraft.network.ServerAddress;
+import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class ConnectionManager {
@@ -21,7 +22,8 @@ public class ConnectionManager {
         this.minecraft.openScreen(new ConnectScreen(new MultiplayerScreen(new TitleScreen()), this.minecraft, target));
     }
 
-    public void disconnectFromServer() {
-
+    public void disconnectFromServer(Text reason) {
+        this.minecraft.getNetworkHandler().getConnection().disconnect(reason);
+        this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceDisconnect", reason));
     }
 }
