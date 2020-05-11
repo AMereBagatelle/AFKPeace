@@ -15,6 +15,7 @@ import net.minecraft.text.TranslatableText;
 @Environment(EnvType.CLIENT)
 public class ConnectionManager {
     private final MinecraftClient minecraft;
+    private ReconnectThread reconnectThread;
 
     public ConnectionManager(MinecraftClient minecraft) {
         this.minecraft = minecraft;
@@ -22,13 +23,20 @@ public class ConnectionManager {
 
     // Handling the reconnect feature
     public void startReconnect(ServerInfo target) {
-        ReconnectThread thread = new ReconnectThread(target);
-        thread.start();
+        reconnectThread = new ReconnectThread(target);
+        reconnectThread.start();
     }
 
     public void finishReconnect() {
         connectToServer(AFKPeace.currentServerEntry);
         this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceReconnection", new TranslatableText("afkpeace.reconnect.reason"))); // TODO translation key
+    }
+
+    public void cancelReconnect() {
+        try {
+            reconnectThread.join();
+        } catch (InterruptedException ignored) {
+        }
     }
 
     // Regular connecting utilities
