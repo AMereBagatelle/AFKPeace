@@ -17,16 +17,6 @@ import net.minecraft.client.MinecraftClient;
 public class MinecraftClientMixin {
     @Inject(method="openPauseMenu", at=@At("HEAD"), cancellable=true)
     public void addPlayerShadowButton(boolean bl, CallbackInfo cbi) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        if (mc.currentScreen == null && mc.player != null && mc.player.networkHandler.getCommandDispatcher().findNode(Arrays.asList("player")) != null) {
-            boolean bl2 = mc.isIntegratedServerRunning() && !mc.getServer().isRemote();
-            if (bl2) {
-                mc.openScreen(new PlayerShadowPauseMenuScreen(!bl));
-                mc.getSoundManager().pauseAll();
-            } else {
-                mc.openScreen(new PlayerShadowPauseMenuScreen(true));
-            }
-            cbi.cancel();
-        }
+        // TODO: Make this a mixin into the pause menu instead
     }
 }
