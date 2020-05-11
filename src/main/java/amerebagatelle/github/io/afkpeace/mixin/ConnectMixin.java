@@ -27,39 +27,17 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method="onGameJoin", at=@At("HEAD"))
     private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        ServerInfo serverData = mc.getCurrentServerEntry();
-        if(serverData != null) {
-            AFKPeace.stateVariables.currentServer = serverData;
-        }
     }
 
     // Checks if we should try to automatically reconnect, and if not opens a custom screen with a reconnect button
     @Environment(EnvType.CLIENT)
     @Inject(method="onDisconnected", at=@At("HEAD"), cancellable=true)
     public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
-        System.out.println(reason.toString());
-        MinecraftClient mc = MinecraftClient.getInstance();
-        if(AFKPeace.stateVariables.currentServer != null && SettingsManager.isReconnectOnTimeoutActive) {
-            mc.disconnect();
-            if(!reason.toString().contains("multiplayer.disconnect.kicked") || !reason.toString().contains("multiplayer.disconnect.banned")) {
-                AFKPeace.connectUtil.startReconnect(AFKPeace.stateVariables.currentServer);
-            } else {
-                mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, AFKPeace.stateVariables.currentServer));
-            }
-            cbi.cancel();
-        }
     }
 
     // Gets when the player's health changes, and logs the player out if it has taken damage
     @Environment(EnvType.CLIENT)
     @Inject(method="onHealthUpdate", at=@At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        if(packet.getHealth() != mc.player.getMaximumHealth() && SettingsManager.isDamageProtectActive) {
-            mc.getNetworkHandler().getConnection().disconnect(new TranslatableText("Logged out on damage"));
-            mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", new TranslatableText("Saved ya"), AFKPeace.stateVariables.currentServer));
-            SettingsManager.isDamageProtectActive = false;
-        }
     }
 }
