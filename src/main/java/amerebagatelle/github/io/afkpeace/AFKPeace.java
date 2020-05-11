@@ -10,9 +10,9 @@ import net.minecraft.client.network.ServerInfo;
 
 @Environment(EnvType.CLIENT)
 public class AFKPeace implements ClientModInitializer {
-	private final MinecraftClient mc = MinecraftClient.getInstance();
+	private static final MinecraftClient mc = MinecraftClient.getInstance();
 
-	public final ConnectionManager connectionManager = new ConnectionManager(mc);
+	private static final ConnectionManager connectionManager = new ConnectionManager(mc);
 
 	public static boolean isReconnecting = false;
 	public static ServerInfo currentServerEntry;
@@ -28,7 +28,7 @@ public class AFKPeace implements ClientModInitializer {
 		});
 	}
 
-	public ConnectionManager getConnectionManager() {
+	public static ConnectionManager getConnectionManager() {
 		return connectionManager;
 	}
 

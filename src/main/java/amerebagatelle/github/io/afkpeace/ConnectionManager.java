@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 @Environment(EnvType.CLIENT)
 public class ConnectionManager {
@@ -27,6 +28,7 @@ public class ConnectionManager {
 
     public void finishReconnect() {
         connectToServer(AFKPeace.currentServerEntry);
+        this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceReconnection", new TranslatableText("afkpeace.reconnect.reason"))); // TODO translation key
     }
 
     // Regular connecting utilities
