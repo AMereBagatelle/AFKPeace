@@ -1,5 +1,6 @@
 package amerebagatelle.github.io.afkpeace;
 
+import amerebagatelle.github.io.afkpeace.miscellaneous.ReconnectThread;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -18,6 +19,17 @@ public class ConnectionManager {
         this.minecraft = minecraft;
     }
 
+    // Handling the reconnect feature
+    public void startReconnect(ServerInfo target) {
+        ReconnectThread thread = new ReconnectThread(target);
+        thread.start();
+    }
+
+    public void finishReconnect() {
+        connectToServer(AFKPeace.currentServerEntry);
+    }
+
+    // Regular connecting utilities
     public void connectToServer(ServerInfo target) {
         this.minecraft.openScreen(new ConnectScreen(new MultiplayerScreen(new TitleScreen()), this.minecraft, target));
     }
