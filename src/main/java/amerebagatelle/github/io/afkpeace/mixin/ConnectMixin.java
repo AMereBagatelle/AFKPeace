@@ -1,24 +1,16 @@
 package amerebagatelle.github.io.afkpeace.mixin;
 
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.At;
-
-import amerebagatelle.github.io.afkpeace.AFKPeace;
-import amerebagatelle.github.io.afkpeace.miscellaneous.DisconnectRetryScreen;
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ConnectMixin {
@@ -31,8 +23,11 @@ public abstract class ConnectMixin {
 
     // Checks if we should try to automatically reconnect, and if not opens a custom screen with a reconnect button
     @Environment(EnvType.CLIENT)
-    @Inject(method="onDisconnected", at=@At("HEAD"), cancellable=true)
-    public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
+    @Inject(method = "onDisconnected", at = @At("HEAD"), cancellable = true)
+    public void tryReconnect(Text reason, CallbackInfo cbi) {
+        if (Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled"))) {
+
+        }
     }
 
     // Gets when the player's health changes, and logs the player out if it has taken damage
