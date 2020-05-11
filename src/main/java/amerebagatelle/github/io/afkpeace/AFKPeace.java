@@ -1,5 +1,6 @@
 package amerebagatelle.github.io.afkpeace;
 
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,6 +19,7 @@ public class AFKPeace implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		SettingsManager.initSettings();
 		ClientTickCallback.EVENT.register(event -> {
 			if (isReconnecting) {
 				connectionManager.finishReconnect();
