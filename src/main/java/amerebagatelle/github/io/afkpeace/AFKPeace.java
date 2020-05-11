@@ -15,4 +15,7 @@ public class AFKPeace implements ClientModInitializer {
 	public ConnectionManager getConnectionManager() {
 		return connectionManager;
 	}
+
+	// Dev notes
+	// TODO: Mixin to DisconnectScreen and add the reconnect button
 }
