@@ -1,9 +1,12 @@
 package amerebagatelle.github.io.afkpeace.mixin;
 
+import amerebagatelle.github.io.afkpeace.AFKPeace;
 import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.text.Text;
@@ -19,14 +22,18 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method="onGameJoin", at=@At("HEAD"))
     private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
+        AFKPeace.currentServerEntry = MinecraftClient.getInstance().getCurrentServerEntry();
     }
 
     // Checks if we should try to automatically reconnect, and if not opens a custom screen with a reconnect button
     @Environment(EnvType.CLIENT)
     @Inject(method = "onDisconnected", at = @At("HEAD"), cancellable = true)
     public void tryReconnect(Text reason, CallbackInfo cbi) {
+        ServerInfo target = AFKPeace.currentServerEntry;
         if (Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled"))) {
-
+            if (target != null) {
+                AFKPeace.getConnectionManager().startReconnect(target);
+            }
         }
     }
 

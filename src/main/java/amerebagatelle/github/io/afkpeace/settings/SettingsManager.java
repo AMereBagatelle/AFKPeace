@@ -30,9 +30,7 @@ public class SettingsManager {
             } catch (IOException e) {
                 throw new RuntimeException("Could not create settings file for DiscordConnect!");
             }
-        }
-
-        if (loadSetting("botToken").length() == 0) throw new RuntimeException("Set a bot token!");
+            }
     }
 
     public static String loadSetting(String setting) {
