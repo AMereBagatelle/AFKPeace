@@ -21,7 +21,7 @@ public abstract class DisconnectedScreenMixin extends Screen {
     @Inject(method = "init", at = @At("TAIL"))
     public void onInit(CallbackInfo ci) {
         if (!Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled"))) {
-            this.addButton(new ButtonWidget(width / 2, this.height / 2 + 100, 200, 20, "Reconnect", (buttonWidget) -> {
+            this.addButton(new ButtonWidget(width / 2 - 100, this.height / 2 + 40, 200, 20, "Reconnect", (buttonWidget) -> {
                 AFKPeace.getConnectionManager().connectToServer(AFKPeace.currentServerEntry);
             }));
         }
