@@ -1,7 +1,10 @@
 package amerebagatelle.github.io.afkpeace.mixin;
 
+import amerebagatelle.github.io.afkpeace.AFKPeace;
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.NarratorManager;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,8 +18,12 @@ public abstract class DisconnectedScreenMixin extends Screen {
         super(NarratorManager.EMPTY);
     }
 
-    @Inject(method = "init", at = @At("HEAD"))
+    @Inject(method = "init", at = @At("TAIL"))
     public void onInit(CallbackInfo ci) {
-        this.addButton();
+        if (!Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled"))) {
+            this.addButton(new ButtonWidget(width / 2, this.height / 2 + 100, 200, 20, "Reconnect", (buttonWidget) -> {
+                AFKPeace.getConnectionManager().connectToServer(AFKPeace.currentServerEntry);
+            }));
+        }
     }
 }
