@@ -33,6 +33,7 @@ public abstract class ConnectMixin {
         if (Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled"))) {
             if (target != null) {
                 AFKPeace.getConnectionManager().startReconnect(target);
+                cbi.cancel();
             }
         }
     }

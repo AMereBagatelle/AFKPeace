@@ -34,4 +34,5 @@ public class AFKPeace implements ClientModInitializer {
 
 	// Dev notes
 	// TODO: Mixin to DisconnectScreen and add the reconnect button
+	// TODO: Mixin to the pause menu and add a player shadow button
 }
