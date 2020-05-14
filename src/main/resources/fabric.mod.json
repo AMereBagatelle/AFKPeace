@@ -15,16 +15,19 @@
 
   "license": "MIT",
   "icon": "assets/afkpeace/icon.png",
-
   "environment": "*",
   "entrypoints": {
-    "client": ["amerebagatelle.github.io.afkpeace.AFKPeace"],
-    "cotton-client-commands": ["amerebagatelle.github.io.afkpeace.commands.ConfigCommand"]
+    "client": [
+      "amerebagatelle.github.io.afkpeace.AFKPeace"
+    ],
+    "cotton-client-commands": [
+      "amerebagatelle.github.io.afkpeace.commands.ConfigCommand"
+    ]
   },
   "mixins": [
     "afkpeace.mixins.json"
   ],
-
+  "accessWidener": "afkpeace.accesswidener",
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
