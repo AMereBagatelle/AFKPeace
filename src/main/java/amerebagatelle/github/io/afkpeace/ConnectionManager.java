@@ -25,11 +25,11 @@ public class ConnectionManager {
     public void startReconnect(ServerInfo target) {
         reconnectThread = new ReconnectThread(target);
         reconnectThread.start();
+        this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceReconnection", new TranslatableText("afkpeace.reconnect.reason"))); // TODO translation key
     }
 
     public void finishReconnect() {
         connectToServer(AFKPeace.currentServerEntry);
-        this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceReconnection", new TranslatableText("afkpeace.reconnect.reason"))); // TODO translation key
     }
 
     public void cancelReconnect() {

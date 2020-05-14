@@ -1,5 +1,6 @@
 package amerebagatelle.github.io.afkpeace.miscellaneous;
 
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.network.ServerInfo;
@@ -8,19 +9,25 @@ import net.minecraft.network.ServerAddress;
 @Environment(EnvType.CLIENT)
 public class ReconnectThread extends Thread {
 
-    private final int canReconnect;
+    private final boolean canReconnect;
+    private final int timesToAttempt = Integer.parseInt(SettingsManager.loadSetting("reconnectAttemptNumber"));
+    private final int secondsBetweenAttempts = Integer.parseInt(SettingsManager.loadSetting("secondsBetweenReconnectAttempts"));
 
     private final ServerAddress serverAddress;
 
     public ReconnectThread(ServerInfo serverInfo) {
         super();
-        this.canReconnect = 0;
+        canReconnect = false;
         this.serverAddress = ServerAddress.parse(serverInfo.address);
+        System.out.println(this.serverAddress);
     }
 
     // Tries to connect to the server using a socket as many times as is set, and returns if it could connect
     public void run() {
+        for (int i = 0; i < timesToAttempt; i++) {
 
+
+        }
     }
 
 }

@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Properties;
 
 public class SettingsManager {
-    public static File settingsFile = new File("config/discordconnect.properties");
+    public static File settingsFile = new File("config/afkpeace.properties");
 
     public static void initSettings() {
         // Init settings file if it doesn't exist
@@ -19,6 +19,8 @@ public class SettingsManager {
                 if (fileCreated) {
                     Properties prop = new Properties();
                     prop.put("reconnectEnabled", "false");
+                    prop.put("secondsBetweenReconnectAttempts", "3");
+                    prop.put("reconnectAttemptNumber", "10");
 
                     BufferedWriter writer = new BufferedWriter(new FileWriter(settingsFile));
                     prop.store(writer, null);
