@@ -23,7 +23,6 @@ public class ReconnectThread extends Thread {
         super();
         canReconnect = false;
         this.serverAddress = ServerAddress.parse(serverInfo.address);
-        System.out.println(this.serverAddress);
     }
 
     // Tries to connect to the server using a socket as many times as is set, and returns if it could connect
