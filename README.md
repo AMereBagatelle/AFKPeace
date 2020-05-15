@@ -5,6 +5,8 @@ The mod to give you peace of mind while AFK!
 To use:
 You will need to install Fabric API alongside this.
 
+You can find the latest builds at https://www.curseforge.com/minecraft/mc-mods/afkpeace
+
 ### Current Features:
 AFK Timeout Protection:  Will try to reconnect on timeout.
 Logout on being attacked
