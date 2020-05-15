@@ -21,6 +21,7 @@ public class SettingsManager {
                     prop.put("reconnectEnabled", "false");
                     prop.put("secondsBetweenReconnectAttempts", "3");
                     prop.put("reconnectAttemptNumber", "10");
+                    prop.put("damageLogoutEnabled", "false");
 
                     BufferedWriter writer = new BufferedWriter(new FileWriter(settingsFile));
                     prop.store(writer, null);
