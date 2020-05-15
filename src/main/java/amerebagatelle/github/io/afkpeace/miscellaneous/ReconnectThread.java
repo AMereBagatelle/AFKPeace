@@ -12,8 +12,6 @@ import java.net.Socket;
 
 @Environment(EnvType.CLIENT)
 public class ReconnectThread extends Thread {
-
-    private final boolean canReconnect;
     private final int timesToAttempt = Integer.parseInt(SettingsManager.loadSetting("reconnectAttemptNumber"));
     private final int secondsBetweenAttempts = Integer.parseInt(SettingsManager.loadSetting("secondsBetweenReconnectAttempts"));
 
@@ -21,14 +19,13 @@ public class ReconnectThread extends Thread {
 
     public ReconnectThread(ServerInfo serverInfo) {
         super();
-        canReconnect = false;
         this.serverAddress = ServerAddress.parse(serverInfo.address);
     }
 
     // Tries to connect to the server using a socket as many times as is set, and returns if it could connect
     public void run() {
         for (int i = 0; i < timesToAttempt; i++) {
-            Socket connectionAttempt = null;
+            Socket connectionAttempt;
             try {
                 connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
                 connectionAttempt.close();
@@ -42,7 +39,6 @@ public class ReconnectThread extends Thread {
                 } catch (InterruptedException ignored) {
                 }
             }
-
         }
     }
 
