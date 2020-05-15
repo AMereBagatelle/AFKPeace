@@ -1,0 +1,5 @@
+{
+  "reconnect.reason": "Attempting to reconnect...",
+  "button.reconnect": "Reconnect",
+  "reason.damagelogout": "Damage logout activated"
+}

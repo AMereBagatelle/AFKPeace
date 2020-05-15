@@ -9,8 +9,8 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -51,7 +51,7 @@ public abstract class ConnectMixin {
         if (Boolean.parseBoolean(SettingsManager.loadSetting("damageLogoutEnabled"))) {
             try {
                 if (packet.getHealth() < lastHealth) {
-                    AFKPeace.getConnectionManager().disconnectFromServer(new LiteralText("Damage logout activated"));
+                    AFKPeace.getConnectionManager().disconnectFromServer(new TranslatableText("reason.damagelogout"));
                 }
             } catch (NullPointerException ignored) {
             }
