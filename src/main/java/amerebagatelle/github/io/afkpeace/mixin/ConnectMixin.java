@@ -49,11 +49,13 @@ public abstract class ConnectMixin {
     @Inject(method="onHealthUpdate", at=@At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
         MinecraftClient mc = MinecraftClient.getInstance();
-        try {
-            if (packet.getHealth() < lastHealth) {
-                AFKPeace.getConnectionManager().disconnectFromServer(new LiteralText("Damage logout activated"));
+        if (Boolean.parseBoolean(SettingsManager.loadSetting("damageLogoutEnabled"))) {
+            try {
+                if (packet.getHealth() < lastHealth) {
+                    AFKPeace.getConnectionManager().disconnectFromServer(new LiteralText("Damage logout activated"));
+                }
+            } catch (NullPointerException ignored) {
             }
-        } catch (NullPointerException ignored) {
         }
         lastHealth = packet.getHealth();
     }
