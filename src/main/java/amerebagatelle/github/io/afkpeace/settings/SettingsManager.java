@@ -51,4 +51,25 @@ public class SettingsManager {
             throw new RuntimeException("Can't read settings for AFKPeace!");
         }
     }
+
+    public static void writeSetting(String key, String setpoint) {
+        Properties prop = new Properties();
+        BufferedReader reader;
+        BufferedWriter writer;
+
+        try {
+            reader = new BufferedReader(new FileReader(settingsFile));
+            prop.load(reader);
+            reader.close();
+
+            prop.setProperty(key, setpoint);
+
+            writer = new BufferedWriter(new FileWriter(settingsFile));
+            prop.store(writer, null);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Can't write setting...");
+        }
+    }
 }
