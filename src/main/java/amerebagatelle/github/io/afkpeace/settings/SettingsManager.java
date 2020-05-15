@@ -11,6 +11,7 @@ public class SettingsManager {
         if (!settingsFile.exists()) {
             File configDir = new File("config/");
             if (!configDir.isDirectory()) {
+                //noinspection ResultOfMethodCallIgnored
                 configDir.mkdir();
             }
             try {
@@ -31,7 +32,7 @@ public class SettingsManager {
                     throw new IOException();
                 }
             } catch (IOException e) {
-                throw new RuntimeException("Could not create settings file for DiscordConnect!");
+                throw new RuntimeException("Could not create settings file for AFKPeace!");
             }
             }
     }
@@ -47,7 +48,7 @@ public class SettingsManager {
 
             return prop.getProperty(setting);
         } catch (IOException e) {
-            throw new RuntimeException("Can't read settings for DiscordConnect!");
+            throw new RuntimeException("Can't read settings for AFKPeace!");
         }
     }
 }

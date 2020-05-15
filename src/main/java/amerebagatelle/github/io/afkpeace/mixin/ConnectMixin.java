@@ -48,7 +48,6 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method="onHealthUpdate", at=@At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
-        MinecraftClient mc = MinecraftClient.getInstance();
         if (Boolean.parseBoolean(SettingsManager.loadSetting("damageLogoutEnabled"))) {
             try {
                 if (packet.getHealth() < lastHealth) {
