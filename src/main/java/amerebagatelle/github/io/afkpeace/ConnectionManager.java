@@ -17,6 +17,8 @@ public class ConnectionManager {
     private final MinecraftClient minecraft;
     private ReconnectThread reconnectThread;
 
+    public boolean isDisconnecting = false;
+
     public ConnectionManager(MinecraftClient minecraft) {
         this.minecraft = minecraft;
     }
@@ -45,6 +47,7 @@ public class ConnectionManager {
     }
 
     public void disconnectFromServer(Text reason) {
+        isDisconnecting = true;
         this.minecraft.getNetworkHandler().getConnection().disconnect(reason);
         this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceDisconnect", reason));
     }

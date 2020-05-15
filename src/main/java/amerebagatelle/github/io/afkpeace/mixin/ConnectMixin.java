@@ -9,6 +9,7 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ConnectMixin {
+    private float lastHealth;
 
     // Sets the server data so that we know what to reconnect to.
     @Environment(EnvType.CLIENT)
@@ -31,9 +33,13 @@ public abstract class ConnectMixin {
     public void tryReconnect(Text reason, CallbackInfo cbi) {
         ServerInfo target = AFKPeace.currentServerEntry;
         if (Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled"))) {
-            if (target != null) {
-                AFKPeace.getConnectionManager().startReconnect(target);
-                cbi.cancel();
+            if (!AFKPeace.getConnectionManager().isDisconnecting) {
+                if (target != null) {
+                    AFKPeace.getConnectionManager().startReconnect(target);
+                    cbi.cancel();
+                }
+            } else {
+                AFKPeace.getConnectionManager().isDisconnecting = false;
             }
         }
     }
@@ -42,5 +48,13 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method="onHealthUpdate", at=@At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
+        MinecraftClient mc = MinecraftClient.getInstance();
+        try {
+            if (packet.getHealth() < lastHealth) {
+                AFKPeace.getConnectionManager().disconnectFromServer(new LiteralText("Damage logout activated"));
+            }
+        } catch (NullPointerException ignored) {
+        }
+        lastHealth = packet.getHealth();
     }
 }
