@@ -72,4 +72,14 @@ public class SettingsManager {
             System.out.println("Can't write setting...");
         }
     }
+
+    public static void activateAFKMode() {
+        writeSetting("reconnectEnabled", "true");
+        writeSetting("damageLogoutEnabled", "true");
+    }
+
+    public static void disableAFKMode() {
+        writeSetting("reconnectEnabled", "false");
+        writeSetting("damageLogoutEnabled", "false");
+    }
 }

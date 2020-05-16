@@ -32,9 +32,9 @@ public abstract class ConnectMixin {
     @Inject(method = "onDisconnected", at = @At("HEAD"), cancellable = true)
     public void tryReconnect(Text reason, CallbackInfo cbi) {
         ServerInfo target = AFKPeace.currentServerEntry;
-        String reasonString = reason.asString();
+        String reasonString = reason.toString();
         if (Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled"))) {
-            if (!reasonString.contains("Kicked")) {
+            if (!reasonString.contains("multiplayer.disconnect.kicked")) {
                 if (!AFKPeace.getConnectionManager().isDisconnecting) {
                     if (target != null) {
                         AFKPeace.getConnectionManager().startReconnect(target);
