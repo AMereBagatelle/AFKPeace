@@ -1,24 +1,37 @@
 package amerebagatelle.github.io.afkpeace;
 
-import amerebagatelle.github.io.afkpeace.util.*;
-import amerebagatelle.github.io.afkpeace.settings.*;
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.event.client.ClientTickCallback;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ServerInfo;
 
+@Environment(EnvType.CLIENT)
 public class AFKPeace implements ClientModInitializer {
-	public static final String modId = "afkpeace";
+	private static final MinecraftClient mc = MinecraftClient.getInstance();
 
-	public static SetupUtil setupUtil = new SetupUtil();
-	public static ConnectUtil connectUtil = new ConnectUtil();
-	public static StateVariables stateVariables = new StateVariables();
+	private static final ConnectionManager connectionManager = new ConnectionManager(mc);
+
+	public static boolean isReconnecting = false;
+	public static ServerInfo currentServerEntry;
 
 	@Override
-	@Environment(EnvType.CLIENT)
 	public void onInitializeClient() {
-		setupUtil.configureKeybinds();
-		setupUtil.clientTickCallbackActivation();
 		SettingsManager.initSettings();
-		SettingsManager.loadSettings();
+		ClientTickCallback.EVENT.register(event -> {
+			if (isReconnecting) {
+				connectionManager.finishReconnect();
+				isReconnecting = false;
+			}
+		});
 	}
+
+	public static ConnectionManager getConnectionManager() {
+		return connectionManager;
+	}
+
+	// Dev notes
+	// TODO: Mixin to the pause menu and add a player shadow button (maybe better as another mod?)
 }

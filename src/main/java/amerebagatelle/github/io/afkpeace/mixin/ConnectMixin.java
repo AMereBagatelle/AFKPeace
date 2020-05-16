@@ -1,67 +1,64 @@
 package amerebagatelle.github.io.afkpeace.mixin;
 
+import amerebagatelle.github.io.afkpeace.AFKPeace;
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.At;
-
-import amerebagatelle.github.io.afkpeace.AFKPeace;
-import amerebagatelle.github.io.afkpeace.miscellaneous.DisconnectRetryScreen;
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ConnectMixin {
+    private float lastHealth;
 
     // Sets the server data so that we know what to reconnect to.
     @Environment(EnvType.CLIENT)
     @Inject(method="onGameJoin", at=@At("HEAD"))
     private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        ServerInfo serverData = mc.getCurrentServerEntry();
-        if(serverData != null) {
-            AFKPeace.stateVariables.currentServer = serverData;
-        }
+        AFKPeace.currentServerEntry = MinecraftClient.getInstance().getCurrentServerEntry();
     }
 
     // Checks if we should try to automatically reconnect, and if not opens a custom screen with a reconnect button
     @Environment(EnvType.CLIENT)
-    @Inject(method="onDisconnected", at=@At("HEAD"), cancellable=true)
-    public void setAFKPeaceDisconnectScreen(Text reason, CallbackInfo cbi) {
-        System.out.println(reason.toString());
-        MinecraftClient mc = MinecraftClient.getInstance();
-        if(AFKPeace.stateVariables.currentServer != null) {
-            if(!reason.toString().contains("multiplayer.disconnect.kicked") || !reason.toString().contains("multiplayer.disconnect.banned")) {
-                mc.disconnect();
-                if (SettingsManager.isReconnectOnTimeoutActive) {
-                    AFKPeace.connectUtil.startReconnect(AFKPeace.stateVariables.currentServer);
+    @Inject(method = "onDisconnected", at = @At("HEAD"), cancellable = true)
+    public void tryReconnect(Text reason, CallbackInfo cbi) {
+        ServerInfo target = AFKPeace.currentServerEntry;
+        String reasonString = reason.toString();
+        if (Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled"))) {
+            if (!reasonString.contains("multiplayer.disconnect.kicked")) {
+                if (!AFKPeace.getConnectionManager().isDisconnecting) {
+                    if (target != null) {
+                        AFKPeace.getConnectionManager().startReconnect(target);
+                        cbi.cancel();
+                    }
                 } else {
-                    mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", reason, AFKPeace.stateVariables.currentServer));
+                    AFKPeace.getConnectionManager().isDisconnecting = false;
                 }
-                cbi.cancel();
             }
         }
-        SettingsManager.isDamageProtectActive = false;
     }
 
     // Gets when the player's health changes, and logs the player out if it has taken damage
     @Environment(EnvType.CLIENT)
     @Inject(method="onHealthUpdate", at=@At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        if(packet.getHealth() != mc.player.getMaximumHealth() && SettingsManager.isDamageProtectActive) {
-            mc.getNetworkHandler().getConnection().disconnect(new TranslatableText("Logged out on damage"));
-            mc.openScreen(new DisconnectRetryScreen(new MultiplayerScreen(new TitleScreen()), "disconnect.lost", new TranslatableText("Saved ya"), AFKPeace.stateVariables.currentServer));
+        if (Boolean.parseBoolean(SettingsManager.loadSetting("damageLogoutEnabled"))) {
+            try {
+                if (packet.getHealth() < lastHealth) {
+                    AFKPeace.getConnectionManager().disconnectFromServer(new TranslatableText("reason.damagelogout"));
+                }
+            } catch (NullPointerException ignored) {
+            }
         }
+        lastHealth = packet.getHealth();
     }
 }
