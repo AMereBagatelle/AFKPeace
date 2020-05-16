@@ -46,16 +46,17 @@ public class ConfigCommand implements ClientCommandPlugin {
                                     MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("damageLogoutEnabled set to " + SettingsManager.loadSetting("damageLogoutEnabled")));
                                     return 1;
                                 })))
-                .then(literal("secondsBetweenReconnectionAttempts"))
-                .executes(ctx -> {
-                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("secondsBetweenReconnectionAttempts set to " + SettingsManager.loadSetting("secondsBetweenReconnectAttempts")));
-                    return 1;
-                })
-                .then(argument("setpoint", integer())
+                .then(literal("secondsBetweenReconnectionAttempts")
                         .executes(ctx -> {
-                            SettingsManager.writeSetting("secondsBetweenReconnectionAttempts", Integer.toString(IntegerArgumentType.getInteger(ctx, "setpoint")));
+                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("secondsBetweenReconnectionAttempts is set to " + SettingsManager.loadSetting("secondsBetweenReconnectAttempts")));
                             return 1;
-                        }))
+                        })
+                        .then(argument("setpoint", integer())
+                                .executes(ctx -> {
+                                    SettingsManager.writeSetting("secondsBetweenReconnectionAttempts", Integer.toString(IntegerArgumentType.getInteger(ctx, "setpoint")));
+                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("secondsBetweenReconnectionAttempts set to " + SettingsManager.loadSetting("secondsBetweenReconnectAttempts")));
+                                    return 1;
+                                })))
                 .then(literal("reconnectAttemptNumber")
                         .executes(ctx -> {
                             MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectAttemptNumber is set to " + SettingsManager.loadSetting("reconnectAttemptNumber")));
@@ -65,6 +66,17 @@ public class ConfigCommand implements ClientCommandPlugin {
                                 .executes(ctx -> {
                                     SettingsManager.writeSetting("reconnectAttemptNumber", Integer.toString(IntegerArgumentType.getInteger(ctx, "setpoint")));
                                     MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectAttemptNumber set to " + SettingsManager.loadSetting("reconnectAttemptNumber")));
+                                    return 1;
+                                })))
+                .then(literal("afkmode")
+                        .then(literal("enable")
+                                .executes(ctx -> {
+                                    SettingsManager.activateAFKMode();
+                                    return 1;
+                                }))
+                        .then(literal("disable")
+                                .executes(ctx -> {
+                                    SettingsManager.disableAFKMode();
                                     return 1;
                                 })));
 
