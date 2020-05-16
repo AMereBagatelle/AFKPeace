@@ -8,6 +8,8 @@ You will need to install Fabric API alongside this.  Just drop it in your mods f
 If you have problems, you can contact me on discord, `AMereBagatelle#6536`.
 I usually hang out in the fabric discord, so you can catch me there.
 
+You can find the latest builds at https://www.curseforge.com/minecraft/mc-mods/afkpeace
+
 ### Current Features:
 AFK Disconnect Protection:  Will try to reconnect on being disconnected.
 
