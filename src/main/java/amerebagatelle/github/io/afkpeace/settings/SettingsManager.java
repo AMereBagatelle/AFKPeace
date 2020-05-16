@@ -1,69 +1,85 @@
 package amerebagatelle.github.io.afkpeace.settings;
 
+import java.io.*;
 import java.util.Properties;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class SettingsManager {
-    // * Settings File. DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING
-    public static final File settingsFilePath = new File("afkpeace.properties");
-
-    // * Reconnection
-    public static int maxReconnectTries;
-    public static int secondsBetweenReconnectionAttempts;
-
-    // * Active toggles
-    public static boolean isReconnectOnTimeoutActive = false;
-    public static boolean isDamageProtectActive = false;
+    public static File settingsFile = new File("config/afkpeace.properties");
 
     public static void initSettings() {
-        if(!settingsFilePath.exists()) {
-            try {
-                settingsFilePath.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException("Can't create a properties file for AFKPeace!");
+        // Init settings file if it doesn't exist
+        if (!settingsFile.exists()) {
+            File configDir = new File("config/");
+            if (!configDir.isDirectory()) {
+                //noinspection ResultOfMethodCallIgnored
+                configDir.mkdir();
             }
-        }
+            try {
+                boolean fileCreated = settingsFile.createNewFile();
+
+                if (fileCreated) {
+                    Properties prop = new Properties();
+                    prop.put("reconnectEnabled", "false");
+                    prop.put("secondsBetweenReconnectAttempts", "3");
+                    prop.put("reconnectAttemptNumber", "10");
+                    prop.put("damageLogoutEnabled", "false");
+
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(settingsFile));
+                    prop.store(writer, null);
+                    writer.flush();
+                    writer.close();
+                } else {
+                    throw new IOException();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Could not create settings file for AFKPeace!");
+            }
+            }
     }
 
-    public static void loadSettings() {
-        BufferedReader inputStream;
-
-        try {
-            Properties prop = new Properties();
-
-            inputStream = new BufferedReader(new FileReader(settingsFilePath));
-            prop.load(inputStream);
-            inputStream.close();
-
-            maxReconnectTries = Integer.parseInt(prop.getProperty("maxReconnectTries", "3"));
-            secondsBetweenReconnectionAttempts = Integer.parseInt(prop.getProperty("secondsBetweenReconnectionAttempts", "10"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void writeSetting(String setting, String setpoint) throws IOException {
-        BufferedReader inputStream;
-        BufferedWriter outputStream;
+    public static String loadSetting(String setting) {
+        BufferedReader reader;
         Properties prop = new Properties();
 
-        System.out.println(settingsFilePath.getAbsolutePath());
+        try {
+            reader = new BufferedReader(new FileReader(settingsFile));
+            prop.load(reader);
+            reader.close();
 
-        inputStream = new BufferedReader(new FileReader(settingsFilePath));
-        prop.load(inputStream);
-        inputStream.close();
+            return prop.getProperty(setting);
+        } catch (IOException e) {
+            throw new RuntimeException("Can't read settings for AFKPeace!");
+        }
+    }
 
-        outputStream = new BufferedWriter(new FileWriter(settingsFilePath));
-        prop.setProperty(setting, setpoint);
-        prop.store(outputStream, null);
-        outputStream.flush();
-        outputStream.close();
+    public static void writeSetting(String key, String setpoint) {
+        Properties prop = new Properties();
+        BufferedReader reader;
+        BufferedWriter writer;
 
-        loadSettings();
+        try {
+            reader = new BufferedReader(new FileReader(settingsFile));
+            prop.load(reader);
+            reader.close();
+
+            prop.setProperty(key, setpoint);
+
+            writer = new BufferedWriter(new FileWriter(settingsFile));
+            prop.store(writer, null);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Can't write setting...");
+        }
+    }
+
+    public static void activateAFKMode() {
+        writeSetting("reconnectEnabled", "true");
+        writeSetting("damageLogoutEnabled", "true");
+    }
+
+    public static void disableAFKMode() {
+        writeSetting("reconnectEnabled", "false");
+        writeSetting("damageLogoutEnabled", "false");
     }
 }
