@@ -1,6 +1,6 @@
 package amerebagatelle.github.io.afkpeace.miscellaneous;
 
-import amerebagatelle.github.io.afkpeace.AFKPeace;
+import amerebagatelle.github.io.afkpeace.ConnectionManager;
 import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,7 +30,7 @@ public class ReconnectThread extends Thread {
                 connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
                 connectionAttempt.close();
                 synchronized (this) {
-                    AFKPeace.isReconnecting = true;
+                    ConnectionManager.INSTANCE.isReconnecting = true;
                 }
                 break;
             } catch (IOException e) {

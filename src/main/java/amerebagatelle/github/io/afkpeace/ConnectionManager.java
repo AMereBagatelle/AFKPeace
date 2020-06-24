@@ -14,13 +14,15 @@ import net.minecraft.text.TranslatableText;
 
 @Environment(EnvType.CLIENT)
 public class ConnectionManager {
+    public static ConnectionManager INSTANCE = new ConnectionManager();
     private final MinecraftClient minecraft;
     private ReconnectThread reconnectThread;
 
     public boolean isDisconnecting = false;
+    public boolean isReconnecting = false;
 
-    public ConnectionManager(MinecraftClient minecraft) {
-        this.minecraft = minecraft;
+    public ConnectionManager() {
+        this.minecraft = MinecraftClient.getInstance();
     }
 
     // Handling the reconnect feature
@@ -32,13 +34,6 @@ public class ConnectionManager {
 
     public void finishReconnect() {
         connectToServer(AFKPeace.currentServerEntry);
-    }
-
-    public void cancelReconnect() {
-        try {
-            reconnectThread.join();
-        } catch (InterruptedException ignored) {
-        }
     }
 
     // Regular connecting utilities
