@@ -11,10 +11,9 @@
     "homepage": "https://amerebagatelle.github.io/",
     "sources": "https://github.com/AMereBagatelle/AFKPeace"
   },
-
   "license": "MIT",
   "icon": "assets/afkpeace/icon.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "client": [
       "amerebagatelle.github.io.afkpeace.AFKPeace"
@@ -29,7 +28,6 @@
   "accessWidener": "afkpeace.accesswidener",
   "depends": {
     "fabricloader": ">=0.7.4",
-    "fabric": "*",
     "minecraft": "1.16.x",
     "cotton-client-commands": "^1.0.0"
   }
