@@ -1,8 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "afkpeace",
-  "version": "2.2.0",
-
+  "version": "3.0.0",
   "name": "AFKPeace",
   "description": "A mod to make going AFK on servers much easier, with rejoining and respawning features.",
   "authors": [
@@ -30,7 +29,6 @@
   "accessWidener": "afkpeace.accesswidener",
   "depends": {
     "fabricloader": ">=0.7.4",
-    "fabric": "*",
     "minecraft": "1.15.x",
     "cotton-client-commands": "^1.0.0"
   }
