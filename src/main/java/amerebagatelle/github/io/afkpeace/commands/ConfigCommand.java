@@ -53,7 +53,6 @@ public class ConfigCommand implements ClientCommandPlugin {
                         })
                         .then(argument("setpoint", integer())
                                 .executes(ctx -> {
-                                    System.out.println(IntegerArgumentType.getInteger(ctx, "setpoint"));
                                     SettingsManager.writeSetting("secondsBetweenReconnectAttempts", Integer.toString(IntegerArgumentType.getInteger(ctx, "setpoint")));
                                     MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("secondsBetweenReconnectionAttempts set to " + SettingsManager.loadSetting("secondsBetweenReconnectAttempts")), MinecraftClient.getInstance().player.getUuid());
                                     return 1;
