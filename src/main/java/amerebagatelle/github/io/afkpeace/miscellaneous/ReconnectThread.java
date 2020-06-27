@@ -40,6 +40,9 @@ public class ReconnectThread extends Thread {
                 }
             }
         }
+        if (ConnectionManager.INSTANCE.isReconnecting) {
+            ConnectionManager.INSTANCE.cancelReconnect();
+        }
     }
 
 }
