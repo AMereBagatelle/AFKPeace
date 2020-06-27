@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ServerInfo;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
@@ -27,6 +28,8 @@ public class ConnectionManager {
 
     // Handling the reconnect feature
     public void startReconnect(ServerInfo target) {
+        this.minecraft.getNetworkHandler().getConnection().disconnect(new LiteralText("Reconnecting"));
+        this.minecraft.disconnect();
         reconnectThread = new ReconnectThread(target);
         reconnectThread.start();
         this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceReconnection", new TranslatableText("reconnect.reason")));
@@ -44,6 +47,7 @@ public class ConnectionManager {
     public void disconnectFromServer(Text reason) {
         isDisconnecting = true;
         this.minecraft.getNetworkHandler().getConnection().disconnect(reason);
+        this.minecraft.disconnect();
         this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceDisconnect", reason));
     }
 }
