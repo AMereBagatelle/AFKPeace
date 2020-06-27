@@ -53,7 +53,6 @@ public class ConfigCommand implements ClientCommandPlugin {
                         })
                         .then(argument("setpoint", integer())
                                 .executes(ctx -> {
-                                    System.out.println(IntegerArgumentType.getInteger(ctx, "setpoint"));
                                     SettingsManager.writeSetting("secondsBetweenReconnectAttempts", Integer.toString(IntegerArgumentType.getInteger(ctx, "setpoint")));
                                     MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("secondsBetweenReconnectionAttempts set to " + SettingsManager.loadSetting("secondsBetweenReconnectAttempts")));
                                     return 1;
@@ -73,13 +72,13 @@ public class ConfigCommand implements ClientCommandPlugin {
                         .then(literal("enable")
                                 .executes(ctx -> {
                                     SettingsManager.activateAFKMode();
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("AFKMode enabled"), MinecraftClient.getInstance().player.getUuid());
+                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("AFKMode enabled"));
                                     return 1;
                                 }))
                         .then(literal("disable")
                                 .executes(ctx -> {
                                     SettingsManager.disableAFKMode();
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("AFKMode disabled"), MinecraftClient.getInstance().player.getUuid());
+                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("AFKMode disabled"));
                                     return 1;
                                 })));
 
