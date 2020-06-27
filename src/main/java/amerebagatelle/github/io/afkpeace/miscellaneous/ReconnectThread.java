@@ -35,7 +35,7 @@ public class ReconnectThread extends Thread {
                 break;
             } catch (IOException e) {
                 try {
-                    Thread.sleep(secondsBetweenAttempts);
+                    Thread.sleep(secondsBetweenAttempts * 1000);
                 } catch (InterruptedException ignored) {
                 }
             }
