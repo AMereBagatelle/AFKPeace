@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "afkpeace",
-  "version": "3.0.0",
+  "version": "${version}",
   "name": "AFKPeace",
   "description": "A mod to make going AFK on servers much easier, with rejoining and respawning features.",
   "authors": [
