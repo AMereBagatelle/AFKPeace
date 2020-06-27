@@ -72,11 +72,13 @@ public class ConfigCommand implements ClientCommandPlugin {
                         .then(literal("enable")
                                 .executes(ctx -> {
                                     SettingsManager.activateAFKMode();
+                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("AFKMode enabled"), MinecraftClient.getInstance().player.getUuid());
                                     return 1;
                                 }))
                         .then(literal("disable")
                                 .executes(ctx -> {
                                     SettingsManager.disableAFKMode();
+                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("AFKMode disabled"), MinecraftClient.getInstance().player.getUuid());
                                     return 1;
                                 })));
 
