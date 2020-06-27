@@ -39,6 +39,15 @@ public class ConnectionManager {
         connectToServer(AFKPeace.currentServerEntry);
     }
 
+    public void cancelReconnect() {
+        try {
+            reconnectThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceDisconnect", new LiteralText("Couldn't reconnect.")));
+    }
+
     // Regular connecting utilities
     public void connectToServer(ServerInfo target) {
         this.minecraft.openScreen(new ConnectScreen(new MultiplayerScreen(new TitleScreen()), this.minecraft, target));
