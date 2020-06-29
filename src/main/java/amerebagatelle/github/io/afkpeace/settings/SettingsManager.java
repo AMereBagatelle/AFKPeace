@@ -6,6 +6,13 @@ import java.util.Properties;
 public class SettingsManager {
     public static File settingsFile = new File("config/afkpeace.properties");
 
+    public static final String[][] settings = {
+            {"reconnectEnabled", "false"},
+            {"secondsBetweenReconnectAttempts", "3"},
+            {"reconnectAttemptNumber", "10"},
+            {"damageLogoutEnabled", "false"}
+    };
+
     public static void initSettings() {
         // Init settings file if it doesn't exist
         if (!settingsFile.exists()) {
@@ -19,10 +26,9 @@ public class SettingsManager {
 
                 if (fileCreated) {
                     Properties prop = new Properties();
-                    prop.put("reconnectEnabled", "false");
-                    prop.put("secondsBetweenReconnectAttempts", "3");
-                    prop.put("reconnectAttemptNumber", "10");
-                    prop.put("damageLogoutEnabled", "false");
+                    for (String[] setting : settings) {
+                        prop.put(setting[0], setting[1]);
+                    }
 
                     BufferedWriter writer = new BufferedWriter(new FileWriter(settingsFile));
                     prop.store(writer, null);
@@ -34,7 +40,23 @@ public class SettingsManager {
             } catch (IOException e) {
                 throw new RuntimeException("Could not create settings file for AFKPeace!");
             }
+        } else {
+            try {
+                Properties prop = new Properties();
+                prop.load(new BufferedReader(new FileReader(settingsFile)));
+                for (String[] setting : settings) {
+                    if (prop.getProperty(setting[0]) != null) {
+                        prop.put(setting[0], setting[1]);
+                    }
+                }
+                BufferedWriter writer = new BufferedWriter(new FileWriter(settingsFile));
+                prop.store(writer, null);
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                throw new RuntimeException("Could not create settings file for AFKPeace!");
             }
+        }
     }
 
     public static String loadSetting(String setting) {
