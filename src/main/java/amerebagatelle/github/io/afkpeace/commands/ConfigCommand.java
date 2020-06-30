@@ -26,13 +26,13 @@ public class ConfigCommand implements ClientCommandPlugin {
         LiteralArgumentBuilder<CottonClientCommandSource> afkpeace = literal("afkpeace")
                 .then(literal("reconnectEnabled")
                         .executes(ctx -> {
-                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectEnabled is set to" + SettingsManager.loadSetting("reconnectEnabled")), MinecraftClient.getInstance().player.getUuid());
+                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectEnabled is set to " + SettingsManager.loadSetting("reconnectEnabled")), MinecraftClient.getInstance().player.getUuid());
                             return 1;
                         })
                         .then(argument("setpoint", bool())
                                 .executes(ctx -> {
                                     SettingsManager.writeSetting("reconnectEnabled", Boolean.toString(BoolArgumentType.getBool(ctx, "setpoint")));
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectEnabled set to" + SettingsManager.loadSetting("reconnectEnabled")), MinecraftClient.getInstance().player.getUuid());
+                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectEnabled set to " + SettingsManager.loadSetting("reconnectEnabled")), MinecraftClient.getInstance().player.getUuid());
                                     return 1;
                                 })))
                 .then(literal("damageLogoutEnabled")
@@ -89,7 +89,7 @@ public class ConfigCommand implements ClientCommandPlugin {
                                     int setpoint = IntegerArgumentType.getInteger(ctx, "setpoint");
                                     if (setpoint <= 20) {
                                         SettingsManager.writeSetting("damageLogoutTolerance", Integer.toString(setpoint));
-                                        MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectAttemptNumber set to " + SettingsManager.loadSetting("damageLogoutTolerance")), MinecraftClient.getInstance().player.getUuid());
+                                        MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("damageLogoutTolerance set to " + SettingsManager.loadSetting("damageLogoutTolerance")), MinecraftClient.getInstance().player.getUuid());
                                     }
                                     return 1;
                                 })))
