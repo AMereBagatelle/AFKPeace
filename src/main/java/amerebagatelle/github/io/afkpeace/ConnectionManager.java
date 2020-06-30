@@ -54,9 +54,13 @@ public class ConnectionManager {
     }
 
     public void disconnectFromServer(Text reason) {
-        isDisconnecting = !Boolean.parseBoolean(SettingsManager.loadSetting("reconnectOnDamageLogout"));
-        this.minecraft.getNetworkHandler().getConnection().disconnect(reason);
-        this.minecraft.disconnect();
-        this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceDisconnect", reason));
+        if (!Boolean.parseBoolean(SettingsManager.loadSetting("reconnectOnDamageLogout"))) {
+            isDisconnecting = true;
+            this.minecraft.getNetworkHandler().getConnection().disconnect(reason);
+            this.minecraft.disconnect();
+            this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceDisconnect", reason));
+        } else {
+            startReconnect(AFKPeace.currentServerEntry);
+        }
     }
 }
