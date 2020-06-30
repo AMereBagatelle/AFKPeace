@@ -69,6 +69,10 @@ public class ConfigCommand implements ClientCommandPlugin {
                                     return 1;
                                 })))
                 .then(literal("damageLogoutTolerance")
+                        .executes(ctx -> {
+                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("damageLogoutTolerance is set to " + SettingsManager.loadSetting("damageLogoutTolerance")), MinecraftClient.getInstance().player.getUuid());
+                            return 1;
+                        })
                         .then(argument("setpoint", integer())
                                 .executes(ctx -> {
                                     int setpoint = IntegerArgumentType.getInteger(ctx, "setpoint");
