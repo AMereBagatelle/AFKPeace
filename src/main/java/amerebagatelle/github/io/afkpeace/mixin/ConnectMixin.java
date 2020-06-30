@@ -55,7 +55,7 @@ public abstract class ConnectMixin {
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
         if (Boolean.parseBoolean(SettingsManager.loadSetting("damageLogoutEnabled"))) {
             try {
-                if (packet.getHealth() < lastHealth) {
+                if (packet.getHealth() < lastHealth && packet.getHealth() < Integer.parseInt(SettingsManager.loadSetting("damageLogoutTolerance"))) {
                     ConnectionManager.INSTANCE.disconnectFromServer(new TranslatableText("reason.damagelogout"));
                 }
             } catch (NullPointerException ignored) {
