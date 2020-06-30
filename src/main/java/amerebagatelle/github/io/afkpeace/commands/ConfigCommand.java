@@ -48,13 +48,13 @@ public class ConfigCommand implements ClientCommandPlugin {
                                 })))
                 .then(literal("reconnectOnDamageLogout")
                         .executes(ctx -> {
-                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectOnDamageLogout is set to " + SettingsManager.loadSetting("reconnectOnDamageLogout")), MinecraftClient.getInstance().player.getUuid());
+                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectOnDamageLogout is set to " + SettingsManager.loadSetting("reconnectOnDamageLogout")));
                             return 1;
                         })
                         .then(argument("setpoint", bool())
                                 .executes(ctx -> {
                                     SettingsManager.writeSetting("reconnectOnDamageLogout", Boolean.toString(BoolArgumentType.getBool(ctx, "setpoint")));
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectOnDamageLogout set to " + SettingsManager.loadSetting("reconnectOnDamageLogout")), MinecraftClient.getInstance().player.getUuid());
+                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectOnDamageLogout set to " + SettingsManager.loadSetting("reconnectOnDamageLogout")));
                                     return 1;
                                 })))
                 .then(literal("secondsBetweenReconnectionAttempts")
@@ -81,7 +81,7 @@ public class ConfigCommand implements ClientCommandPlugin {
                                 })))
                 .then(literal("damageLogoutTolerance")
                         .executes(ctx -> {
-                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("damageLogoutTolerance is set to " + SettingsManager.loadSetting("damageLogoutTolerance")), MinecraftClient.getInstance().player.getUuid());
+                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("damageLogoutTolerance is set to " + SettingsManager.loadSetting("damageLogoutTolerance")));
                             return 1;
                         })
                         .then(argument("setpoint", integer())
@@ -89,7 +89,7 @@ public class ConfigCommand implements ClientCommandPlugin {
                                     int setpoint = IntegerArgumentType.getInteger(ctx, "setpoint");
                                     if (setpoint <= 20) {
                                         SettingsManager.writeSetting("damageLogoutTolerance", Integer.toString(setpoint));
-                                        MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectAttemptNumber set to " + SettingsManager.loadSetting("damageLogoutTolerance")), MinecraftClient.getInstance().player.getUuid());
+                                        MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("damageLogoutTolerance set to " + SettingsManager.loadSetting("damageLogoutTolerance")));
                                     }
                                     return 1;
                                 })))
