@@ -46,6 +46,17 @@ public class ConfigCommand implements ClientCommandPlugin {
                                     MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("damageLogoutEnabled set to " + SettingsManager.loadSetting("damageLogoutEnabled")));
                                     return 1;
                                 })))
+                .then(literal("reconnectOnDamageLogout")
+                        .executes(ctx -> {
+                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectOnDamageLogout is set to " + SettingsManager.loadSetting("reconnectOnDamageLogout")), MinecraftClient.getInstance().player.getUuid());
+                            return 1;
+                        })
+                        .then(argument("setpoint", bool())
+                                .executes(ctx -> {
+                                    SettingsManager.writeSetting("reconnectOnDamageLogout", Boolean.toString(BoolArgumentType.getBool(ctx, "setpoint")));
+                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectOnDamageLogout set to " + SettingsManager.loadSetting("reconnectOnDamageLogout")), MinecraftClient.getInstance().player.getUuid());
+                                    return 1;
+                                })))
                 .then(literal("secondsBetweenReconnectionAttempts")
                         .executes(ctx -> {
                             MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("secondsBetweenReconnectionAttempts is set to " + SettingsManager.loadSetting("secondsBetweenReconnectAttempts")));
