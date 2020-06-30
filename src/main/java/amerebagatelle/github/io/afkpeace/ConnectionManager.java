@@ -1,6 +1,7 @@
 package amerebagatelle.github.io.afkpeace;
 
 import amerebagatelle.github.io.afkpeace.miscellaneous.ReconnectThread;
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -53,7 +54,7 @@ public class ConnectionManager {
     }
 
     public void disconnectFromServer(Text reason) {
-        isDisconnecting = true;
+        isDisconnecting = !Boolean.parseBoolean(SettingsManager.loadSetting("reconnectOnDamageLogout"));
         this.minecraft.getNetworkHandler().getConnection().disconnect(reason);
         this.minecraft.disconnect();
         this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceDisconnect", reason));
