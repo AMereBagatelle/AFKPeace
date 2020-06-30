@@ -41,5 +41,4 @@ public class ReconnectThread extends Thread {
             }
         }
     }
-
 }
