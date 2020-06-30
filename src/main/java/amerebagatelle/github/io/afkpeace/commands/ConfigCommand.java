@@ -68,6 +68,16 @@ public class ConfigCommand implements ClientCommandPlugin {
                                     MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectAttemptNumber set to " + SettingsManager.loadSetting("reconnectAttemptNumber")), MinecraftClient.getInstance().player.getUuid());
                                     return 1;
                                 })))
+                .then(literal("damageLogoutTolerance")
+                        .then(argument("setpoint", integer())
+                                .executes(ctx -> {
+                                    int setpoint = IntegerArgumentType.getInteger(ctx, "setpoint");
+                                    if (setpoint <= 20) {
+                                        SettingsManager.writeSetting("damageLogoutTolerance", Integer.toString(setpoint));
+                                        MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectAttemptNumber set to " + SettingsManager.loadSetting("damageLogoutTolerance")), MinecraftClient.getInstance().player.getUuid());
+                                    }
+                                    return 1;
+                                })))
                 .then(literal("afkmode")
                         .then(literal("enable")
                                 .executes(ctx -> {
