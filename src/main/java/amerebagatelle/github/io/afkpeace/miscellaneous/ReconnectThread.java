@@ -46,5 +46,4 @@ public class ReconnectThread extends Thread {
             MinecraftClient.getInstance().execute(() -> ConnectionManager.INSTANCE.cancelReconnect());
         }
     }
-
 }
