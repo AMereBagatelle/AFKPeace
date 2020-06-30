@@ -10,7 +10,9 @@ public class SettingsManager {
             {"reconnectEnabled", "false"},
             {"secondsBetweenReconnectAttempts", "3"},
             {"reconnectAttemptNumber", "10"},
-            {"damageLogoutEnabled", "false"}
+            {"damageLogoutEnabled", "false"},
+            {"reconnectOnDamageLogout", "false"},
+            {"damageLogoutTolerance", "20"}
     };
 
     public static void initSettings() {
