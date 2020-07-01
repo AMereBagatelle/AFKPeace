@@ -11,7 +11,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.MessageType;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 import static com.mojang.brigadier.arguments.BoolArgumentType.bool;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
@@ -26,62 +27,62 @@ public class ConfigCommand implements ClientCommandPlugin {
         LiteralArgumentBuilder<CottonClientCommandSource> afkpeace = literal("afkpeace")
                 .then(literal("reconnectEnabled")
                         .executes(ctx -> {
-                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectEnabled is set to " + SettingsManager.loadSetting("reconnectEnabled")), MinecraftClient.getInstance().player.getUuid());
+                            sendPrivateMessage(new TranslatableText("reconnectEnabled.get", SettingsManager.loadSetting("reconnectEnabled")));
                             return 1;
                         })
                         .then(argument("setpoint", bool())
                                 .executes(ctx -> {
                                     SettingsManager.writeSetting("reconnectEnabled", Boolean.toString(BoolArgumentType.getBool(ctx, "setpoint")));
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectEnabled set to " + SettingsManager.loadSetting("reconnectEnabled")), MinecraftClient.getInstance().player.getUuid());
+                                    sendPrivateMessage(new TranslatableText("reconnectEnabled.set", SettingsManager.loadSetting("reconnectEnabled")));
                                     return 1;
                                 })))
                 .then(literal("damageLogoutEnabled")
                         .executes(ctx -> {
-                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("damageLogoutEnabled is set to " + SettingsManager.loadSetting("damageLogoutEnabled")), MinecraftClient.getInstance().player.getUuid());
+                            sendPrivateMessage(new TranslatableText("damageLogoutEnabled.get", SettingsManager.loadSetting("damageLogoutEnabled")));
                             return 1;
                         })
                         .then(argument("setpoint", bool())
                                 .executes(ctx -> {
                                     SettingsManager.writeSetting("damageLogoutEnabled", Boolean.toString(BoolArgumentType.getBool(ctx, "setpoint")));
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("damageLogoutEnabled set to " + SettingsManager.loadSetting("damageLogoutEnabled")), MinecraftClient.getInstance().player.getUuid());
+                                    sendPrivateMessage(new TranslatableText("damageLogoutEnabled.set", SettingsManager.loadSetting("damageLogoutEnabled")));
                                     return 1;
                                 })))
                 .then(literal("reconnectOnDamageLogout")
                         .executes(ctx -> {
-                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectOnDamageLogout is set to " + SettingsManager.loadSetting("reconnectOnDamageLogout")), MinecraftClient.getInstance().player.getUuid());
+                            sendPrivateMessage(new TranslatableText("reconnectOnDamageLogout.get", SettingsManager.loadSetting("reconnectOnDamageLogout")));
                             return 1;
                         })
                         .then(argument("setpoint", bool())
                                 .executes(ctx -> {
                                     SettingsManager.writeSetting("reconnectOnDamageLogout", Boolean.toString(BoolArgumentType.getBool(ctx, "setpoint")));
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectOnDamageLogout set to " + SettingsManager.loadSetting("reconnectOnDamageLogout")), MinecraftClient.getInstance().player.getUuid());
+                                    sendPrivateMessage(new TranslatableText("reconnectOnDamageLogout.set", SettingsManager.loadSetting("reconnectOnDamageLogout")));
                                     return 1;
                                 })))
                 .then(literal("secondsBetweenReconnectionAttempts")
                         .executes(ctx -> {
-                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("secondsBetweenReconnectionAttempts is set to " + SettingsManager.loadSetting("secondsBetweenReconnectAttempts")), MinecraftClient.getInstance().player.getUuid());
+                            sendPrivateMessage(new TranslatableText("secondsBetweenReconnectionAttempts.get", SettingsManager.loadSetting("secondsBetweenReconnectAttempts")));
                             return 1;
                         })
                         .then(argument("setpoint", integer())
                                 .executes(ctx -> {
                                     SettingsManager.writeSetting("secondsBetweenReconnectAttempts", Integer.toString(IntegerArgumentType.getInteger(ctx, "setpoint")));
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("secondsBetweenReconnectionAttempts set to " + SettingsManager.loadSetting("secondsBetweenReconnectAttempts")), MinecraftClient.getInstance().player.getUuid());
+                                    sendPrivateMessage(new TranslatableText("secondsBetweenReconnectionAttempts.set", SettingsManager.loadSetting("secondsBetweenReconnectAttempts")));
                                     return 1;
                                 })))
                 .then(literal("reconnectAttemptNumber")
                         .executes(ctx -> {
-                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectAttemptNumber is set to " + SettingsManager.loadSetting("reconnectAttemptNumber")), MinecraftClient.getInstance().player.getUuid());
+                            sendPrivateMessage(new TranslatableText("reconnectAttemptNumber.get", SettingsManager.loadSetting("reconnectAttemptNumber")));
                             return 1;
                         })
                         .then(argument("setpoint", integer())
                                 .executes(ctx -> {
                                     SettingsManager.writeSetting("reconnectAttemptNumber", Integer.toString(IntegerArgumentType.getInteger(ctx, "setpoint")));
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("reconnectAttemptNumber set to " + SettingsManager.loadSetting("reconnectAttemptNumber")), MinecraftClient.getInstance().player.getUuid());
+                                    sendPrivateMessage(new TranslatableText("reconnectAttemptNumber.set", SettingsManager.loadSetting("reconnectAttemptNumber")));
                                     return 1;
                                 })))
                 .then(literal("damageLogoutTolerance")
                         .executes(ctx -> {
-                            MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("damageLogoutTolerance is set to " + SettingsManager.loadSetting("damageLogoutTolerance")), MinecraftClient.getInstance().player.getUuid());
+                            sendPrivateMessage(new TranslatableText("damagelogouttolerance.set", SettingsManager.loadSetting("damageLogoutTolerance")));
                             return 1;
                         })
                         .then(argument("setpoint", integer())
@@ -89,7 +90,7 @@ public class ConfigCommand implements ClientCommandPlugin {
                                     int setpoint = IntegerArgumentType.getInteger(ctx, "setpoint");
                                     if (setpoint <= 20) {
                                         SettingsManager.writeSetting("damageLogoutTolerance", Integer.toString(setpoint));
-                                        MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("damageLogoutTolerance set to " + SettingsManager.loadSetting("damageLogoutTolerance")), MinecraftClient.getInstance().player.getUuid());
+                                        sendPrivateMessage(new TranslatableText("damagelogouttolerance.set", SettingsManager.loadSetting("damageLogoutTolerance")));
                                     }
                                     return 1;
                                 })))
@@ -97,17 +98,22 @@ public class ConfigCommand implements ClientCommandPlugin {
                         .then(literal("enable")
                                 .executes(ctx -> {
                                     SettingsManager.activateAFKMode();
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("AFKMode enabled"), MinecraftClient.getInstance().player.getUuid());
+                                    sendPrivateMessage(new TranslatableText("afkmode.enabled"));
                                     return 1;
                                 }))
                         .then(literal("disable")
                                 .executes(ctx -> {
                                     SettingsManager.disableAFKMode();
-                                    MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText("AFKMode disabled"), MinecraftClient.getInstance().player.getUuid());
+                                    sendPrivateMessage(new TranslatableText("afkmode.disabled"));
                                     return 1;
                                 })));
 
         dispatcher.register(afkpeace);
+    }
+
+    public void sendPrivateMessage(Text message) {
+        MinecraftClient mc = MinecraftClient.getInstance();
+        mc.inGameHud.addChatMessage(MessageType.SYSTEM, message, mc.player.getUuid());
     }
 
 }
