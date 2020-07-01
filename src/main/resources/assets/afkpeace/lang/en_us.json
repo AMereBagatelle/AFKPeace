@@ -1,5 +1,21 @@
 {
   "reconnect.reason": "Attempting to reconnect...",
   "button.reconnect": "Reconnect",
-  "reason.damagelogout": "Damage logout activated"
+  "reason.damagelogout": "Damage logout activated",
+  "afkmode.enabled": "AFKMode enabled",
+  "afkmode.disabled": "AFKMode disabled",
+  "damagelogouttolerance.set": "Set damageLogoutTolerance to %s",
+  "damagelogouttolerance.get": "damageLogoutTolerance is set to %s",
+  "reconnectEnabled.set": "Set reconnectEnabled to %s",
+  "reconnectEnabled.get": "reconnectEnabled is set to %s",
+  "damageLogoutEnabled.set": "Set damageLogoutEnabled to %s",
+  "damageLogoutEnabled.get": "damageLogoutEnabled is set to %s",
+  "reconnectAttemptNumber.set": "Set reconnectAttemptNumber to %s",
+  "reconnectAttemptNumber.get": "reconnectAttemptNumber is set to %s",
+  "secondsBetweenReconnectionAttempts.set": "Set secondsBetweenReconnectionAttempts to %s",
+  "secondsBetweenReconnectionAttempts.get": "secondsBetweenReconnectionAttempts is set to %s",
+  "reconnectOnDamageLogout.set": "Set reconnectOnDamageLogout to %s",
+  "reconnectOnDamageLogout.get": "reconnectOnDamageLogout is set to %s",
+  "reconnect": "Reconnect",
+  "reconnecting": "Reconnecting"
 }
