@@ -37,7 +37,6 @@ dependencies {
 }
 
 minecraft {
-	accessWidener = file("src/main/resources/afkpeace.accesswidener")
 }
 
 processResources {
