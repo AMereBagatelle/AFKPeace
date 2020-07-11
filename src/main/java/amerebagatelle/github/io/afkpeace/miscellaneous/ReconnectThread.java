@@ -23,7 +23,9 @@ public class ReconnectThread extends Thread {
         this.serverAddress = ServerAddress.parse(serverInfo.address);
     }
 
-    // Tries to connect to the server using a socket as many times as is set, and returns if it could connect
+    /**
+     * Tries to connect to the server using a socket as many times as is set, and returns if it could connect
+     */
     @Override
     public void run() {
         for (int i = 0; i < timesToAttempt; i++) {

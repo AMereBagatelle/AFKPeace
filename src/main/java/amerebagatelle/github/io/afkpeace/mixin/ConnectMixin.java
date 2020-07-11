@@ -21,14 +21,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ConnectMixin {
     private float lastHealth;
 
-    // Sets the server data so that we know what to reconnect to.
+    /**
+     * Gathers server data so that we know what to reconnect to.
+     */
     @Environment(EnvType.CLIENT)
-    @Inject(method="onGameJoin", at=@At("HEAD"))
+    @Inject(method = "onGameJoin", at = @At("HEAD"))
     private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
         AFKPeace.currentServerEntry = MinecraftClient.getInstance().getCurrentServerEntry();
     }
 
-    // Checks if we should try to automatically reconnect, and if not opens a custom screen with a reconnect button
+    /**
+     * Checks if we should try to automatically reconnect, and if not opens a custom screen with a reconnect button
+     */
     @Environment(EnvType.CLIENT)
     @Inject(method = "onDisconnected", at = @At("HEAD"), cancellable = true)
     public void tryReconnect(Text reason, CallbackInfo cbi) {
@@ -49,9 +53,11 @@ public abstract class ConnectMixin {
         }
     }
 
-    // Gets when the player's health changes, and logs the player out if it has taken damage
+    /**
+     * Gets when the player's health changes, and logs the player out if it has taken damage
+     */
     @Environment(EnvType.CLIENT)
-    @Inject(method="onHealthUpdate", at=@At("TAIL"))
+    @Inject(method = "onHealthUpdate", at = @At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
         if (Boolean.parseBoolean(SettingsManager.loadSetting("damageLogoutEnabled"))) {
             try {
