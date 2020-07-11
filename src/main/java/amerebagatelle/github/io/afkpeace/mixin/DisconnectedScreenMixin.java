@@ -20,6 +20,9 @@ public abstract class DisconnectedScreenMixin extends Screen {
         super(NarratorManager.EMPTY);
     }
 
+    /**
+     * Adds our button to the DisconnectedScreen
+     */
     @Inject(method = "init", at = @At("TAIL"))
     public void onInit(CallbackInfo ci) {
         if (!Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled"))) {

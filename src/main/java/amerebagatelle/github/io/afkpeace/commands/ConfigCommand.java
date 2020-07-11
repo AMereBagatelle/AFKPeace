@@ -111,6 +111,11 @@ public class ConfigCommand implements ClientCommandPlugin {
         dispatcher.register(afkpeace);
     }
 
+    /**
+     * Sends message to client.
+     *
+     * @param message Message to send.
+     */
     public void sendPrivateMessage(Text message) {
         MinecraftClient mc = MinecraftClient.getInstance();
         mc.inGameHud.addChatMessage(MessageType.SYSTEM, message, mc.player.getUuid());

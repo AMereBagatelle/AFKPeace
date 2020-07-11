@@ -27,6 +27,11 @@ public class ConnectionManager {
         this.minecraft = MinecraftClient.getInstance();
     }
 
+    /**
+     * Attempts to reconnect the client to the target server.
+     *
+     * @param target The server to connect to.
+     */
     // Handling the reconnect feature
     public void startReconnect(ServerInfo target) {
         this.minecraft.getNetworkHandler().getConnection().disconnect(new TranslatableText("reconnecting"));
@@ -36,10 +41,16 @@ public class ConnectionManager {
         this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceReconnection", new TranslatableText("reconnect.reason")));
     }
 
+    /**
+     * Called by the Reconnection thread to finish reconnecting to the server.
+     */
     public void finishReconnect() {
         connectToServer(AFKPeace.currentServerEntry);
     }
 
+    /**
+     * Called by the Reconnection thread if it cannot connect to the target server.
+     */
     public void cancelReconnect() {
         try {
             reconnectThread.join();
@@ -48,11 +59,20 @@ public class ConnectionManager {
         this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceDisconnect", new LiteralText("Couldn't reconnect.")));
     }
 
-    // Regular connecting utilities
+    /**
+     * Connects the client to the target server.
+     *
+     * @param target Server to connect to.
+     */
     public void connectToServer(ServerInfo target) {
         this.minecraft.openScreen(new ConnectScreen(new MultiplayerScreen(new TitleScreen()), this.minecraft, target));
     }
 
+    /**
+     * Disconnects the client from the current server.
+     *
+     * @param reason Why the client disconnected.
+     */
     public void disconnectFromServer(Text reason) {
         if (!Boolean.parseBoolean(SettingsManager.loadSetting("reconnectOnDamageLogout"))) {
             isDisconnecting = true;

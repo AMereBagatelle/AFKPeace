@@ -9,6 +9,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
+    /**
+     * Used to activate the reconnection when the reconnection thread is done.
+     */
     @Inject(method = "tick", at = @At("HEAD"))
     public void onTick(CallbackInfo ci) {
         ConnectionManager connectionManager = ConnectionManager.INSTANCE;
