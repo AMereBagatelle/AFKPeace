@@ -80,7 +80,7 @@ public class ConnectionManager {
             this.minecraft.disconnect();
             this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceDisconnect", reason));
         } else {
-            startReconnect(AFKPeace.currentServerEntry);
+            if (AFKPeace.currentServerEntry != null) startReconnect(AFKPeace.currentServerEntry);
         }
     }
 }
