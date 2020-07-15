@@ -9,7 +9,8 @@
   ],
   "contact": {
     "homepage": "https://amerebagatelle.github.io/",
-    "sources": "https://github.com/AMereBagatelle/AFKPeace"
+    "sources": "https://github.com/AMereBagatelle/AFKPeace",
+    "issues": "https://github.com/AMereBagatelle/AFKPeace/issues"
   },
   "license": "MIT",
   "icon": "assets/afkpeace/icon.png",
@@ -21,6 +22,9 @@
     "cotton-client-commands": [
       "amerebagatelle.github.io.afkpeace.commands.ConfigCommand"
     ]
+  },
+    "custom": {
+    "modmenu:clientsideOnly": true
   },
   "mixins": [
     "afkpeace.mixins.json"
