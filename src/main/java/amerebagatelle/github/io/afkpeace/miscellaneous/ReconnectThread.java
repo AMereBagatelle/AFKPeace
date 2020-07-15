@@ -33,8 +33,10 @@ public class ReconnectThread extends Thread {
             try {
                 connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
                 connectionAttempt.close();
-                synchronized (this) {
-                    ConnectionManager.INSTANCE.isReconnecting = true;
+                if (ConnectionManager.INSTANCE.checkSessionActive()) {
+                    synchronized (this) {
+                        ConnectionManager.INSTANCE.isReconnecting = true;
+                    }
                 }
                 break;
             } catch (IOException e) {

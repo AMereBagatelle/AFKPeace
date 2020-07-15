@@ -2,8 +2,12 @@ package amerebagatelle.github.io.afkpeace;
 
 import amerebagatelle.github.io.afkpeace.miscellaneous.ReconnectThread;
 import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
+import com.mojang.authlib.Agent;
+import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
+import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
@@ -14,11 +18,16 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
+import java.util.UUID;
+
 @Environment(EnvType.CLIENT)
 public class ConnectionManager {
     public static ConnectionManager INSTANCE = new ConnectionManager();
     private final MinecraftClient minecraft;
     private ReconnectThread reconnectThread;
+
+    private static final YggdrasilAuthenticationService yas = new YggdrasilAuthenticationService(MinecraftClient.getInstance().getNetworkProxy(), UUID.randomUUID().toString());
+    private static final YggdrasilUserAuthentication yua = (YggdrasilUserAuthentication) yas.createUserAuthentication(Agent.MINECRAFT);
 
     public boolean isDisconnecting = false;
     public boolean isReconnecting = false;
@@ -82,5 +91,9 @@ public class ConnectionManager {
         } else {
             if (AFKPeace.currentServerEntry != null) startReconnect(AFKPeace.currentServerEntry);
         }
+    }
+
+    public boolean checkSessionActive() {
+        return yua.isLoggedIn() || FabricLoader.getInstance().isDevelopmentEnvironment();
     }
 }
