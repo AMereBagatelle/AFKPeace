@@ -2,13 +2,13 @@
 
 The mod to give you peace of mind while AFK!
 
-To use:
-You will need to install Fabric API alongside this.  Just drop it in your mods folder like any other mod.
-
 If you have problems, you can contact me on discord, `AMereBagatelle#6536`.
 I usually hang out in the fabric discord, so you can catch me there.
 
-You can find the latest builds at https://www.curseforge.com/minecraft/mc-mods/afkpeace
+You can find the latest builds on Curseforge at https://www.curseforge.com/minecraft/mc-mods/afkpeace
+
+### Installation
+Simply drop the mod in your `mods` folder.
 
 ### Current Features:
 AFK Disconnect Protection:  Will try to reconnect on being disconnected.
@@ -20,7 +20,7 @@ Configuration via client commands
 ### Future Features:
 Auto-AFK, turns on all features when it detects a AFK session
 
-Suggest things that you think might be useful!  Use the github issues tab and add the "enhancement" tag.
+Suggest things that you think might be useful!  Use the github issues tab and ask for it!
 
 ### Configuration Documentation
 There is only one command, `/afkpeace`.
