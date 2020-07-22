@@ -11,14 +11,16 @@ You can find the latest builds on Curseforge at https://www.curseforge.com/minec
 Simply drop the mod in your `mods` folder.
 
 ### Current Features:
-AFK Disconnect Protection:  Will try to reconnect on being disconnected.
+- AFK Disconnect Protection:  Will try to reconnect on being disconnected.
 
-Logout on being attacked
+- Logout on being attacked
 
-Configuration via client commands
+- Configuration via client commands
 
 ### Future Features:
-Auto-AFK, turns on all features when it detects a AFK session
+- Auto-AFK, turns on all features when it detects a AFK session
+
+- A GUI for configuration, to be accessed through Modmenu
 
 Suggest things that you think might be useful!  Use the github issues tab and ask for it!
 
