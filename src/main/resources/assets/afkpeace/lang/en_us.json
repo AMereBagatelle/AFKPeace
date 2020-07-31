@@ -17,5 +17,6 @@
   "reconnectOnDamageLogout.set": "Set reconnectOnDamageLogout to %s",
   "reconnectOnDamageLogout.get": "reconnectOnDamageLogout is set to %s",
   "reconnect": "Reconnect",
-  "reconnecting": "Reconnecting"
+  "reconnecting": "Reconnecting",
+  "afkpeace.disconnectscreen.time": "Time of disconnect: %s"
 }
