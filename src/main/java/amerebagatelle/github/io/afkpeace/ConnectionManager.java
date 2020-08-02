@@ -47,7 +47,7 @@ public class ConnectionManager {
         this.minecraft.disconnect();
         reconnectThread = new ReconnectThread(target);
         reconnectThread.start();
-        this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceReconnection", new TranslatableText("reconnect.reason")));
+        this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), new LiteralText("AFKPeaceReconnection"), new TranslatableText("reconnect.reason")));
     }
 
     /**
@@ -65,7 +65,7 @@ public class ConnectionManager {
             reconnectThread.join();
         } catch (InterruptedException ignored) {
         }
-        this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceDisconnect", new LiteralText("Couldn't reconnect.")));
+        this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), new LiteralText("AFKPeaceDisconnect"), new LiteralText("Couldn't reconnect.")));
     }
 
     /**
@@ -87,7 +87,7 @@ public class ConnectionManager {
             isDisconnecting = true;
             this.minecraft.getNetworkHandler().getConnection().disconnect(reason);
             this.minecraft.disconnect();
-            this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), "AFKPeaceDisconnect", reason));
+            this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), new LiteralText("AFKPeaceDisconnect"), reason));
         } else {
             if (AFKPeace.currentServerEntry != null) startReconnect(AFKPeace.currentServerEntry);
         }
