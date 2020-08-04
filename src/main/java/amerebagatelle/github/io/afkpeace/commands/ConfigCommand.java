@@ -47,6 +47,17 @@ public class ConfigCommand implements ClientCommandPlugin {
                                     sendPrivateMessage(new TranslatableText("damageLogoutEnabled.set", SettingsManager.loadSetting("damageLogoutEnabled")));
                                     return 1;
                                 })))
+                .then(literal("autoAfk")
+                        .executes(ctx -> {
+                            sendPrivateMessage(new TranslatableText("autoAfk.get", SettingsManager.loadSetting("autoAfk")));
+                            return 1;
+                        })
+                        .then(argument("setpoint", bool())
+                                .executes(ctx -> {
+                                    SettingsManager.writeSetting("autoAfk", Boolean.toString(BoolArgumentType.getBool(ctx, "setpoint")));
+                                    sendPrivateMessage(new TranslatableText("autoAfk.set", SettingsManager.loadSetting("autoAfk")));
+                                    return 1;
+                                })))
                 .then(literal("reconnectOnDamageLogout")
                         .executes(ctx -> {
                             sendPrivateMessage(new TranslatableText("reconnectOnDamageLogout.get", SettingsManager.loadSetting("reconnectOnDamageLogout")));
