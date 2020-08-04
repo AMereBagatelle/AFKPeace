@@ -16,6 +16,8 @@
   "secondsBetweenReconnectionAttempts.get": "secondsBetweenReconnectionAttempts is set to %s",
   "reconnectOnDamageLogout.set": "Set reconnectOnDamageLogout to %s",
   "reconnectOnDamageLogout.get": "reconnectOnDamageLogout is set to %s",
+  "autoAfk.set": "Set autoAfk to %s",
+  "autoAfk.get": "autoAfk is set to %s",
   "reconnect": "Reconnect",
   "reconnecting": "Reconnecting",
   "afkpeace.disconnectscreen.time": "Time of disconnect: %s"

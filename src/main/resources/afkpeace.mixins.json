@@ -4,6 +4,7 @@
   "package": "amerebagatelle.github.io.afkpeace.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "InputMixin",
     "MinecraftClientMixin"
   ],
   "client": [

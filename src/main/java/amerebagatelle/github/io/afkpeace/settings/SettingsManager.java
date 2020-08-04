@@ -12,7 +12,8 @@ public class SettingsManager {
             {"reconnectAttemptNumber", "10"},
             {"damageLogoutEnabled", "false"},
             {"reconnectOnDamageLogout", "false"},
-            {"damageLogoutTolerance", "20"}
+            {"damageLogoutTolerance", "20"},
+            {"autoAfk", "false"}
     };
 
     /**
