@@ -23,7 +23,7 @@
       "amerebagatelle.github.io.afkpeace.commands.ConfigCommand"
     ]
   },
-    "custom": {
+  "custom": {
     "modmenu:clientsideOnly": true
   },
   "mixins": [
