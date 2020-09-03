@@ -43,6 +43,7 @@ public class ConnectionManager {
      */
     // Handling the reconnect feature
     public void startReconnect(ServerInfo target) {
+        assert minecraft.getNetworkHandler() != null;
         this.minecraft.getNetworkHandler().getConnection().disconnect(new TranslatableText("reconnecting"));
         this.minecraft.disconnect();
         reconnectThread = new ReconnectThread(target);
