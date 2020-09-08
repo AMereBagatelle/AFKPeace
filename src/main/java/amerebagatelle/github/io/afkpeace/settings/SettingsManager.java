@@ -51,7 +51,7 @@ public class SettingsManager {
                 Properties prop = new Properties();
                 prop.load(new BufferedReader(new FileReader(settingsFile)));
                 for (String[] setting : settings) {
-                    if (prop.getProperty(setting[0]) != null) {
+                    if (prop.getProperty(setting[0]) == null) {
                         prop.put(setting[0], setting[1]);
                     }
                 }
