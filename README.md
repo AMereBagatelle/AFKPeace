@@ -2,10 +2,12 @@
 
 The mod to give you peace of mind while AFK!
 
+### Support
 Please open a issue on the issue tracker if you have found a bug.
-Alternatively, if you simply have a question, you can ping me on discord, `AMereBagatelle`.
-You will be able to find me in the Fabric Discord.
 
+Alternatively, join my discord: https://discord.gg/quvzkaV
+
+### Builds
 You can find the latest builds on Curseforge at https://www.curseforge.com/minecraft/mc-mods/afkpeace
 
 ### Installation
