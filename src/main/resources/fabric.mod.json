@@ -18,10 +18,10 @@
   "entrypoints": {
     "client": [
       "amerebagatelle.github.io.afkpeace.AFKPeace"
+    ],
+    "modmenu": [
+      "amerebagatelle.github.io.afkpeace.modmenu.ModMenuEntrypointImpl"
     ]
-  },
-  "custom": {
-    "modmenu:clientsideOnly": true
   },
   "mixins": [
     "afkpeace.mixins.json"
@@ -29,5 +29,8 @@
   "depends": {
     "fabricloader": ">=0.7.4",
     "minecraft": "1.16.x"
+  },
+  "recommends": {
+    "modmenu": "*"
   }
 }

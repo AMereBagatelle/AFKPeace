@@ -7,13 +7,13 @@ public class SettingsManager {
     public static File settingsFile = new File("config/afkpeace.properties");
 
     public static final String[][] settings = {
+            {"autoAfk", "false"},
             {"reconnectEnabled", "false"},
-            {"secondsBetweenReconnectAttempts", "3"},
-            {"reconnectAttemptNumber", "10"},
             {"damageLogoutEnabled", "false"},
             {"reconnectOnDamageLogout", "false"},
-            {"damageLogoutTolerance", "20"},
-            {"autoAfk", "false"}
+            {"secondsBetweenReconnectAttempts", "3"},
+            {"reconnectAttemptNumber", "10"},
+            {"damageLogoutTolerance", "20"}
     };
 
     /**
