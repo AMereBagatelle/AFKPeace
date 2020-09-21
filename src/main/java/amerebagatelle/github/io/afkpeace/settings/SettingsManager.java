@@ -84,6 +84,10 @@ public class SettingsManager {
         }
     }
 
+    public static boolean loadBooleanSetting(String setting) {
+        return Boolean.parseBoolean(loadSetting(setting));
+    }
+
     /**
      * @param key      Name of setting to write to.
      * @param setpoint What to set the setting to.
