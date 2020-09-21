@@ -18,9 +18,6 @@
   "entrypoints": {
     "client": [
       "amerebagatelle.github.io.afkpeace.AFKPeace"
-    ],
-    "cotton-client-commands": [
-      "amerebagatelle.github.io.afkpeace.commands.ConfigCommand"
     ]
   },
   "custom": {
@@ -31,7 +28,6 @@
   ],
   "depends": {
     "fabricloader": ">=0.7.4",
-    "minecraft": "1.16.x",
-    "cotton-client-commands": "^1.0.0"
+    "minecraft": "1.16.x"
   }
 }
