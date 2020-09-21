@@ -12,8 +12,10 @@ import net.minecraft.text.Text;
 import java.util.function.Predicate;
 
 public class AFKPeaceConfig extends Screen {
+    private final Screen parent;
+
     private final Predicate<String> numberFilter = (string) -> {
-        if (string.length() == 0 || string.equals("-")) {
+        if (string.length() == 0) {
             return true;
         } else {
             try {
@@ -32,10 +34,11 @@ public class AFKPeaceConfig extends Screen {
 
     private TextFieldWidget secondsBetweenAttemptsField;
     private TextFieldWidget reconnectAttemptNumberField;
-    private TextFieldWidget damageLogoutAttemptField;
+    private TextFieldWidget damageLogoutToleranceField;
 
-    public AFKPeaceConfig() {
+    public AFKPeaceConfig(Screen parent) {
         super(new LiteralText("AFKPeace Config"));
+        this.parent = parent;
     }
 
     @Override
@@ -53,6 +56,23 @@ public class AFKPeaceConfig extends Screen {
         reconnectOnDamageToggle = addButton(new ButtonWidget(10, 120, 170, 20, new LiteralText(""), (onPress) -> {
             SettingsManager.writeSetting("reconnectOnDamageLogout", Boolean.toString(!SettingsManager.loadBooleanSetting("reconnectOnDamageLogout")));
         }));
+
+        addButton(new ButtonWidget(width - 110, height - 30, 100, 20, new LiteralText("Exit"), (onPress) -> {
+            MinecraftClient.getInstance().openScreen(parent);
+        }));
+
+        secondsBetweenAttemptsField = addChild(new TextFieldWidget(textRenderer, 10, 170, 170, 20, new LiteralText("")));
+        secondsBetweenAttemptsField.setTextPredicate(numberFilter);
+        secondsBetweenAttemptsField.setText(SettingsManager.loadSetting("secondsBetweenReconnectAttempts"));
+
+        reconnectAttemptNumberField = addChild(new TextFieldWidget(textRenderer, 10, 220, 170, 20, new LiteralText("")));
+        reconnectAttemptNumberField.setTextPredicate(numberFilter);
+        reconnectAttemptNumberField.setText(SettingsManager.loadSetting("reconnectAttemptNumber"));
+
+        damageLogoutToleranceField = addChild(new TextFieldWidget(textRenderer, 10, 270, 170, 20, new LiteralText("")));
+        damageLogoutToleranceField.setTextPredicate(numberFilter);
+        damageLogoutToleranceField.setText(SettingsManager.loadSetting("damageLogoutTolerance"));
+
         updateButtons();
     }
 
@@ -61,6 +81,19 @@ public class AFKPeaceConfig extends Screen {
         renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
         drawCenteredString(matrices, textRenderer, "AFKPeace Config", width / 2, 10, 16777215);
+
+        drawStringWithShadow(matrices, textRenderer, "secondsBetweenReconnectAttempts", 10, 160, 16777215);
+        secondsBetweenAttemptsField.render(matrices, mouseX, mouseY, delta);
+        SettingsManager.writeSetting("secondsBetweenReconnectAttempts", secondsBetweenAttemptsField.getText());
+
+        drawStringWithShadow(matrices, textRenderer, "reconnectAttemptNumber", 10, 210, 16777215);
+        reconnectAttemptNumberField.render(matrices, mouseX, mouseY, delta);
+        SettingsManager.writeSetting("reconnectAttemptNumber", reconnectAttemptNumberField.getText());
+
+        drawStringWithShadow(matrices, textRenderer, "damageLogoutTolerance", 10, 260, 16777215);
+        damageLogoutToleranceField.render(matrices, mouseX, mouseY, delta);
+        SettingsManager.writeSetting("damageLogoutTolerance", damageLogoutToleranceField.getText());
+
         updateButtons();
     }
 

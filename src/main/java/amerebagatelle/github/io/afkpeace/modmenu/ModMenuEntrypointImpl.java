@@ -7,6 +7,6 @@ import io.github.prospector.modmenu.api.ModMenuApi;
 public class ModMenuEntrypointImpl implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return (screen) -> new AFKPeaceConfig();
+        return AFKPeaceConfig::new;
     }
 }
