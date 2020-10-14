@@ -32,6 +32,7 @@ public class ReconnectThread extends Thread {
         for (int i = 0; i < timesToAttempt; i++) {
             Socket connectionAttempt;
             try {
+                Thread.sleep(secondsBetweenAttempts * 1000);
                 connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
                 connectionAttempt.close();
                 synchronized (this) {
@@ -39,12 +40,8 @@ public class ReconnectThread extends Thread {
                     ConnectionManager.INSTANCE.isReconnecting = true;
                 }
                 break;
-            } catch (IOException e) {
-                try {
-                    AFKPeace.LOGGER.info("Attempt failed.  Reason: " + e.getMessage() + " Attempt #: " + i + 1);
-                    Thread.sleep(secondsBetweenAttempts * 1000);
-                } catch (InterruptedException ignored) {
-                }
+            } catch (IOException | InterruptedException e) {
+                AFKPeace.LOGGER.info("Attempt failed.  Reason: " + e.getMessage() + " Attempt #: " + i + 1);
             }
         }
         if (!ConnectionManager.INSTANCE.isReconnecting) {
