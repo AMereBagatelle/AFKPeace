@@ -11,10 +11,6 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	maven {
-		name = 'CottonMC'
-		url = 'https://server.bbkr.space:443/artifactory/libs-release'
-	}
 }
 
 dependencies {
