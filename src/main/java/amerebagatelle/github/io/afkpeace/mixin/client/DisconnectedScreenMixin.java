@@ -40,6 +40,8 @@ public abstract class DisconnectedScreenMixin extends Screen {
 
     @Inject(method = "render", at = @At("TAIL"))
     public void onRender(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+        if (AFKPeaceClient.disabled)
+            drawCenteredString(matrices, textRenderer, I18n.translate("afkpeace.disconnectscreen.disabled"), width / 2, height - 70, 16777215);
         drawCenteredString(matrices, textRenderer, I18n.translate("afkpeace.disconnectscreen.time", timeOfDisconnect), width / 2, height - 50, 16777215);
     }
 }

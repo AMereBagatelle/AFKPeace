@@ -16,7 +16,7 @@ public class ServerNetworkHandler {
     public void processPacket(CustomPayloadC2SPacketFake packet, MinecraftServer server) {
         Identifier channel = packet.getChannel();
         PacketByteBuf buf = packet.getData();
-        if (channel == Packets.AFKPEACE_HELLO) {
+        if (channel.equals(Packets.AFKPEACE_HELLO)) {
             onHello(buf, server);
         }
     }

@@ -20,6 +20,7 @@ public class ServerNetworkHandlerMixin {
     @Inject(method = "onCustomPayload", at = @At("HEAD"), cancellable = true)
     public void receivePacket(CustomPayloadC2SPacket packet, CallbackInfo ci) {
         CustomPayloadC2SPacketFake packetFake = (CustomPayloadC2SPacketFake) packet;
+        System.out.println(packetFake.getChannel());
         if (packetFake.getChannel().getNamespace().equals("afkpeace")) {
             ServerNetworkHandler.INSTANCE.processPacket(packetFake, server);
             ci.cancel();

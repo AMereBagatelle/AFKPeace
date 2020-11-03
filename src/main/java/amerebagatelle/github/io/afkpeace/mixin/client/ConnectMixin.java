@@ -34,7 +34,7 @@ public abstract class ConnectMixin {
      * Gathers server data so that we know what to reconnect to.
      */
     @Environment(EnvType.CLIENT)
-    @Inject(method = "onGameJoin", at = @At("TAIL"))
+    @Inject(method = "onGameJoin", at = @At("RETURN"))
     private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
         AFKPeaceClient.currentServerEntry = client.getCurrentServerEntry();
         AFKPeaceClient.disabled = false;
@@ -50,18 +50,20 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method = "onDisconnected", at = @At("HEAD"), cancellable = true)
     public void tryReconnect(Text reason, CallbackInfo cbi) {
-        ConnectionManager connectionManager = ConnectionManager.INSTANCE;
-        ServerInfo target = AFKPeaceClient.currentServerEntry;
-        String reasonString = reason.toString();
-        if (Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled"))) {
-            if (!reasonString.contains("multiplayer.disconnect.kicked")) {
-                if (!connectionManager.isDisconnecting) {
-                    if (target != null) {
-                        connectionManager.startReconnect(target);
-                        cbi.cancel();
+        if (!AFKPeaceClient.disabled) {
+            ConnectionManager connectionManager = ConnectionManager.INSTANCE;
+            ServerInfo target = AFKPeaceClient.currentServerEntry;
+            String reasonString = reason.toString();
+            if (Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled"))) {
+                if (!reasonString.contains("multiplayer.disconnect.kicked")) {
+                    if (!connectionManager.isDisconnecting) {
+                        if (target != null) {
+                            connectionManager.startReconnect(target);
+                            cbi.cancel();
+                        }
+                    } else {
+                        connectionManager.isDisconnecting = false;
                     }
-                } else {
-                    connectionManager.isDisconnecting = false;
                 }
             }
         }
@@ -73,14 +75,16 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method = "onHealthUpdate", at = @At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
-        if (Boolean.parseBoolean(SettingsManager.loadSetting("damageLogoutEnabled"))) {
-            try {
-                if (packet.getHealth() < lastHealth && packet.getHealth() < Integer.parseInt(SettingsManager.loadSetting("damageLogoutTolerance"))) {
-                    ConnectionManager.INSTANCE.disconnectFromServer(new TranslatableText("reason.damagelogout"));
+        if (!AFKPeaceClient.disabled) {
+            if (Boolean.parseBoolean(SettingsManager.loadSetting("damageLogoutEnabled"))) {
+                try {
+                    if (packet.getHealth() < lastHealth && packet.getHealth() < Integer.parseInt(SettingsManager.loadSetting("damageLogoutTolerance"))) {
+                        ConnectionManager.INSTANCE.disconnectFromServer(new TranslatableText("reason.damagelogout"));
+                    }
+                } catch (NullPointerException ignored) {
                 }
-            } catch (NullPointerException ignored) {
             }
+            lastHealth = packet.getHealth();
         }
-        lastHealth = packet.getHealth();
     }
 }

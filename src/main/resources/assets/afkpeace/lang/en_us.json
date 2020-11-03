@@ -20,5 +20,6 @@
   "autoAfk.get": "autoAfk is set to %s",
   "reconnect": "Reconnect",
   "reconnecting": "Reconnecting",
-  "afkpeace.disconnectscreen.time": "Time of disconnect: %s"
+  "afkpeace.disconnectscreen.time": "Time of disconnect: %s",
+  "afkpeace.disconnectscreen.disabled": "AFKPeace has been disabled by server."
 }
