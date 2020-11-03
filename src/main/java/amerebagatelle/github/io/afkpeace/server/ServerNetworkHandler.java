@@ -10,11 +10,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-import java.util.ArrayList;
-
 public class ServerNetworkHandler {
     public static final ServerNetworkHandler INSTANCE = new ServerNetworkHandler();
-    public ArrayList<ServerPlayerEntity> connectedClients;
 
     public void processPacket(CustomPayloadC2SPacketFake packet, MinecraftServer server) {
         Identifier channel = packet.getChannel();

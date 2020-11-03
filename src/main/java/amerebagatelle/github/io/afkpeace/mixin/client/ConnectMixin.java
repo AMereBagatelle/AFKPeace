@@ -2,12 +2,16 @@ package amerebagatelle.github.io.afkpeace.mixin.client;
 
 import amerebagatelle.github.io.afkpeace.client.AFKPeaceClient;
 import amerebagatelle.github.io.afkpeace.client.ConnectionManager;
+import amerebagatelle.github.io.afkpeace.common.Packets;
 import amerebagatelle.github.io.afkpeace.common.SettingsManager;
+import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.text.Text;
@@ -17,6 +21,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Objects;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ConnectMixin {
@@ -28,9 +34,14 @@ public abstract class ConnectMixin {
      * Gathers server data so that we know what to reconnect to.
      */
     @Environment(EnvType.CLIENT)
-    @Inject(method = "onGameJoin", at = @At("HEAD"))
+    @Inject(method = "onGameJoin", at = @At("TAIL"))
     private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
-        AFKPeaceClient.currentServerEntry = MinecraftClient.getInstance().getCurrentServerEntry();
+        AFKPeaceClient.currentServerEntry = client.getCurrentServerEntry();
+        AFKPeaceClient.disabled = false;
+        PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+        Objects.requireNonNull(client.player);
+        buf.writeUuid(client.player.getUuid());
+        client.player.networkHandler.getConnection().send(new CustomPayloadC2SPacket(Packets.AFKPEACE_HELLO, buf));
     }
 
     /**

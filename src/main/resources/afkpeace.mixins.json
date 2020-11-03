@@ -3,9 +3,8 @@
   "minVersion": "0.8",
   "package": "amerebagatelle.github.io.afkpeace.mixin",
   "compatibilityLevel": "JAVA_8",
-  "mixins": [
-  ],
   "client": [
+    "client.ClientPlayNetworkHandlerMixin",
     "client.ConnectMixin",
     "client.DisconnectedScreenMixin",
     "client.InputMixin",

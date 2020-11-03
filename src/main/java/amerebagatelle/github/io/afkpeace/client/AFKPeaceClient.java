@@ -14,6 +14,7 @@ public class AFKPeaceClient implements ClientModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	public static ServerInfo currentServerEntry;
+	public static boolean disabled;
 
 	@Override
 	public void onInitializeClient() {
