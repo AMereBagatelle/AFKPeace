@@ -1,4 +1,4 @@
-package amerebagatelle.github.io.afkpeace.client.settings;
+package amerebagatelle.github.io.afkpeace.common;
 
 import java.io.*;
 import java.util.Properties;
@@ -6,7 +6,7 @@ import java.util.Properties;
 public class SettingsManager {
     public static File settingsFile = new File("config/afkpeace.properties");
 
-    public static final String[][] settings = {
+    public static final String[][] settingsClient = {
             {"autoAfk", "false"},
             {"reconnectEnabled", "false"},
             {"damageLogoutEnabled", "false"},
@@ -16,10 +16,14 @@ public class SettingsManager {
             {"damageLogoutTolerance", "20"}
     };
 
+    public static final String[][] settingsServer = {
+            {"disableAFKPeace", "false"}
+    };
+
     /**
      * Initialize the settings file on startup.
      */
-    public static void initSettings() {
+    public static void initSettingsClient() {
         // Init settings file if it doesn't exist
         if (!settingsFile.exists()) {
             File configDir = new File("config/");
@@ -32,7 +36,7 @@ public class SettingsManager {
 
                 if (fileCreated) {
                     Properties prop = new Properties();
-                    for (String[] setting : settings) {
+                    for (String[] setting : settingsClient) {
                         prop.put(setting[0], setting[1]);
                     }
 
@@ -50,7 +54,7 @@ public class SettingsManager {
             try {
                 Properties prop = new Properties();
                 prop.load(new BufferedReader(new FileReader(settingsFile)));
-                for (String[] setting : settings) {
+                for (String[] setting : settingsClient) {
                     if (prop.getProperty(setting[0]) == null) {
                         prop.put(setting[0], setting[1]);
                     }
@@ -63,6 +67,13 @@ public class SettingsManager {
                 throw new RuntimeException("Could not create settings file for AFKPeace!");
             }
         }
+    }
+
+    /**
+     * Init the settings file on server startup
+     */
+    public static void initSettingsServer() {
+
     }
 
     /**

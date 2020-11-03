@@ -1,6 +1,6 @@
 package amerebagatelle.github.io.afkpeace.client.gui;
 
-import amerebagatelle.github.io.afkpeace.client.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.common.SettingsManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.widget.TextFieldWidget;

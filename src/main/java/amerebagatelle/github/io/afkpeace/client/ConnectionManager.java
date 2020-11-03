@@ -1,7 +1,7 @@
 package amerebagatelle.github.io.afkpeace.client;
 
 import amerebagatelle.github.io.afkpeace.client.miscellaneous.ReconnectThread;
-import amerebagatelle.github.io.afkpeace.client.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.common.SettingsManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;

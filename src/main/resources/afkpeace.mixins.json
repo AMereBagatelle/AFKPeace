@@ -1,15 +1,19 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "amerebagatelle.github.io.afkpeace.client.mixin",
+  "package": "amerebagatelle.github.io.afkpeace",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "InputMixin",
-    "MinecraftClientMixin"
   ],
   "client": [
-    "ConnectMixin",
-    "DisconnectedScreenMixin"
+    "client.mixin.ConnectMixin",
+    "client.mixin.DisconnectedScreenMixin",
+    "client.mixin.InputMixin",
+    "client.mixin.MinecraftClientMixin"
+  ],
+  "server": [
+    "server.mixin.CustomPayloadC2SPacketFake",
+    "server.mixin.ServerNetworkHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

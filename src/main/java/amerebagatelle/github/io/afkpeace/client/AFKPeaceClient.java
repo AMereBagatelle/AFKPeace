@@ -1,6 +1,6 @@
 package amerebagatelle.github.io.afkpeace.client;
 
-import amerebagatelle.github.io.afkpeace.client.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.common.SettingsManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,6 +18,6 @@ public class AFKPeaceClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		LOGGER.info("AFKPeace " + FabricLoader.getInstance().getModContainer("afkpeace").get().getMetadata().getVersion() + " Initialized");
-		SettingsManager.initSettings();
+		SettingsManager.initSettingsClient();
 	}
 }
