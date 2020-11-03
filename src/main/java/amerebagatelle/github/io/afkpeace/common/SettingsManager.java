@@ -77,6 +77,7 @@ public class SettingsManager {
      * Init the settings file on server startup
      */
     public static void initSettingsServer() {
+        settingsFile = new File("config/afkpeace_server.properties");
         initSettingsFile(settingsServer);
     }
 

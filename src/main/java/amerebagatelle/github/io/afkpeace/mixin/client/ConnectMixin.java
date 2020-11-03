@@ -1,4 +1,4 @@
-package amerebagatelle.github.io.afkpeace.client.mixin;
+package amerebagatelle.github.io.afkpeace.mixin.client;
 
 import amerebagatelle.github.io.afkpeace.client.AFKPeaceClient;
 import amerebagatelle.github.io.afkpeace.client.ConnectionManager;

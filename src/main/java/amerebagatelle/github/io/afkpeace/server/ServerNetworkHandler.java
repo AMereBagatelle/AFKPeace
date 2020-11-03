@@ -2,7 +2,7 @@ package amerebagatelle.github.io.afkpeace.server;
 
 import amerebagatelle.github.io.afkpeace.common.Packets;
 import amerebagatelle.github.io.afkpeace.common.SettingsManager;
-import amerebagatelle.github.io.afkpeace.server.mixin.CustomPayloadC2SPacketFake;
+import amerebagatelle.github.io.afkpeace.mixin.server.CustomPayloadC2SPacketFake;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
