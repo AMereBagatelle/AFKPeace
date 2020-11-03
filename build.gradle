@@ -11,6 +11,10 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+	maven {
+		name = "JitPack"
+		url = "https://jitpack.io"
+	}
 }
 
 dependencies {
@@ -31,7 +35,9 @@ dependencies {
 	// Optimization mods
 	modRuntime "com.github.jellysquid3:sodium:1.16.x~stable-SNAPSHOT"
 	modRuntime "com.github.jellysquid3:lithium-fabric:mc1.16.3-0.5.6"
-	modRuntime "com.github.jellysquid3:phosphor-fabric:1.16.x~dev-SNAPSHOT"
+	modRuntime ("com.github.SuperCoder7979:databreaker:${databreaker_version}") {
+		exclude module: "fabric-loader"
+	}
 
 	modCompile ("io.github.prospector:modmenu:${project.mod_menu_version}") {
 		exclude module: "fabric-api"
