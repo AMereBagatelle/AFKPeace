@@ -20,10 +20,7 @@ public class SettingsManager {
             {"disableAFKPeace", "false"}
     };
 
-    /**
-     * Initialize the settings file on startup.
-     */
-    public static void initSettingsClient() {
+    private static void initSettingsFile(String[][] settings) {
         // Init settings file if it doesn't exist
         if (!settingsFile.exists()) {
             File configDir = new File("config/");
@@ -36,7 +33,7 @@ public class SettingsManager {
 
                 if (fileCreated) {
                     Properties prop = new Properties();
-                    for (String[] setting : settingsClient) {
+                    for (String[] setting : settings) {
                         prop.put(setting[0], setting[1]);
                     }
 
@@ -54,7 +51,7 @@ public class SettingsManager {
             try {
                 Properties prop = new Properties();
                 prop.load(new BufferedReader(new FileReader(settingsFile)));
-                for (String[] setting : settingsClient) {
+                for (String[] setting : settings) {
                     if (prop.getProperty(setting[0]) == null) {
                         prop.put(setting[0], setting[1]);
                     }
@@ -70,10 +67,17 @@ public class SettingsManager {
     }
 
     /**
+     * Initialize the settings file on startup.
+     */
+    public static void initSettingsClient() {
+        initSettingsFile(settingsClient);
+    }
+
+    /**
      * Init the settings file on server startup
      */
     public static void initSettingsServer() {
-
+        initSettingsFile(settingsServer);
     }
 
     /**
