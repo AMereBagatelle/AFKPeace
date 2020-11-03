@@ -1,4 +1,4 @@
-package amerebagatelle.github.io.afkpeace.settings;
+package amerebagatelle.github.io.afkpeace.client.settings;
 
 import java.io.*;
 import java.util.Properties;

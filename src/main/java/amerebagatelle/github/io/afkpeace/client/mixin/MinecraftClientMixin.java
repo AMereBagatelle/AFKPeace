@@ -1,8 +1,8 @@
-package amerebagatelle.github.io.afkpeace.mixin;
+package amerebagatelle.github.io.afkpeace.client.mixin;
 
-import amerebagatelle.github.io.afkpeace.AFKManager;
-import amerebagatelle.github.io.afkpeace.ConnectionManager;
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.client.AFKManager;
+import amerebagatelle.github.io.afkpeace.client.ConnectionManager;
+import amerebagatelle.github.io.afkpeace.client.settings.SettingsManager;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

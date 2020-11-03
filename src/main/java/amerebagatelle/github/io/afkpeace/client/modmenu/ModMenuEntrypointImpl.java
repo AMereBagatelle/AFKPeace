@@ -1,6 +1,6 @@
-package amerebagatelle.github.io.afkpeace.modmenu;
+package amerebagatelle.github.io.afkpeace.client.modmenu;
 
-import amerebagatelle.github.io.afkpeace.gui.AFKPeaceConfig;
+import amerebagatelle.github.io.afkpeace.client.gui.AFKPeaceConfig;
 import io.github.prospector.modmenu.api.ConfigScreenFactory;
 import io.github.prospector.modmenu.api.ModMenuApi;
 

@@ -1,8 +1,8 @@
-package amerebagatelle.github.io.afkpeace.miscellaneous;
+package amerebagatelle.github.io.afkpeace.client.miscellaneous;
 
-import amerebagatelle.github.io.afkpeace.AFKPeace;
-import amerebagatelle.github.io.afkpeace.ConnectionManager;
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.client.AFKPeaceClient;
+import amerebagatelle.github.io.afkpeace.client.ConnectionManager;
+import amerebagatelle.github.io.afkpeace.client.settings.SettingsManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -36,12 +36,12 @@ public class ReconnectThread extends Thread {
                 connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
                 connectionAttempt.close();
                 synchronized (this) {
-                    AFKPeace.LOGGER.info("Reconnecting to server.");
+                    AFKPeaceClient.LOGGER.info("Reconnecting to server.");
                     ConnectionManager.INSTANCE.isReconnecting = true;
                 }
                 break;
             } catch (IOException | InterruptedException e) {
-                AFKPeace.LOGGER.info("Attempt failed.  Reason: " + e.getMessage() + " Attempt #: " + i + 1);
+                AFKPeaceClient.LOGGER.info("Attempt failed.  Reason: " + e.getMessage() + " Attempt #: " + i + 1);
             }
         }
         if (!ConnectionManager.INSTANCE.isReconnecting) {

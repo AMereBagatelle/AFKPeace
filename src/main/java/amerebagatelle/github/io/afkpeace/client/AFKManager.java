@@ -1,6 +1,6 @@
-package amerebagatelle.github.io.afkpeace;
+package amerebagatelle.github.io.afkpeace.client;
 
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.client.settings.SettingsManager;
 
 public class AFKManager {
     public static AFKManager INSTANCE = new AFKManager();

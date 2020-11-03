@@ -14,13 +14,13 @@
   },
   "license": "MIT",
   "icon": "assets/afkpeace/icon.png",
-  "environment": "client",
+  "environment": "*",
   "entrypoints": {
     "client": [
-      "amerebagatelle.github.io.afkpeace.AFKPeace"
+      "amerebagatelle.github.io.afkpeace.client.AFKPeaceClient"
     ],
     "modmenu": [
-      "amerebagatelle.github.io.afkpeace.modmenu.ModMenuEntrypointImpl"
+      "amerebagatelle.github.io.afkpeace.client.modmenu.ModMenuEntrypointImpl"
     ]
   },
   "mixins": [

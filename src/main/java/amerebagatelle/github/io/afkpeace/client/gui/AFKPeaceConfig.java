@@ -1,4 +1,4 @@
-package amerebagatelle.github.io.afkpeace.gui;
+package amerebagatelle.github.io.afkpeace.client.gui;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;

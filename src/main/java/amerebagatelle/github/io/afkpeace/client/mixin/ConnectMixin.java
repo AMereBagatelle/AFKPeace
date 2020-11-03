@@ -1,8 +1,8 @@
-package amerebagatelle.github.io.afkpeace.mixin;
+package amerebagatelle.github.io.afkpeace.client.mixin;
 
-import amerebagatelle.github.io.afkpeace.AFKPeace;
-import amerebagatelle.github.io.afkpeace.ConnectionManager;
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.client.AFKPeaceClient;
+import amerebagatelle.github.io.afkpeace.client.ConnectionManager;
+import amerebagatelle.github.io.afkpeace.client.settings.SettingsManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -30,7 +30,7 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method = "onGameJoin", at = @At("HEAD"))
     private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
-        AFKPeace.currentServerEntry = MinecraftClient.getInstance().getCurrentServerEntry();
+        AFKPeaceClient.currentServerEntry = MinecraftClient.getInstance().getCurrentServerEntry();
     }
 
     /**
@@ -40,7 +40,7 @@ public abstract class ConnectMixin {
     @Inject(method = "onDisconnected", at = @At("HEAD"), cancellable = true)
     public void tryReconnect(Text reason, CallbackInfo cbi) {
         ConnectionManager connectionManager = ConnectionManager.INSTANCE;
-        ServerInfo target = AFKPeace.currentServerEntry;
+        ServerInfo target = AFKPeaceClient.currentServerEntry;
         String reasonString = reason.toString();
         if (Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled"))) {
             if (!reasonString.contains("multiplayer.disconnect.kicked")) {

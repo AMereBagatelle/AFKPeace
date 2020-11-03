@@ -1,6 +1,6 @@
-package amerebagatelle.github.io.afkpeace;
+package amerebagatelle.github.io.afkpeace.client;
 
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.client.settings.SettingsManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Environment(EnvType.CLIENT)
-public class AFKPeace implements ClientModInitializer {
+public class AFKPeaceClient implements ClientModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	public static ServerInfo currentServerEntry;

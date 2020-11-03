@@ -1,8 +1,8 @@
-package amerebagatelle.github.io.afkpeace.mixin;
+package amerebagatelle.github.io.afkpeace.client.mixin;
 
-import amerebagatelle.github.io.afkpeace.AFKPeace;
-import amerebagatelle.github.io.afkpeace.ConnectionManager;
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.client.AFKPeaceClient;
+import amerebagatelle.github.io.afkpeace.client.ConnectionManager;
+import amerebagatelle.github.io.afkpeace.client.settings.SettingsManager;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -33,13 +33,13 @@ public abstract class DisconnectedScreenMixin extends Screen {
     @Inject(method = "init", at = @At("TAIL"))
     public void onInit(CallbackInfo ci) {
         timeOfDisconnect = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        if (!Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled")) && AFKPeace.currentServerEntry != null) {
-            this.addButton(new ButtonWidget(width / 2 - 100, this.height - 30, 200, 20, new TranslatableText("reconnect"), (buttonWidget) -> ConnectionManager.INSTANCE.connectToServer(AFKPeace.currentServerEntry)));
+        if (!Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled")) && AFKPeaceClient.currentServerEntry != null) {
+            this.addButton(new ButtonWidget(width / 2 - 100, this.height - 30, 200, 20, new TranslatableText("reconnect"), (buttonWidget) -> ConnectionManager.INSTANCE.connectToServer(AFKPeaceClient.currentServerEntry)));
         }
     }
 
     @Inject(method = "render", at = @At("TAIL"))
     public void onRender(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        this.drawCenteredString(matrices, textRenderer, I18n.translate("afkpeace.disconnectscreen.time", timeOfDisconnect), width / 2, height - 50, 16777215);
+        drawCenteredString(matrices, textRenderer, I18n.translate("afkpeace.disconnectscreen.time", timeOfDisconnect), width / 2, height - 50, 16777215);
     }
 }

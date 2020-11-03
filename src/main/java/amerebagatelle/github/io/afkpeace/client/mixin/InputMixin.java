@@ -1,6 +1,6 @@
-package amerebagatelle.github.io.afkpeace.mixin;
+package amerebagatelle.github.io.afkpeace.client.mixin;
 
-import amerebagatelle.github.io.afkpeace.AFKManager;
+import amerebagatelle.github.io.afkpeace.client.AFKManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.input.Input;

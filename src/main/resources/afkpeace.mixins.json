@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "amerebagatelle.github.io.afkpeace.mixin",
+  "package": "amerebagatelle.github.io.afkpeace.client.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "InputMixin",

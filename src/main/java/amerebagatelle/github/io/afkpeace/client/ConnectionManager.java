@@ -1,7 +1,7 @@
-package amerebagatelle.github.io.afkpeace;
+package amerebagatelle.github.io.afkpeace.client;
 
-import amerebagatelle.github.io.afkpeace.miscellaneous.ReconnectThread;
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.client.miscellaneous.ReconnectThread;
+import amerebagatelle.github.io.afkpeace.client.settings.SettingsManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -45,7 +45,7 @@ public class ConnectionManager {
      * Called by the Reconnection thread to finish reconnecting to the server.
      */
     public void finishReconnect() {
-        connectToServer(AFKPeace.currentServerEntry);
+        connectToServer(AFKPeaceClient.currentServerEntry);
     }
 
     /**
@@ -80,7 +80,7 @@ public class ConnectionManager {
             this.minecraft.disconnect();
             this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), new LiteralText("AFKPeaceDisconnect"), reason));
         } else {
-            if (AFKPeace.currentServerEntry != null) startReconnect(AFKPeace.currentServerEntry);
+            if (AFKPeaceClient.currentServerEntry != null) startReconnect(AFKPeaceClient.currentServerEntry);
         }
     }
 }
