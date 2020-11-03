@@ -28,6 +28,11 @@ dependencies {
 	
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
+	// Optimization mods
+	modRuntime "com.github.jellysquid3:sodium:1.16.x~stable-SNAPSHOT"
+	modRuntime "com.github.jellysquid3:lithium-fabric:mc1.16.3-0.5.6"
+	modRuntime "com.github.jellysquid3:phosphor-fabric:1.16.x~dev-SNAPSHOT"
+
 	modCompile ("io.github.prospector:modmenu:${project.mod_menu_version}") {
 		exclude module: "fabric-api"
 	}
