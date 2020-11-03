@@ -22,5 +22,6 @@ bin/
 
 # fabric
 
-run/
+runServer/
+runClient/
 /remappedSrc/
