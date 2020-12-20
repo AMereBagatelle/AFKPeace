@@ -11,27 +11,19 @@ import java.util.function.Predicate;
 public class AFKPeaceConfig extends Screen {
     private final Screen parent;
 
-    private final Predicate<String> numberFilter = (string) -> {
-        if (string.length() == 0) {
-            return true;
-        } else {
-            try {
-                Integer.parseInt(string);
-                return true;
-            } catch (Exception e) {
-                return false;
-            }
-        }
-    };
+    private final Predicate<String> numberFilter = (string) -> string.matches("\\d+") || string.isEmpty();
 
     private ConfigButtonBooleanWidget autoAFKToggle;
     private ConfigButtonBooleanWidget reconnectToggle;
     private ConfigButtonBooleanWidget damageLogoutToggle;
     private ConfigButtonBooleanWidget reconnectOnDamageToggle;
 
+    private ConfigTextWidget autoAFKTimeField;
     private ConfigTextWidget secondsBetweenAttemptsField;
     private ConfigTextWidget reconnectAttemptNumberField;
     private ConfigTextWidget damageLogoutToleranceField;
+
+    private ButtonWidget confirm;
 
     public AFKPeaceConfig(Screen parent) {
         super(new LiteralText("AFKPeace Config"));
@@ -46,25 +38,29 @@ public class AFKPeaceConfig extends Screen {
         damageLogoutToggle = addButton(new ConfigButtonBooleanWidget(10, 90, 170, 20, "damageLogoutEnabled"));
         reconnectOnDamageToggle = addButton(new ConfigButtonBooleanWidget(10, 120, 170, 20, "reconnectOnDamageLogout"));
 
-        secondsBetweenAttemptsField = addChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + 20, 40, 170, 20, "secondsBetweenReconnectAttempts"));
+        autoAFKTimeField = addChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + 20, 40, 170, 20, "autoAfkTimer"));
+        autoAFKTimeField.setTextPredicate(numberFilter);
+
+        secondsBetweenAttemptsField = addChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + 20, 80, 170, 20, "secondsBetweenReconnectAttempts"));
         secondsBetweenAttemptsField.setTextPredicate(numberFilter);
 
-        reconnectAttemptNumberField = addChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + 20, 80, 170, 20, "reconnectAttemptNumber"));
+        reconnectAttemptNumberField = addChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + 20, 120, 170, 20, "reconnectAttemptNumber"));
         reconnectAttemptNumberField.setTextPredicate(numberFilter);
 
-        damageLogoutToleranceField = addChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + 20, 120, 170, 20, "damageLogoutTolerance"));
+        damageLogoutToleranceField = addChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + 20, 160, 170, 20, "damageLogoutTolerance"));
         damageLogoutToleranceField.setTextPredicate(numberFilter);
 
         addButton(new ButtonWidget(width - 110, height - 30, 100, 20, new LiteralText("Cancel"), (onPress) -> {
             MinecraftClient.getInstance().openScreen(parent);
         }));
 
-        addButton(new ButtonWidget(width - 220, height - 30, 100, 20, new LiteralText("Confirm"), (onPress) -> {
+        confirm = addButton(new ButtonWidget(width - 220, height - 30, 100, 20, new LiteralText("Confirm"), (onPress) -> {
             autoAFKToggle.saveValue();
             reconnectToggle.saveValue();
             damageLogoutToggle.saveValue();
             reconnectOnDamageToggle.saveValue();
 
+            autoAFKTimeField.saveValue();
             secondsBetweenAttemptsField.saveValue();
             reconnectAttemptNumberField.saveValue();
             damageLogoutToleranceField.saveValue();
@@ -79,11 +75,15 @@ public class AFKPeaceConfig extends Screen {
         super.render(matrices, mouseX, mouseY, delta);
         drawCenteredString(matrices, textRenderer, "AFKPeace Config", width / 2, 10, 16777215);
 
+        autoAFKTimeField.render(matrices, mouseX, mouseY, delta);
+
         secondsBetweenAttemptsField.render(matrices, mouseX, mouseY, delta);
 
         reconnectAttemptNumberField.render(matrices, mouseX, mouseY, delta);
 
         damageLogoutToleranceField.render(matrices, mouseX, mouseY, delta);
+
+        confirm.active = autoAFKTimeField.getText().matches("\\d+") && secondsBetweenAttemptsField.getText().matches("\\d+") && reconnectAttemptNumberField.getText().matches("\\d+") && damageLogoutToleranceField.getText().matches("\\d+");
     }
 
     @Override

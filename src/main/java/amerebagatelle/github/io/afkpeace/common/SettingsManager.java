@@ -1,6 +1,11 @@
 package amerebagatelle.github.io.afkpeace.common;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Properties;
 
 public class SettingsManager {
@@ -8,6 +13,7 @@ public class SettingsManager {
 
     public static final String[][] settingsClient = {
             {"autoAfk", "false"},
+            {"autoAfkTimer", "1000"},
             {"reconnectEnabled", "false"},
             {"damageLogoutEnabled", "false"},
             {"reconnectOnDamageLogout", "false"},
@@ -102,6 +108,10 @@ public class SettingsManager {
 
     public static boolean loadBooleanSetting(String setting) {
         return Boolean.parseBoolean(loadSetting(setting));
+    }
+
+    public static int loadIntSetting(String setting) {
+        return Integer.parseInt(loadSetting(setting));
     }
 
     /**

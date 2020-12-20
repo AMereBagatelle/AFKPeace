@@ -7,18 +7,22 @@ public class AFKManager {
     private boolean afk = false;
     private boolean wasAfk = false;
     public long afkTime = 0;
+    private long lastUpdate = 0;
 
     public void tickAfkStatus() {
-        afkTime++;
+        if (System.nanoTime() - lastUpdate > Math.pow(10, 9)) {
+            afkTime++;
 
-        afk = afkTime > 100000;
+            afk = afkTime > SettingsManager.loadIntSetting("autoAfkTimer");
 
-        if (afk && !wasAfk) {
-            SettingsManager.activateAFKMode();
-        } else if (!afk && wasAfk) {
-            SettingsManager.disableAFKMode();
+            if (afk && !wasAfk) {
+                SettingsManager.activateAFKMode();
+            } else if (!afk && wasAfk) {
+                SettingsManager.disableAFKMode();
+            }
+            wasAfk = afk;
+            lastUpdate = System.nanoTime();
         }
-        wasAfk = afk;
     }
 
     public boolean isAfk() {

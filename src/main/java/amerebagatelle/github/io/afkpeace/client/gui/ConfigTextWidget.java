@@ -29,7 +29,6 @@ public class ConfigTextWidget extends TextFieldWidget {
 
     @Override
     public boolean charTyped(char chr, int keyCode) {
-        SettingsManager.writeSetting(option, getText());
         return super.charTyped(chr, keyCode);
     }
 }
