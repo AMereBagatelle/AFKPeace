@@ -13,7 +13,7 @@ public class SettingsManager {
 
     public static final String[][] settingsClient = {
             {"autoAfk", "false"},
-            {"autoAfkTimer", "1000"},
+            {"autoAfkTimer", "300"},
             {"reconnectEnabled", "false"},
             {"damageLogoutEnabled", "false"},
             {"reconnectOnDamageLogout", "false"},
