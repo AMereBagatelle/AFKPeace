@@ -4,6 +4,7 @@ import amerebagatelle.github.io.afkpeace.common.SettingsManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 
@@ -19,7 +20,7 @@ public class ConfigTextWidget extends TextFieldWidget {
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-        drawStringWithShadow(matrices, textRenderer, option, x, y - 10, 16777215);
+        drawStringWithShadow(matrices, textRenderer, I18n.translate("afkpeace.option." + option), x, y - 10, 16777215);
         super.render(matrices, mouseX, mouseY, delta);
     }
 

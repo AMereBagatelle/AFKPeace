@@ -79,7 +79,7 @@ public abstract class ConnectMixin {
             if (Boolean.parseBoolean(SettingsManager.loadSetting("damageLogoutEnabled"))) {
                 try {
                     if (packet.getHealth() < lastHealth && packet.getHealth() < Integer.parseInt(SettingsManager.loadSetting("damageLogoutTolerance"))) {
-                        ConnectionManager.INSTANCE.disconnectFromServer(new TranslatableText("reason.damagelogout"));
+                        ConnectionManager.INSTANCE.disconnectFromServer(new TranslatableText("afkpeace.reason.damagelogout"));
                     }
                 } catch (NullPointerException ignored) {
                 }

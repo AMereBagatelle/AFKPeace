@@ -3,8 +3,9 @@ package amerebagatelle.github.io.afkpeace.client.gui;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 
 import java.util.function.Predicate;
 
@@ -26,7 +27,7 @@ public class AFKPeaceConfig extends Screen {
     private ButtonWidget confirm;
 
     public AFKPeaceConfig(Screen parent) {
-        super(new LiteralText("AFKPeace Config"));
+        super(new TranslatableText("afkpeace.config.title"));
         this.parent = parent;
     }
 
@@ -50,11 +51,11 @@ public class AFKPeaceConfig extends Screen {
         damageLogoutToleranceField = addChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + 20, 160, 170, 20, "damageLogoutTolerance"));
         damageLogoutToleranceField.setTextPredicate(numberFilter);
 
-        addButton(new ButtonWidget(width - 110, height - 30, 100, 20, new LiteralText("Cancel"), (onPress) -> {
+        addButton(new ButtonWidget(width - 110, height - 30, 100, 20, new TranslatableText("afkpeace.button.cancel"), (onPress) -> {
             MinecraftClient.getInstance().openScreen(parent);
         }));
 
-        confirm = addButton(new ButtonWidget(width - 220, height - 30, 100, 20, new LiteralText("Confirm"), (onPress) -> {
+        confirm = addButton(new ButtonWidget(width - 220, height - 30, 100, 20, new TranslatableText("afkpeace.button.confirm"), (onPress) -> {
             autoAFKToggle.saveValue();
             reconnectToggle.saveValue();
             damageLogoutToggle.saveValue();
@@ -73,7 +74,7 @@ public class AFKPeaceConfig extends Screen {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
-        drawCenteredString(matrices, textRenderer, "AFKPeace Config", width / 2, 10, 16777215);
+        drawCenteredString(matrices, textRenderer, I18n.translate("afkpeace.config.title"), width / 2, 10, 16777215);
 
         autoAFKTimeField.render(matrices, mouseX, mouseY, delta);
 

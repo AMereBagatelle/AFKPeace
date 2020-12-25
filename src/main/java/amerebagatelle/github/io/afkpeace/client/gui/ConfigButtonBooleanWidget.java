@@ -2,7 +2,9 @@ package amerebagatelle.github.io.afkpeace.client.gui;
 
 import amerebagatelle.github.io.afkpeace.common.SettingsManager;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 
 public class ConfigButtonBooleanWidget extends ButtonWidget {
     private final String option;
@@ -24,7 +26,7 @@ public class ConfigButtonBooleanWidget extends ButtonWidget {
     }
 
     private void updateMessage() {
-        setMessage(new LiteralText(option + ": " + (value ? "On" : "Off")));
+        setMessage(new TranslatableText("afkpeace.option." + option, value ? I18n.translate("options.on") : I18n.translate("options.off")));
     }
 
     public void saveValue() {

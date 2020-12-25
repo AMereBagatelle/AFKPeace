@@ -34,7 +34,7 @@ public abstract class DisconnectedScreenMixin extends Screen {
     public void onInit(CallbackInfo ci) {
         timeOfDisconnect = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         if (!Boolean.parseBoolean(SettingsManager.loadSetting("reconnectEnabled")) && AFKPeaceClient.currentServerEntry != null) {
-            this.addButton(new ButtonWidget(width / 2 - 100, this.height - 30, 200, 20, new TranslatableText("reconnect"), (buttonWidget) -> ConnectionManager.INSTANCE.connectToServer(AFKPeaceClient.currentServerEntry)));
+            this.addButton(new ButtonWidget(width / 2 - 100, this.height - 30, 200, 20, new TranslatableText("afkpeace.reconnect"), (buttonWidget) -> ConnectionManager.INSTANCE.connectToServer(AFKPeaceClient.currentServerEntry)));
         }
     }
 
