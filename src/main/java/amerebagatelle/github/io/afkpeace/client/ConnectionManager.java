@@ -14,6 +14,8 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
+import java.util.Objects;
+
 @Environment(EnvType.CLIENT)
 public class ConnectionManager {
     public static ConnectionManager INSTANCE = new ConnectionManager();
@@ -76,7 +78,7 @@ public class ConnectionManager {
     public void disconnectFromServer(Text reason) {
         if (!Boolean.parseBoolean(SettingsManager.loadSetting("reconnectOnDamageLogout"))) {
             isDisconnecting = true;
-            this.minecraft.getNetworkHandler().getConnection().disconnect(reason);
+            Objects.requireNonNull(this.minecraft.getNetworkHandler()).getConnection().disconnect(reason);
             this.minecraft.disconnect();
             this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), new LiteralText("AFKPeaceDisconnect"), reason));
         } else {

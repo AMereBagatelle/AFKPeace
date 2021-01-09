@@ -32,20 +32,18 @@ public class ReconnectThread extends Thread {
         for (int i = 0; i < timesToAttempt; i++) {
             Socket connectionAttempt;
             try {
-                Thread.sleep(secondsBetweenAttempts * 1000);
+                Thread.sleep(secondsBetweenAttempts * 1000L);
                 connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
                 connectionAttempt.close();
                 synchronized (this) {
                     AFKPeaceClient.LOGGER.info("Reconnecting to server.");
-                    ConnectionManager.INSTANCE.isReconnecting = true;
+                    MinecraftClient.getInstance().execute(() -> ConnectionManager.INSTANCE.finishReconnect());
                 }
-                break;
+                return;
             } catch (IOException | InterruptedException e) {
                 AFKPeaceClient.LOGGER.info("Attempt failed.  Reason: " + e.getMessage() + " Attempt #: " + i + 1);
             }
         }
-        if (!ConnectionManager.INSTANCE.isReconnecting) {
-            MinecraftClient.getInstance().execute(() -> ConnectionManager.INSTANCE.cancelReconnect());
-        }
+        MinecraftClient.getInstance().execute(() -> ConnectionManager.INSTANCE.cancelReconnect());
     }
 }
