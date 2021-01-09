@@ -33,7 +33,6 @@ public class ConnectionManager {
      *
      * @param target The server to connect to.
      */
-    // Handling the reconnect feature
     public void startReconnect(ServerInfo target) {
         assert minecraft.getNetworkHandler() != null;
         this.minecraft.getNetworkHandler().getConnection().disconnect(new TranslatableText("reconnecting"));
