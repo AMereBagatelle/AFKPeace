@@ -57,6 +57,7 @@ public class ConnectionManager {
             reconnectThread.join();
         } catch (InterruptedException ignored) {
         }
+        AFKPeaceClient.LOGGER.debug("Reconnecting cancelled.");
         this.minecraft.openScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), new LiteralText("AFKPeaceDisconnect"), new TranslatableText("afkpeace.reconnectfail")));
     }
 

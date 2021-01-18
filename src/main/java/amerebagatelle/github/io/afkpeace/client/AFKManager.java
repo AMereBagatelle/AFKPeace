@@ -16,8 +16,10 @@ public class AFKManager {
             afk = afkTime > SettingsManager.loadIntSetting("autoAfkTimer");
 
             if (afk && !wasAfk) {
+                AFKPeaceClient.LOGGER.debug("AutoAFK on.");
                 SettingsManager.activateAFKMode();
             } else if (!afk && wasAfk) {
+                AFKPeaceClient.LOGGER.debug("AutoAFK off.");
                 SettingsManager.disableAFKMode();
             }
             wasAfk = afk;

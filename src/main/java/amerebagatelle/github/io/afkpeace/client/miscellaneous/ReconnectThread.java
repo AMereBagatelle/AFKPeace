@@ -41,7 +41,7 @@ public class ReconnectThread extends Thread {
                 }
                 return;
             } catch (IOException | InterruptedException e) {
-                AFKPeaceClient.LOGGER.info("Attempt failed.  Reason: " + e.getMessage() + " Attempt #: " + i + 1);
+                AFKPeaceClient.LOGGER.debug("Attempt failed.  Reason: " + e.getMessage() + " Attempt #: " + i + 1);
             }
         }
         MinecraftClient.getInstance().execute(() -> ConnectionManager.INSTANCE.cancelReconnect());

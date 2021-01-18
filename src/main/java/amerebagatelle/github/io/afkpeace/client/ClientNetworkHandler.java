@@ -14,6 +14,7 @@ public class ClientNetworkHandler {
         Identifier channel = packet.getChannel();
         if (channel.equals(Packets.AFKPEACE_DISABLE)) {
             AFKPeaceClient.disabled = true;
+            AFKPeaceClient.LOGGER.info("Disabling mod, received the packet.");
             MinecraftClient.getInstance().player.sendSystemMessage(new TranslatableText("afkpeace.disconnectscreen.disabled"), Util.NIL_UUID);
         }
     }
