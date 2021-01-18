@@ -10,7 +10,7 @@ public class AFKManager {
     private long lastUpdate = 0;
 
     public void tickAfkStatus() {
-        if (System.nanoTime() - lastUpdate > Math.pow(10, 9)) {
+        if (System.nanoTime() - lastUpdate > 1e+9) {
             afkTime++;
 
             afk = afkTime > SettingsManager.loadIntSetting("autoAfkTimer");
