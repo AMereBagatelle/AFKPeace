@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 @Environment(EnvType.CLIENT)
 public class AFKPeaceClient implements ClientModInitializer {
-	public static final Logger LOGGER = LogManager.getLogger();
+	public static final Logger LOGGER = LogManager.getLogger("AFKPeace");
 
 	public static ServerInfo currentServerEntry;
 	public static boolean disabled;
