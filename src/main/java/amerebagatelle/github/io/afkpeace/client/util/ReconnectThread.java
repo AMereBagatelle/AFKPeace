@@ -1,4 +1,4 @@
-package amerebagatelle.github.io.afkpeace.client.miscellaneous;
+package amerebagatelle.github.io.afkpeace.client.util;
 
 import amerebagatelle.github.io.afkpeace.client.AFKPeaceClient;
 import amerebagatelle.github.io.afkpeace.client.ConnectionManager;
@@ -30,11 +30,11 @@ public class ReconnectThread extends Thread {
     @Override
     public void run() {
         for (int i = 0; i < timesToAttempt; i++) {
-            Socket connectionAttempt;
             try {
                 Thread.sleep(secondsBetweenAttempts * 1000L);
-                connectionAttempt = new Socket(serverAddress.getAddress(), serverAddress.getPort());
-                connectionAttempt.close();
+                for (int i1 = 0; i1 < 10; i1++) {
+                    pingServer();
+                }
                 synchronized (this) {
                     AFKPeaceClient.LOGGER.info("Reconnecting to server.");
                     MinecraftClient.getInstance().execute(() -> ConnectionManager.INSTANCE.finishReconnect());
@@ -45,5 +45,14 @@ public class ReconnectThread extends Thread {
             }
         }
         MinecraftClient.getInstance().execute(() -> ConnectionManager.INSTANCE.cancelReconnect());
+    }
+
+    private void pingServer() throws IOException, InterruptedException {
+        long startTime = System.nanoTime();
+        Socket connectionSocket = new Socket(serverAddress.getAddress(), serverAddress.getPort());
+        connectionSocket.close();
+        long endTime = System.nanoTime();
+        if (endTime - startTime > 2 * 1e+9)
+            throw new IOException("Ping was greater than five seconds, being " + (endTime - startTime) * 1e-9);
     }
 }
