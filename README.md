@@ -25,7 +25,7 @@ the [issue tracker](https://github.com/AMereBagatelle/AFKPeace/issues).
 ### Client Settings
 
 This mod is configured entirely through GUI when installed on the client, which can be accessed via
-the [ModMenu](https://www.curseforge.com/minecraft/mc-mods/modmenu) mod.
+the [ModMenu](https://modrinth.com/mod/modmenu) mod.
 
 - autoAFK: Controls whether your client will automatically turn on reconnecting and damage logout after a period of time
 - autoAFKTimer: Controls the amount of time in seconds before the auto afk system activates
