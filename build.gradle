@@ -33,7 +33,7 @@ dependencies {
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
 	// Optimization mods
-	modRuntime "com.github.jellysquid3:sodium:${project.sodium_version}"
+	//modRuntime "com.github.jellysquid3:sodium:${project.sodium_version}"
 	//modRuntime "com.github.jellysquid3:lithium-fabric:${project.lithium_version}"
 	modRuntime ("com.github.SuperCoder7979:databreaker:${project.databreaker_version}") {
 		exclude module: "fabric-loader"
