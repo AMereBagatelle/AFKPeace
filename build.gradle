@@ -85,9 +85,11 @@ import com.modrinth.minotaur.TaskModrinthUpload
 task publishModrinth(type: TaskModrinthUpload) {
 	token = System.getenv('MODRINTH_TOKEN')
 	projectId = '65jTHvHz'
+	versionName = "${project.archives_base_name} ${project.version}"
 	versionNumber = project.version
+	changelog = System.getenv('CHANGELOG_BODY')
 	releaseType = 'release'
-	uploadFile = jar
+	uploadFile = jar.outputs.getFiles().asPath
 	addGameVersion("${project.minecraft_version}")
 	addLoader('fabric')
 }
