@@ -3,13 +3,12 @@ package amerebagatelle.github.io.afkpeace.client;
 import amerebagatelle.github.io.afkpeace.common.SettingsManager;
 
 public class AFKManager {
-    public static AFKManager INSTANCE = new AFKManager();
-    private boolean afk = false;
-    private boolean wasAfk = false;
-    public long afkTime = 0;
-    private long lastUpdate = 0;
+    private static boolean afk = false;
+    private static boolean wasAfk = false;
+    public static long afkTime = 0;
+    private static long lastUpdate = 0;
 
-    public void tickAfkStatus() {
+    public static void tickAfkStatus() {
         if (System.nanoTime() - lastUpdate > 1e+9) {
             afkTime++;
 

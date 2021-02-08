@@ -16,7 +16,7 @@ public class InputMixin extends Input {
     @Inject(method = "tick", at = @At("TAIL"))
     private void onInputTick(boolean slowDown, CallbackInfo ci) {
         if (pressingForward || pressingBack || pressingLeft || pressingRight || jumping || sneaking) {
-            AFKManager.INSTANCE.afkTime = 0;
+            AFKManager.afkTime = 0;
         }
     }
 }

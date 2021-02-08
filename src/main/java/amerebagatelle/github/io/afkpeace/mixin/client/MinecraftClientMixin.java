@@ -17,7 +17,7 @@ public abstract class MinecraftClientMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     public void onTick(CallbackInfo ci) {
         if (Boolean.parseBoolean(SettingsManager.loadSetting("autoAfk"))) {
-            AFKManager.INSTANCE.tickAfkStatus();
+            AFKManager.tickAfkStatus();
         }
     }
 }
