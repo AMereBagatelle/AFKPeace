@@ -26,8 +26,4 @@ public class AFKManager {
             lastUpdate = System.nanoTime();
         }
     }
-
-    public boolean isAfk() {
-        return afk;
-    }
 }
