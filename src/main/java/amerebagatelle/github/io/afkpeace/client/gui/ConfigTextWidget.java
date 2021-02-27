@@ -14,7 +14,7 @@ public class ConfigTextWidget extends TextFieldWidget {
     public ConfigTextWidget(TextRenderer textRenderer, int x, int y, int width, int height, String option) {
         super(textRenderer, x, y, width, height, new LiteralText(""));
         this.option = option;
-        setText(SettingsManager.loadSetting(option));
+        setText(SettingsManager.loadSettingFromFile(option));
     }
 
     @Override

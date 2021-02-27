@@ -15,7 +15,7 @@ public class ConfigButtonBooleanWidget extends ButtonWidget {
         });
 
         this.option = option;
-        value = SettingsManager.loadBooleanSetting(option);
+        value = SettingsManager.loadBooleanSettingFromFile(option);
         updateMessage();
     }
 

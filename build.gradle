@@ -33,6 +33,9 @@ dependencies {
 	
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
+	// Disabler, for server-side config
+	modImplementation 'com.github.AMereBagatelle:Disabler:master-SNAPSHOT'
+
 	// Optimization mods
 	//modRuntime "com.github.jellysquid3:sodium:${project.sodium_version}"
 	//modRuntime "com.github.jellysquid3:lithium-fabric:${project.lithium_version}"

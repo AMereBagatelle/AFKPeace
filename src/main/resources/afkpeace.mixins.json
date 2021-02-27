@@ -4,15 +4,10 @@
   "package": "amerebagatelle.github.io.afkpeace.mixin",
   "compatibilityLevel": "JAVA_8",
   "client": [
-    "client.ClientPlayNetworkHandlerMixin",
     "client.ConnectMixin",
     "client.DisconnectedScreenMixin",
     "client.InputMixin",
     "client.MinecraftClientMixin"
-  ],
-  "server": [
-    "server.CustomPayloadC2SPacketFake",
-    "server.ServerNetworkHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

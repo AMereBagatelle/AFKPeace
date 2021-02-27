@@ -14,8 +14,8 @@ import java.net.Socket;
 
 @Environment(EnvType.CLIENT)
 public class ReconnectThread extends Thread {
-    private final int timesToAttempt = Integer.parseInt(SettingsManager.loadSetting("reconnectAttemptNumber"));
-    private final int secondsBetweenAttempts = Integer.parseInt(SettingsManager.loadSetting("secondsBetweenReconnectAttempts"));
+    private final int timesToAttempt = SettingsManager.settings.reconnectAttemptNumber;
+    private final int secondsBetweenAttempts = SettingsManager.settings.secondsBetweenReconnectAttempts;
 
     private final ServerAddress serverAddress;
 

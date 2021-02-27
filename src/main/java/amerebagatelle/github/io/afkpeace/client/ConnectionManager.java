@@ -76,7 +76,7 @@ public class ConnectionManager {
      * @param reason Why the client disconnected.
      */
     public void disconnectFromServer(Text reason) {
-        if (!Boolean.parseBoolean(SettingsManager.loadSetting("reconnectOnDamageLogout"))) {
+        if (!SettingsManager.applyOverride(SettingsManager.settings.reconnectOnDamageLogout, SettingsManager.settingsOverride.reconnectOnDamageLogout)) {
             isDisconnecting = true;
             Objects.requireNonNull(this.minecraft.getNetworkHandler()).getConnection().disconnect(reason);
             this.minecraft.disconnect();
