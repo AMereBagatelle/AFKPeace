@@ -16,5 +16,7 @@
   "afkpeace.option.autoAfkTimer": "Auto AFK Timer",
   "afkpeace.option.secondsBetweenReconnectAttempts": "Seconds Between Reconnection Attempts",
   "afkpeace.option.reconnectAttemptNumber": "Number of Reconnect Attempts",
-  "afkpeace.option.damageLogoutTolerance": "Damage Logout Tolerance"
+  "afkpeace.option.damageLogoutTolerance": "Damage Logout Tolerance",
+  "afkpeace.afkmode.on": "AFKMode On",
+  "afkpeace.afkmode.off": "AFKMode Off"
 }
