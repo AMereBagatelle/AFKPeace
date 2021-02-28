@@ -23,9 +23,8 @@ public class AFKPeaceClient implements ClientModInitializer {
 		SettingsManager.initSettings();
 		LOGGER.info("AFKPeace " + FabricLoader.getInstance().getModContainer(MODID).get().getMetadata().getVersion() + " Initialized");
 
-		DisableListenerRegistry.register(MODID, "autoafk", (value) -> {
-		});
-		DisableListenerRegistry.register(MODID, "reconnectenabled", (value) -> {
-		});
+		DisableListenerRegistry.register(MODID, "autoafk", (value) -> SettingsManager.settingsOverride.autoAfk = value);
+		DisableListenerRegistry.register(MODID, "reconnectenabled", (value) -> SettingsManager.settingsOverride.reconnectEnabled = value);
+		DisableListenerRegistry.register(MODID, "damagelogout", (value) -> SettingsManager.settingsOverride.damageLogoutEnabled = value);
 	}
 }

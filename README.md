@@ -38,6 +38,8 @@ the [ModMenu](https://modrinth.com/mod/modmenu) mod.
 
 ### Server Settings
 
-When installed on the server, AFKPeace allows server owners to disable the mod on clients.
+This mod uses the [Disabler](https://github.com/AMereBagatelle/Disabler) API to allow server owners to disable features
+of this mod from their server.
 
-- disableAFKPeace: Whether clients that join with the mod will have the mod disabled
+The features that it allows disabling are as follows:
+`autoafk`, `reconnectenabled`, and `damagelogout`.
