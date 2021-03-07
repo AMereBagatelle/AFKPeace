@@ -6,7 +6,10 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ServerInfo;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,8 +26,18 @@ public class AFKPeaceClient implements ClientModInitializer {
 		SettingsManager.initSettings();
 		LOGGER.info("AFKPeace " + FabricLoader.getInstance().getModContainer(MODID).get().getMetadata().getVersion() + " Initialized");
 
-		DisableListenerRegistry.register(MODID, "autoafk", (value) -> SettingsManager.settingsOverride.autoAfk = value);
-		DisableListenerRegistry.register(MODID, "reconnectenabled", (value) -> SettingsManager.settingsOverride.reconnectEnabled = value);
-		DisableListenerRegistry.register(MODID, "damagelogout", (value) -> SettingsManager.settingsOverride.damageLogoutEnabled = value);
+		MinecraftClient client = MinecraftClient.getInstance();
+		DisableListenerRegistry.register(MODID, "autoafk", (value) -> {
+			SettingsManager.settingsOverride.autoAfk = value;
+			client.player.sendSystemMessage(new TranslatableText("afkpeace.override.autoAfk"), Util.NIL_UUID);
+		});
+		DisableListenerRegistry.register(MODID, "reconnectenabled", (value) -> {
+			SettingsManager.settingsOverride.reconnectEnabled = value;
+			client.player.sendSystemMessage(new TranslatableText("afkpeace.override.reconnectEnabled"), Util.NIL_UUID);
+		});
+		DisableListenerRegistry.register(MODID, "damagelogout", (value) -> {
+			SettingsManager.settingsOverride.damageLogoutEnabled = value;
+			client.player.sendSystemMessage(new TranslatableText("afkpeace.override.damageLogoutEnabled"), Util.NIL_UUID);
+		});
 	}
 }
