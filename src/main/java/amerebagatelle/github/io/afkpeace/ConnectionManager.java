@@ -22,7 +22,6 @@ public class ConnectionManager {
     private final MinecraftClient minecraft;
     private ReconnectThread reconnectThread;
     public boolean isDisconnecting = false;
-    public boolean isReconnecting = false;
 
     public ConnectionManager() {
         this.minecraft = MinecraftClient.getInstance();
@@ -34,8 +33,7 @@ public class ConnectionManager {
      * @param target The server to connect to.
      */
     public void startReconnect(ServerInfo target) {
-        assert minecraft.getNetworkHandler() != null;
-        this.minecraft.getNetworkHandler().getConnection().disconnect(new TranslatableText("reconnecting"));
+        Objects.requireNonNull(this.minecraft.getNetworkHandler()).getConnection().disconnect(new TranslatableText("reconnecting"));
         this.minecraft.disconnect();
         reconnectThread = new ReconnectThread(target);
         reconnectThread.start();
