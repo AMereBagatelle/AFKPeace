@@ -1,4 +1,4 @@
-package amerebagatelle.github.io.afkpeace.common;
+package amerebagatelle.github.io.afkpeace.settings;
 
 public class Settings {
     // Setting toggles

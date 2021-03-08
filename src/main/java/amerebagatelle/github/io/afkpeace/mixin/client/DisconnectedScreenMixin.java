@@ -1,8 +1,8 @@
 package amerebagatelle.github.io.afkpeace.mixin.client;
 
-import amerebagatelle.github.io.afkpeace.client.AFKPeaceClient;
-import amerebagatelle.github.io.afkpeace.client.ConnectionManager;
-import amerebagatelle.github.io.afkpeace.common.SettingsManager;
+import amerebagatelle.github.io.afkpeace.AFKPeaceClient;
+import amerebagatelle.github.io.afkpeace.ConnectionManager;
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;

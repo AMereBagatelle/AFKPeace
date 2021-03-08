@@ -1,6 +1,6 @@
-package amerebagatelle.github.io.afkpeace.client;
+package amerebagatelle.github.io.afkpeace;
 
-import amerebagatelle.github.io.afkpeace.common.SettingsManager;
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import io.github.amerebagatelle.disabler.client.api.DisableListenerRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;

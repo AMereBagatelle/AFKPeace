@@ -1,6 +1,6 @@
-package amerebagatelle.github.io.afkpeace.client.gui;
+package amerebagatelle.github.io.afkpeace.gui;
 
-import amerebagatelle.github.io.afkpeace.common.SettingsManager;
+import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.LiteralText;

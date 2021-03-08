@@ -17,7 +17,7 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "amerebagatelle.github.io.afkpeace.client.AFKPeaceClient"
+      "amerebagatelle.github.io.afkpeace.AFKPeaceClient"
     ],
     "modmenu": [
       "amerebagatelle.github.io.afkpeace.client.modmenu.ModMenuEntrypointImpl"
