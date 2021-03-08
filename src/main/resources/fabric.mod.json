@@ -20,7 +20,7 @@
       "amerebagatelle.github.io.afkpeace.AFKPeaceClient"
     ],
     "modmenu": [
-      "amerebagatelle.github.io.afkpeace.client.modmenu.ModMenuEntrypointImpl"
+      "amerebagatelle.github.io.afkpeace.modmenu.ModMenuEntrypointImpl"
     ]
   },
   "mixins": [

@@ -25,8 +25,17 @@ public class SettingsManager {
                 if (fileCreated) {
                     Properties prop = new Properties();
                     for (Field setting : settingsList) {
-                        prop.put(setting.getName(), setting.get(settings));
+                        String settingType = setting.getType().toString();
+                        Object setpoint = setting.get(settings);
+                        String value = null;
+                        if (settingType.equals("boolean")) {
+                            value = Boolean.toString((Boolean) setpoint);
+                        } else if (settingType.equals("int")) {
+                            value = Integer.toString((Integer) setpoint);
+                        }
+                        prop.put(setting.getName(), value);
                     }
+                    System.out.println("Test");
 
                     BufferedWriter writer = new BufferedWriter(new FileWriter(settingsFile));
                     prop.store(writer, null);
@@ -44,7 +53,15 @@ public class SettingsManager {
                 prop.load(new BufferedReader(new FileReader(settingsFile)));
                 for (Field setting : settingsList) {
                     if (prop.getProperty(setting.getName()) == null) {
-                        prop.put(setting.getName(), setting.get(settings));
+                        String settingType = setting.getType().toString();
+                        Object setpoint = setting.get(settings);
+                        String value = null;
+                        if (settingType.equals("boolean")) {
+                            value = Boolean.toString((Boolean) setpoint);
+                        } else if (settingType.equals("int")) {
+                            value = Integer.toString((Integer) setpoint);
+                        }
+                        prop.put(setting.getName(), value);
                     }
                 }
                 BufferedWriter writer = new BufferedWriter(new FileWriter(settingsFile));
