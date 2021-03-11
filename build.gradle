@@ -35,6 +35,7 @@ dependencies {
 
 	// Disabler, for server-side config
 	modImplementation 'com.github.AMereBagatelle:Disabler:master-SNAPSHOT'
+	include 'com.github.AMereBagatelle:Disabler:master-SNAPSHOT'
 
 	// Optimization mods
 	//modRuntime "com.github.jellysquid3:sodium:${project.sodium_version}"
