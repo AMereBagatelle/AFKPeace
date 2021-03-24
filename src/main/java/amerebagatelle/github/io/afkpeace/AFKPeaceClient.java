@@ -29,15 +29,18 @@ public class AFKPeaceClient implements ClientModInitializer {
 		MinecraftClient client = MinecraftClient.getInstance();
 		DisableListenerRegistry.register(MODID, "autoafk", (value) -> {
 			SettingsManager.settingsOverride.autoAfk = value;
-			client.player.sendSystemMessage(new TranslatableText("afkpeace.override.autoAfk"), Util.NIL_UUID);
+			if (client.player != null)
+				client.player.sendSystemMessage(new TranslatableText("afkpeace.override.autoAfk"), Util.NIL_UUID);
 		});
 		DisableListenerRegistry.register(MODID, "reconnectenabled", (value) -> {
 			SettingsManager.settingsOverride.reconnectEnabled = value;
-			client.player.sendSystemMessage(new TranslatableText("afkpeace.override.reconnectEnabled"), Util.NIL_UUID);
+			if (client.player != null)
+				client.player.sendSystemMessage(new TranslatableText("afkpeace.override.reconnectEnabled"), Util.NIL_UUID);
 		});
 		DisableListenerRegistry.register(MODID, "damagelogout", (value) -> {
 			SettingsManager.settingsOverride.damageLogoutEnabled = value;
-			client.player.sendSystemMessage(new TranslatableText("afkpeace.override.damageLogoutEnabled"), Util.NIL_UUID);
+			if (client.player != null)
+				client.player.sendSystemMessage(new TranslatableText("afkpeace.override.damageLogoutEnabled"), Util.NIL_UUID);
 		});
 	}
 }
