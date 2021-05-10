@@ -6,12 +6,17 @@ import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
+import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
+import net.minecraft.client.realms.gui.screen.RealmsScreen;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,6 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ConnectMixin {
     @Shadow
     private MinecraftClient client;
+    @Shadow @Final private Screen loginScreen;
     private float lastHealth;
 
     /**
@@ -39,20 +45,25 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method = "onDisconnected", at = @At("HEAD"), cancellable = true)
     public void tryReconnect(Text reason, CallbackInfo cbi) {
-        ConnectionManager connectionManager = ConnectionManager.INSTANCE;
-        ServerInfo target = AFKPeaceClient.currentServerEntry;
-        String reasonString = reason.toString();
-        if (SettingsManager.applyOverride(SettingsManager.settings.reconnectEnabled, SettingsManager.settingsOverride.reconnectEnabled)) {
-            if (!reasonString.contains("multiplayer.disconnect.kicked")) {
-                if (!connectionManager.isDisconnecting) {
-                    if (target != null) {
-                        connectionManager.startReconnect(target);
-                        cbi.cancel();
+        if(!(loginScreen instanceof RealmsScreen)) {
+            ConnectionManager connectionManager = ConnectionManager.INSTANCE;
+            ServerInfo target = AFKPeaceClient.currentServerEntry;
+            String reasonString = reason.toString();
+            if (SettingsManager.applyOverride(SettingsManager.settings.reconnectEnabled, SettingsManager.settingsOverride.reconnectEnabled)) {
+                if (!reasonString.contains("multiplayer.disconnect.kicked")) {
+                    if (!connectionManager.isDisconnecting) {
+                        if (target != null) {
+                            connectionManager.startReconnect(target);
+                            cbi.cancel();
+                        }
+                    } else {
+                        connectionManager.isDisconnecting = false;
                     }
-                } else {
-                    connectionManager.isDisconnecting = false;
                 }
             }
+        } else {
+            // TODO better realms support (#14)
+            client.openScreen(new RealmsMainScreen(new TitleScreen()));
         }
     }
 
