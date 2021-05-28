@@ -32,30 +32,29 @@ public class AFKPeaceConfig extends Screen {
     }
 
     @Override
-    public void init(MinecraftClient client, int width, int height) {
-        super.init(client, width, height);
+    public void init() {
         int buttonWidth = 175;
-        autoAFKToggle = addButton(new ConfigButtonBooleanWidget(10, 30, buttonWidth, 20, "autoAfk"));
-        reconnectToggle = addButton(new ConfigButtonBooleanWidget(10, 60, buttonWidth, 20, "reconnectEnabled"));
-        damageLogoutToggle = addButton(new ConfigButtonBooleanWidget(10, 90, buttonWidth, 20, "damageLogoutEnabled"));
-        reconnectOnDamageToggle = addButton(new ConfigButtonBooleanWidget(10, 120, buttonWidth, 20, "reconnectOnDamageLogout"));
+        autoAFKToggle = addDrawableChild(new ConfigButtonBooleanWidget(10, 30, buttonWidth, 20, "autoAfk"));
+        reconnectToggle = addDrawableChild(new ConfigButtonBooleanWidget(10, 60, buttonWidth, 20, "reconnectEnabled"));
+        damageLogoutToggle = addDrawableChild(new ConfigButtonBooleanWidget(10, 90, buttonWidth, 20, "damageLogoutEnabled"));
+        reconnectOnDamageToggle = addDrawableChild(new ConfigButtonBooleanWidget(10, 120, buttonWidth, 20, "reconnectOnDamageLogout"));
 
         int fieldOffset = 20;
-        autoAFKTimeField = addChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + fieldOffset, 40, 170, 20, "autoAfkTimer"));
+        autoAFKTimeField = addSelectableChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + fieldOffset, 40, 170, 20, "autoAfkTimer"));
         autoAFKTimeField.setTextPredicate(numberFilter);
 
-        secondsBetweenAttemptsField = addChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + fieldOffset, 80, 170, 20, "secondsBetweenReconnectAttempts"));
+        secondsBetweenAttemptsField = addSelectableChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + fieldOffset, 80, 170, 20, "secondsBetweenReconnectAttempts"));
         secondsBetweenAttemptsField.setTextPredicate(numberFilter);
 
-        reconnectAttemptNumberField = addChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + fieldOffset, 120, 170, 20, "reconnectAttemptNumber"));
+        reconnectAttemptNumberField = addSelectableChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + fieldOffset, 120, 170, 20, "reconnectAttemptNumber"));
         reconnectAttemptNumberField.setTextPredicate(numberFilter);
 
-        damageLogoutToleranceField = addChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + fieldOffset, 160, 170, 20, "damageLogoutTolerance"));
+        damageLogoutToleranceField = addSelectableChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + fieldOffset, 160, 170, 20, "damageLogoutTolerance"));
         damageLogoutToleranceField.setTextPredicate(numberFilter);
 
-        addButton(new ButtonWidget(width - 110, height - 30, 100, 20, new TranslatableText("afkpeace.button.cancel"), (onPress) -> client.openScreen(parent)));
+        addDrawableChild(new ButtonWidget(width - 110, height - 30, 100, 20, new TranslatableText("afkpeace.button.cancel"), (onPress) -> client.openScreen(parent)));
 
-        confirm = addButton(new ButtonWidget(width - 220, height - 30, 100, 20, new TranslatableText("afkpeace.button.confirm"), (onPress) -> {
+        confirm = addDrawableChild(new ButtonWidget(width - 220, height - 30, 100, 20, new TranslatableText("afkpeace.button.confirm"), (onPress) -> {
             autoAFKToggle.saveValue();
             reconnectToggle.saveValue();
             damageLogoutToggle.saveValue();

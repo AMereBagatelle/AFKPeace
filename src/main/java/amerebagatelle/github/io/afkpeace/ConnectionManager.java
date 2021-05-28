@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
+import net.minecraft.client.network.ServerAddress;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -62,10 +63,10 @@ public class ConnectionManager {
     /**
      * Connects the client to the target server.
      *
-     * @param target Server to connect to.
+     * @param targetInfo Server to connect to.
      */
-    public void connectToServer(ServerInfo target) {
-        this.minecraft.openScreen(new ConnectScreen(new MultiplayerScreen(new TitleScreen()), this.minecraft, target));
+    public void connectToServer(ServerInfo targetInfo) {
+        ConnectScreen.connect(new MultiplayerScreen(new TitleScreen()), this.minecraft, ServerAddress.parse(targetInfo.address), targetInfo);
     }
 
     /**

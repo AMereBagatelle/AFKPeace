@@ -1,21 +1,21 @@
 plugins {
-	id 'fabric-loom' version '0.6-SNAPSHOT'
+	id 'fabric-loom' version '0.8-SNAPSHOT'
 	id 'maven-publish'
 	id "com.modrinth.minotaur" version "1.1.0"
 }
-
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = project.archives_base_name + "-" + project.minecraft_version
 version = project.mod_version
 group = project.maven_group
 
 repositories {
+	mavenLocal()
+	/*
 	maven {
 		name = "JitPack"
 		url = "https://jitpack.io"
 	}
+	 */
 }
 
 dependencies {
@@ -25,10 +25,11 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// fabric api resource loader
-	modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
 	// Disabler, for server-side config
-	modImplementation include ("com.github.AMereBagatelle:Disabler:master-SNAPSHOT")
+	//modImplementation include ("com.github.AMereBagatelle:Disabler:1.17.x-main-SNAPSHOT")
+	modImplementation include ("io.github.amerebagatelle:Disabler:0.0.1")
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
@@ -38,11 +39,11 @@ dependencies {
 	// Optimization mods
 	//modRuntime "com.github.jellysquid3:sodium:${project.sodium_version}"
 	//modRuntime "com.github.jellysquid3:lithium-fabric:${project.lithium_version}"
-	modRuntime ("com.github.SuperCoder7979:databreaker:${project.databreaker_version}") {
-		exclude module: "fabric-loader"
-	}
+	//modRuntime ("com.github.SuperCoder7979:databreaker:${project.databreaker_version}") {
+	//	exclude module: "fabric-loader"
+	//}
 
-	modCompile ("io.github.prospector:modmenu:${project.mod_menu_version}") {
+	modImplementation ("io.github.prospector:modmenu:${project.mod_menu_version}") {
 		exclude module: "fabric-api"
 	}
 }
@@ -53,13 +54,8 @@ minecraft {
 processResources {
 	inputs.property "version", project.version
 
-	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
+	filesMatching("fabric.mod.json") {
 		expand "version": project.version
-	}
-
-	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
 	}
 }
 
