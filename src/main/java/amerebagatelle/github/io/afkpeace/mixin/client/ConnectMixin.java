@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ConnectMixin {
-    @Shadow
+    @Shadow @Final
     private MinecraftClient client;
     @Shadow @Final private Screen loginScreen;
     private float lastHealth;

@@ -9,7 +9,6 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.NarratorManager;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +22,7 @@ import java.time.format.DateTimeFormatter;
 public abstract class DisconnectedScreenMixin extends Screen {
     private String timeOfDisconnect;
 
-    protected DisconnectedScreenMixin(Text title) {
+    protected DisconnectedScreenMixin() {
         super(NarratorManager.EMPTY);
     }
 

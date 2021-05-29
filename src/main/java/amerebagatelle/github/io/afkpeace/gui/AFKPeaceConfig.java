@@ -1,12 +1,12 @@
 package amerebagatelle.github.io.afkpeace.gui;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class AFKPeaceConfig extends Screen {
@@ -33,6 +33,8 @@ public class AFKPeaceConfig extends Screen {
 
     @Override
     public void init() {
+        Objects.requireNonNull(client);
+
         int buttonWidth = 175;
         autoAFKToggle = addDrawableChild(new ConfigButtonBooleanWidget(10, 30, buttonWidth, 20, "autoAfk"));
         reconnectToggle = addDrawableChild(new ConfigButtonBooleanWidget(10, 60, buttonWidth, 20, "reconnectEnabled"));

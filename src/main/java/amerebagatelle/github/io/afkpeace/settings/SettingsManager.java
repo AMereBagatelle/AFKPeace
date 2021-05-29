@@ -25,15 +25,7 @@ public class SettingsManager {
                 if (fileCreated) {
                     Properties prop = new Properties();
                     for (Field setting : settingsList) {
-                        String settingType = setting.getType().toString();
-                        Object setpoint = setting.get(settings);
-                        String value = null;
-                        if (settingType.equals("boolean")) {
-                            value = Boolean.toString((Boolean) setpoint);
-                        } else if (settingType.equals("int")) {
-                            value = Integer.toString((Integer) setpoint);
-                        }
-                        prop.put(setting.getName(), value);
+                        putProperty(prop, setting);
                     }
                     System.out.println("Test");
 
@@ -53,15 +45,7 @@ public class SettingsManager {
                 prop.load(new BufferedReader(new FileReader(settingsFile)));
                 for (Field setting : settingsList) {
                     if (prop.getProperty(setting.getName()) == null) {
-                        String settingType = setting.getType().toString();
-                        Object setpoint = setting.get(settings);
-                        String value = null;
-                        if (settingType.equals("boolean")) {
-                            value = Boolean.toString((Boolean) setpoint);
-                        } else if (settingType.equals("int")) {
-                            value = Integer.toString((Integer) setpoint);
-                        }
-                        prop.put(setting.getName(), value);
+                        putProperty(prop, setting);
                     }
                 }
                 BufferedWriter writer = new BufferedWriter(new FileWriter(settingsFile));
@@ -74,6 +58,18 @@ public class SettingsManager {
                 throw new RuntimeException("Could not create settings file for AFKPeace!");
             }
         }
+    }
+
+    private static void putProperty(Properties prop, Field setting) throws IllegalAccessException {
+        String settingType = setting.getType().toString();
+        Object setpoint = setting.get(settings);
+        String value = null;
+        if (settingType.equals("boolean")) {
+            value = Boolean.toString((Boolean) setpoint);
+        } else if (settingType.equals("int")) {
+            value = Integer.toString((Integer) setpoint);
+        }
+        prop.put(setting.getName(), value);
     }
 
     public static boolean applyOverride(boolean original, boolean override) {
