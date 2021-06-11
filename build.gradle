@@ -16,6 +16,7 @@ repositories {
 		url = "https://jitpack.io"
 	}
 	 */
+	maven { url "https://maven.terraformersmc.com/"}
 }
 
 dependencies {
@@ -29,7 +30,6 @@ dependencies {
 
 	// Disabler, for server-side config
 	//modImplementation include ("com.github.AMereBagatelle:Disabler:1.17.x-main-SNAPSHOT")
-	modImplementation include ("io.github.amerebagatelle:Disabler:0.0.1")
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
@@ -43,7 +43,7 @@ dependencies {
 	//	exclude module: "fabric-loader"
 	//}
 
-	modImplementation ("io.github.prospector:modmenu:${project.mod_menu_version}") {
+	modImplementation ("com.terraformersmc:modmenu:${project.mod_menu_version}") {
 		exclude module: "fabric-api"
 	}
 }

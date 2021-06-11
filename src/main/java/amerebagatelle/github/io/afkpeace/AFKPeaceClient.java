@@ -1,7 +1,6 @@
 package amerebagatelle.github.io.afkpeace;
 
 import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
-import io.github.amerebagatelle.disabler.client.api.DisableListenerRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,6 +25,8 @@ public class AFKPeaceClient implements ClientModInitializer {
 		SettingsManager.initSettings();
 		LOGGER.info("AFKPeace " + FabricLoader.getInstance().getModContainer(MODID).get().getMetadata().getVersion() + " Initialized");
 
+		// Disabled until Disabler is put on a maven somewhere
+		/*
 		MinecraftClient client = MinecraftClient.getInstance();
 		DisableListenerRegistry.register(MODID, "autoafk", (value) -> {
 			SettingsManager.settingsOverride.autoAfk = value;
@@ -42,5 +43,6 @@ public class AFKPeaceClient implements ClientModInitializer {
 			if (client.player != null)
 				client.player.sendSystemMessage(new TranslatableText("afkpeace.override.damageLogoutEnabled"), Util.NIL_UUID);
 		});
+		 */
 	}
 }
