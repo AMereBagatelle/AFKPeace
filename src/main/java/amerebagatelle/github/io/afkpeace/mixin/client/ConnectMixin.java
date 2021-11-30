@@ -63,7 +63,7 @@ public abstract class ConnectMixin {
             }
         } else {
             // TODO better realms support (#14)
-            client.openScreen(new RealmsMainScreen(new TitleScreen()));
+            client.setScreen(new RealmsMainScreen(new TitleScreen()));
         }
     }
 

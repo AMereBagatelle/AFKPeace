@@ -54,7 +54,7 @@ public class AFKPeaceConfig extends Screen {
         damageLogoutToleranceField = addSelectableChild(new ConfigTextWidget(textRenderer, autoAFKToggle.getRight() + fieldOffset, 160, 170, 20, "damageLogoutTolerance"));
         damageLogoutToleranceField.setTextPredicate(numberFilter);
 
-        addDrawableChild(new ButtonWidget(width - 110, height - 30, 100, 20, new TranslatableText("afkpeace.button.cancel"), (onPress) -> client.openScreen(parent)));
+        addDrawableChild(new ButtonWidget(width - 110, height - 30, 100, 20, new TranslatableText("afkpeace.button.cancel"), (onPress) -> client.setScreen(parent)));
 
         confirm = addDrawableChild(new ButtonWidget(width - 220, height - 30, 100, 20, new TranslatableText("afkpeace.button.confirm"), (onPress) -> {
             autoAFKToggle.saveValue();
@@ -67,7 +67,7 @@ public class AFKPeaceConfig extends Screen {
             reconnectAttemptNumberField.saveValue();
             damageLogoutToleranceField.saveValue();
 
-            client.openScreen(parent);
+            client.setScreen(parent);
         }));
     }
 
