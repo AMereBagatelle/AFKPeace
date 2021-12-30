@@ -9,14 +9,18 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	mavenLocal()
-	/*
 	maven {
 		name = "JitPack"
 		url = "https://jitpack.io"
 	}
-	 */
-	maven { url "https://maven.terraformersmc.com/"}
+	maven {
+		name = "Shedaniel's Maven"
+		url = "https://maven.shedaniel.me/"
+	}
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
+	}
 }
 
 dependencies {
@@ -26,26 +30,13 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// fabric api resource loader
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-
-	// Disabler, for server-side config
-	//modImplementation include ("com.github.AMereBagatelle:Disabler:1.17.x-main-SNAPSHOT")
-
-	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-	// You may need to force-disable transitiveness on them.
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-	// Optimization mods
-	//modRuntime "com.github.jellysquid3:sodium:${project.sodium_version}"
-	//modRuntime "com.github.jellysquid3:lithium-fabric:${project.lithium_version}"
-	//modRuntime ("com.github.SuperCoder7979:databreaker:${project.databreaker_version}") {
-	//	exclude module: "fabric-loader"
-	//}
-
-	modImplementation ("com.terraformersmc:modmenu:${project.mod_menu_version}") {
-		exclude module: "fabric-api"
-	}
+	include modApi("com.github.Draylar.omega-config:omega-config-base:${project.omega_config_version}")
+	include modApi("com.github.Draylar.omega-config:omega-config-gui:${project.omega_config_version}")
+	modImplementation ("com.terraformersmc:modmenu:${project.mod_menu_version}")
 }
 
 minecraft {
