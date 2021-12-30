@@ -2,7 +2,6 @@ package amerebagatelle.github.io.afkpeace.mixin.client;
 
 import amerebagatelle.github.io.afkpeace.AFKPeaceClient;
 import amerebagatelle.github.io.afkpeace.ConnectionManager;
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -32,7 +31,7 @@ public abstract class DisconnectedScreenMixin extends Screen {
     @Inject(method = "init", at = @At("TAIL"))
     public void onInit(CallbackInfo ci) {
         timeOfDisconnect = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        if (!SettingsManager.settings.reconnectEnabled && AFKPeaceClient.currentServerEntry != null) {
+        if (!AFKPeaceClient.CONFIG.reconnectEnabled && AFKPeaceClient.currentServerEntry != null) {
             this.addDrawableChild(new ButtonWidget(width / 2 - 100, this.height - 30, 200, 20, new TranslatableText("afkpeace.reconnect"), (buttonWidget) -> ConnectionManager.INSTANCE.connectToServer(AFKPeaceClient.currentServerEntry)));
         }
     }

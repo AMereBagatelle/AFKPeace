@@ -1,20 +1,25 @@
 package amerebagatelle.github.io.afkpeace;
 
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
+import draylar.omegaconfig.OmegaConfig;
+import draylar.omegaconfiggui.OmegaConfigGui;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ServerInfo;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Properties;
 
 @Environment(EnvType.CLIENT)
 public class AFKPeaceClient implements ClientModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger("AFKPeace");
+	public static final AFKPeaceConfig CONFIG = OmegaConfig.register(AFKPeaceConfig.class);
 	public static final String MODID = "afkpeace";
 
 	public static ServerInfo currentServerEntry;
@@ -22,27 +27,33 @@ public class AFKPeaceClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		SettingsManager.initSettings();
-		LOGGER.info("AFKPeace " + FabricLoader.getInstance().getModContainer(MODID).get().getMetadata().getVersion() + " Initialized");
+		if(Files.exists(FabricLoader.getInstance().getConfigDir().resolve("afkpeace.properties"))) recoverOldConfig();
 
-		// Disabled until Disabler is put on a maven somewhere
-		/*
-		MinecraftClient client = MinecraftClient.getInstance();
-		DisableListenerRegistry.register(MODID, "autoafk", (value) -> {
-			SettingsManager.settingsOverride.autoAfk = value;
-			if (client.player != null)
-				client.player.sendSystemMessage(new TranslatableText("afkpeace.override.autoAfk"), Util.NIL_UUID);
-		});
-		DisableListenerRegistry.register(MODID, "reconnectenabled", (value) -> {
-			SettingsManager.settingsOverride.reconnectEnabled = value;
-			if (client.player != null)
-				client.player.sendSystemMessage(new TranslatableText("afkpeace.override.reconnectEnabled"), Util.NIL_UUID);
-		});
-		DisableListenerRegistry.register(MODID, "damagelogout", (value) -> {
-			SettingsManager.settingsOverride.damageLogoutEnabled = value;
-			if (client.player != null)
-				client.player.sendSystemMessage(new TranslatableText("afkpeace.override.damageLogoutEnabled"), Util.NIL_UUID);
-		});
-		 */
+		OmegaConfigGui.registerConfigScreen(CONFIG);
+
+		LOGGER.info("AFKPeace " + FabricLoader.getInstance().getModContainer(MODID).get().getMetadata().getVersion() + " Initialized");
+	}
+
+	public void recoverOldConfig() {
+		BufferedReader reader;
+		Properties prop = new Properties();
+
+		try {
+			reader = new BufferedReader(new FileReader("config/afkpeace.properties"));
+			prop.load(reader);
+			reader.close();
+
+			CONFIG.autoAfk = Boolean.parseBoolean(prop.getProperty("autoAfk"));
+			CONFIG.reconnectEnabled = Boolean.parseBoolean(prop.getProperty("reconnectEnabled"));
+			CONFIG.damageLogoutEnabled = Boolean.parseBoolean(prop.getProperty("damageLogoutEnabled"));
+
+			CONFIG.autoAfkTimer = Integer.parseInt(prop.getProperty("autoAfkTimer"));
+			CONFIG.reconnectOnDamageLogout = Boolean.parseBoolean(prop.getProperty("reconnectOnDamageLogout"));
+			CONFIG.secondsBetweenReconnectAttempts = Integer.parseInt(prop.getProperty("secondsBetweenReconnectAttempts"));
+			CONFIG.reconnectAttemptNumber = Integer.parseInt(prop.getProperty("reconnectAttemptNumber"));
+			CONFIG.damageLogoutTolerance = Integer.parseInt(prop.getProperty("damageLogoutTolerance"));
+		} catch (IOException e) {
+			throw new RuntimeException("Can't read settings for AFKPeace!");
+		}
 	}
 }

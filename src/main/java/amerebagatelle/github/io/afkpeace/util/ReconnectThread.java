@@ -1,8 +1,8 @@
 package amerebagatelle.github.io.afkpeace.util;
 
 import amerebagatelle.github.io.afkpeace.AFKPeaceClient;
+import amerebagatelle.github.io.afkpeace.AFKPeaceConfig;
 import amerebagatelle.github.io.afkpeace.ConnectionManager;
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -14,8 +14,8 @@ import java.net.Socket;
 
 @Environment(EnvType.CLIENT)
 public class ReconnectThread extends Thread {
-    private final int timesToAttempt = SettingsManager.settings.reconnectAttemptNumber;
-    private final int secondsBetweenAttempts = SettingsManager.settings.secondsBetweenReconnectAttempts;
+    private final int timesToAttempt = AFKPeaceClient.CONFIG.reconnectAttemptNumber;
+    private final int secondsBetweenAttempts = AFKPeaceClient.CONFIG.secondsBetweenReconnectAttempts;
 
     private final ServerAddress serverAddress;
 

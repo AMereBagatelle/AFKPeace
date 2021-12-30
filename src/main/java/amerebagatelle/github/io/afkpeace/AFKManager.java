@@ -1,6 +1,5 @@
 package amerebagatelle.github.io.afkpeace;
 
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Util;
@@ -14,20 +13,22 @@ public class AFKManager {
         if (System.nanoTime() - lastUpdate > 1e+9) {
             afkTime++;
 
-            boolean afk = afkTime > SettingsManager.settings.autoAfkTimer;
+            boolean afk = afkTime > AFKPeaceClient.CONFIG.autoAfkTimer;
 
             if (afk && !wasAfk) {
                 AFKPeaceClient.LOGGER.debug("AutoAFK on.");
                 if (MinecraftClient.getInstance().player != null) {
                     MinecraftClient.getInstance().player.sendSystemMessage(new TranslatableText("afkpeace.afkmode.on"), Util.NIL_UUID);
                 }
-                SettingsManager.activateAFKMode();
+                AFKPeaceClient.CONFIG.reconnectEnabled = true;
+                AFKPeaceClient.CONFIG.damageLogoutEnabled = true;
             } else if (!afk && wasAfk) {
                 AFKPeaceClient.LOGGER.debug("AutoAFK off.");
                 if (MinecraftClient.getInstance().player != null) {
                     MinecraftClient.getInstance().player.sendSystemMessage(new TranslatableText("afkpeace.afkmode.off"), Util.NIL_UUID);
                 }
-                SettingsManager.disableAFKMode();
+                AFKPeaceClient.CONFIG.reconnectEnabled = true;
+                AFKPeaceClient.CONFIG.damageLogoutEnabled = true;
             }
             wasAfk = afk;
             lastUpdate = System.nanoTime();

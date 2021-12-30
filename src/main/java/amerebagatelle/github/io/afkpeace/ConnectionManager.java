@@ -1,6 +1,5 @@
 package amerebagatelle.github.io.afkpeace;
 
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
 import amerebagatelle.github.io.afkpeace.util.ReconnectThread;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -75,7 +74,7 @@ public class ConnectionManager {
      * @param reason Why the client disconnected.
      */
     public void disconnectFromServer(Text reason) {
-        if (!SettingsManager.applyOverride(SettingsManager.settings.reconnectOnDamageLogout, SettingsManager.settingsOverride.reconnectOnDamageLogout)) {
+        if (!AFKPeaceClient.CONFIG.reconnectOnDamageLogout) {
             isDisconnecting = true;
             Objects.requireNonNull(this.minecraft.getNetworkHandler()).getConnection().disconnect(reason);
             this.minecraft.disconnect();

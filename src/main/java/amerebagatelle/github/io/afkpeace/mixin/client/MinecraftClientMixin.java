@@ -1,7 +1,7 @@
 package amerebagatelle.github.io.afkpeace.mixin.client;
 
 import amerebagatelle.github.io.afkpeace.AFKManager;
-import amerebagatelle.github.io.afkpeace.settings.SettingsManager;
+import amerebagatelle.github.io.afkpeace.AFKPeaceClient;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,7 +16,7 @@ public abstract class MinecraftClientMixin {
      */
     @Inject(method = "tick", at = @At("HEAD"))
     public void onTick(CallbackInfo ci) {
-        if (SettingsManager.settings.autoAfk) {
+        if (AFKPeaceClient.CONFIG.autoAfk) {
             AFKManager.tickAfkStatus();
         }
     }
