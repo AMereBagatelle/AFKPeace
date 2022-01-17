@@ -60,6 +60,7 @@ public class AFKPeaceClient implements ClientModInitializer {
 			}
 		});
 
+		//noinspection OptionalGetWithoutIsPresent
 		LOGGER.info("AFKPeace " + FabricLoader.getInstance().getModContainer(MODID).get().getMetadata().getVersion() + " Initialized");
 	}
 
