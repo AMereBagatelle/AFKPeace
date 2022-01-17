@@ -65,6 +65,10 @@ public class AFKPeaceClient implements ClientModInitializer {
 			CONFIG.secondsBetweenReconnectAttempts = Integer.parseInt(prop.getProperty("secondsBetweenReconnectAttempts"));
 			CONFIG.reconnectAttemptNumber = Integer.parseInt(prop.getProperty("reconnectAttemptNumber"));
 			CONFIG.damageLogoutTolerance = Integer.parseInt(prop.getProperty("damageLogoutTolerance"));
+
+			CONFIG.save();
+
+			Files.delete(FabricLoader.getInstance().getConfigDir().resolve("afkpeace.properties"));
 		} catch (IOException e) {
 			throw new RuntimeException("Can't read settings for AFKPeace!");
 		}
