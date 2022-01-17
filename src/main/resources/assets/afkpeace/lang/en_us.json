@@ -1,5 +1,6 @@
 {
   "afkpeace.keybind.settingsMenu": "Open Settings",
+  "afkpeace.hud.featuresEnabled": "AFKPeace Features Enabled",
   "afkpeace.reconnect.reason": "Attempting to reconnect...",
   "afkpeace.reason.damagelogout": "Damage logout activated",
   "afkpeace.reconnect": "Reconnect",

@@ -12,6 +12,8 @@ public class AFKPeaceConfig implements Config {
     public boolean reconnectEnabled = false;
     @Comment("Disconnect from the server when greater than damageLogoutThreshold damage is taken.")
     public boolean damageLogoutEnabled = false;
+    @Comment("Places small text in upper left to indicate when AFKPeace features are enabled.")
+    public boolean featuresEnabledIndicator = true;
 
     // Setting configurations
     @Comment("The amount of time in seconds before autoAfk is activated.")

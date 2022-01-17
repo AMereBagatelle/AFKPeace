@@ -5,11 +5,16 @@ import draylar.omegaconfiggui.OmegaConfigGui;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.resource.language.I18n;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -41,6 +46,13 @@ public class AFKPeaceClient implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
 			if(settingsKeybind.wasPressed()) {
 				client.setScreen(OmegaConfigGui.getConfigScreenFactory(CONFIG).get(client.currentScreen));
+			}
+		});
+
+		HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
+			if((CONFIG.reconnectEnabled || CONFIG.damageLogoutEnabled) && CONFIG.featuresEnabledIndicator) {
+				TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+				textRenderer.draw(matrices, I18n.translate("afkpeace.hud.featuresEnabled"), 10, 10, 0xFFFFFF);
 			}
 		});
 
