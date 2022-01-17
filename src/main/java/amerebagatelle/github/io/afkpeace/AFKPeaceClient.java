@@ -47,6 +47,10 @@ public class AFKPeaceClient implements ClientModInitializer {
 			if(settingsKeybind.wasPressed()) {
 				client.setScreen(OmegaConfigGui.getConfigScreenFactory(CONFIG).get(client.currentScreen));
 			}
+
+			if (AFKPeaceClient.CONFIG.autoAfk) {
+				AFKManager.tickAfkStatus();
+			}
 		});
 
 		HudRenderCallback.EVENT.register((matrices, tickDelta) -> {

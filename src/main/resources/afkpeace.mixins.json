@@ -6,8 +6,7 @@
   "client": [
     "client.ConnectMixin",
     "client.DisconnectedScreenMixin",
-    "client.InputMixin",
-    "client.MinecraftClientMixin"
+    "client.InputMixin"
   ],
   "injectors": {
     "defaultRequire": 1
