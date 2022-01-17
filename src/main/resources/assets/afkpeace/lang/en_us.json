@@ -1,4 +1,5 @@
 {
+  "afkpeace.keybind.settingsMenu": "Open Settings",
   "afkpeace.reconnect.reason": "Attempting to reconnect...",
   "afkpeace.reason.damagelogout": "Damage logout activated",
   "afkpeace.reconnect": "Reconnect",
