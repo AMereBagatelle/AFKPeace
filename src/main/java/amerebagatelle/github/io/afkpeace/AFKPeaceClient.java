@@ -60,7 +60,7 @@ public class AFKPeaceClient implements ClientModInitializer {
 			CONFIG.reconnectEnabled = Boolean.parseBoolean(prop.getProperty("reconnectEnabled"));
 			CONFIG.damageLogoutEnabled = Boolean.parseBoolean(prop.getProperty("damageLogoutEnabled"));
 
-			CONFIG.autoAfkTimer = Integer.parseInt(prop.getProperty("autoAfkTimer"));
+			CONFIG.autoAfkTimerSeconds = Integer.parseInt(prop.getProperty("autoAfkTimer"));
 			CONFIG.reconnectOnDamageLogout = Boolean.parseBoolean(prop.getProperty("reconnectOnDamageLogout"));
 			CONFIG.secondsBetweenReconnectAttempts = Integer.parseInt(prop.getProperty("secondsBetweenReconnectAttempts"));
 			CONFIG.reconnectAttemptNumber = Integer.parseInt(prop.getProperty("reconnectAttemptNumber"));

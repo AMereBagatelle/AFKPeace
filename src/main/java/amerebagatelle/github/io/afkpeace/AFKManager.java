@@ -13,7 +13,7 @@ public class AFKManager {
         if (System.nanoTime() - lastUpdate > 1e+9) {
             afkTime++;
 
-            boolean afk = afkTime > AFKPeaceClient.CONFIG.autoAfkTimer;
+            boolean afk = afkTime > AFKPeaceClient.CONFIG.autoAfkTimerSeconds;
 
             if (afk && !wasAfk) {
                 AFKPeaceClient.LOGGER.debug("AutoAFK on.");
