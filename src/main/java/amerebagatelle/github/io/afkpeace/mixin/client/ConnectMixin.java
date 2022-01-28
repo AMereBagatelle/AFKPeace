@@ -1,5 +1,6 @@
 package amerebagatelle.github.io.afkpeace.mixin.client;
 
+import amerebagatelle.github.io.afkpeace.AFKManager;
 import amerebagatelle.github.io.afkpeace.AFKPeaceClient;
 import amerebagatelle.github.io.afkpeace.ConnectionManager;
 import net.fabricmc.api.EnvType;
@@ -48,7 +49,7 @@ public abstract class ConnectMixin {
             ConnectionManager connectionManager = ConnectionManager.INSTANCE;
             ServerInfo target = AFKPeaceClient.currentServerEntry;
             String reasonString = reason.toString();
-            if (AFKPeaceClient.CONFIG.reconnectEnabled) {
+            if (AFKPeaceClient.CONFIG.reconnectEnabled || AFKManager.isAfk()) {
                 if (!reasonString.contains("multiplayer.disconnect.kicked")) {
                     if (!connectionManager.isDisconnecting) {
                         if (target != null) {
@@ -72,7 +73,7 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method = "onHealthUpdate", at = @At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
-        if (AFKPeaceClient.CONFIG.damageLogoutEnabled) {
+        if (AFKPeaceClient.CONFIG.damageLogoutEnabled || AFKManager.isAfk()) {
             try {
                 if (packet.getHealth() < lastHealth && packet.getHealth() < AFKPeaceClient.CONFIG.damageLogoutTolerance) {
                     ConnectionManager.INSTANCE.disconnectFromServer(new TranslatableText("afkpeace.reason.damagelogout"));
