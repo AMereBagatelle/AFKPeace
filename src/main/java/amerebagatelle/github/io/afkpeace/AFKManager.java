@@ -1,8 +1,8 @@
 package amerebagatelle.github.io.afkpeace;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.toast.SystemToast;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Util;
 
 public class AFKManager {
     private static boolean wasAfk = false;
@@ -20,13 +20,13 @@ public class AFKManager {
             if (afk && !wasAfk) {
                 AFKPeaceClient.LOGGER.debug("AutoAFK on.");
                 if (MinecraftClient.getInstance().player != null) {
-                    MinecraftClient.getInstance().player.sendSystemMessage(new TranslatableText("afkpeace.afkmode.on"), Util.NIL_UUID);
+                    MinecraftClient.getInstance().getToastManager().add(new SystemToast(SystemToast.Type.NARRATOR_TOGGLE, new TranslatableText("afkpeace.afkmode.on"), new TranslatableText("")));
                 }
                 isAfk = true;
             } else if (!afk && wasAfk) {
                 AFKPeaceClient.LOGGER.debug("AutoAFK off.");
                 if (MinecraftClient.getInstance().player != null) {
-                    MinecraftClient.getInstance().player.sendSystemMessage(new TranslatableText("afkpeace.afkmode.off"), Util.NIL_UUID);
+                    MinecraftClient.getInstance().getToastManager().add(new SystemToast(SystemToast.Type.NARRATOR_TOGGLE, new TranslatableText("afkpeace.afkmode.off"), new TranslatableText("")));
                 }
                 isAfk = false;
             }
