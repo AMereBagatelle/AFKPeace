@@ -6,7 +6,8 @@
   "client": [
     "client.ConnectMixin",
     "client.DisconnectedScreenMixin",
-    "client.InputMixin"
+    "client.KeyboardMixin",
+    "client.MouseMixin"
   ],
   "injectors": {
     "defaultRequire": 1
