@@ -18,45 +18,39 @@ import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class ConnectionManager {
-    public static ConnectionManager INSTANCE = new ConnectionManager();
-    private final MinecraftClient minecraft;
-    private ReconnectThread reconnectThread;
-    public boolean isDisconnecting = false;
-
-    public ConnectionManager() {
-        this.minecraft = MinecraftClient.getInstance();
-    }
+    private static ReconnectThread reconnectThread;
+    public static boolean isDisconnecting = false;
 
     /**
      * Attempts to reconnect the client to the target server.
      *
      * @param target The server to connect to.
      */
-    public void startReconnect(ServerInfo target) {
-        Objects.requireNonNull(this.minecraft.getNetworkHandler()).getConnection().disconnect(new TranslatableText("reconnecting"));
-        this.minecraft.disconnect();
+    public static void startReconnect(ServerInfo target) {
+        Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).getConnection().disconnect(new TranslatableText("reconnecting"));
+        MinecraftClient.getInstance().disconnect();
         reconnectThread = new ReconnectThread(target);
         reconnectThread.start();
-        this.minecraft.setScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), new LiteralText("AFKPeaceReconnection"), new TranslatableText("afkpeace.reconnect.reason")));
+        MinecraftClient.getInstance().setScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), new LiteralText("AFKPeaceReconnection"), new TranslatableText("afkpeace.reconnect.reason")));
     }
 
     /**
      * Called by the Reconnection thread to finish reconnecting to the server.
      */
-    public void finishReconnect() {
+    public static void finishReconnect() {
         connectToServer(AFKPeaceClient.currentServerEntry);
     }
 
     /**
      * Called by the Reconnection thread if it cannot connect to the target server.
      */
-    public void cancelReconnect() {
+    public static void cancelReconnect() {
         try {
             reconnectThread.join();
         } catch (InterruptedException ignored) {
         }
         AFKPeaceClient.LOGGER.debug("Reconnecting cancelled.");
-        this.minecraft.setScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), new LiteralText("AFKPeaceDisconnect"), new TranslatableText("afkpeace.reconnectfail")));
+        MinecraftClient.getInstance().setScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), new LiteralText("AFKPeaceDisconnect"), new TranslatableText("afkpeace.reconnectfail")));
     }
 
     /**
@@ -64,8 +58,8 @@ public class ConnectionManager {
      *
      * @param targetInfo Server to connect to.
      */
-    public void connectToServer(ServerInfo targetInfo) {
-        ConnectScreen.connect(new MultiplayerScreen(new TitleScreen()), this.minecraft, ServerAddress.parse(targetInfo.address), targetInfo);
+    public static void connectToServer(ServerInfo targetInfo) {
+        ConnectScreen.connect(new MultiplayerScreen(new TitleScreen()), MinecraftClient.getInstance(), ServerAddress.parse(targetInfo.address), targetInfo);
     }
 
     /**
@@ -73,12 +67,12 @@ public class ConnectionManager {
      *
      * @param reason Why the client disconnected.
      */
-    public void disconnectFromServer(Text reason) {
+    public static void disconnectFromServer(Text reason) {
         if (!AFKPeaceClient.CONFIG.reconnectOnDamageLogout) {
             isDisconnecting = true;
-            Objects.requireNonNull(this.minecraft.getNetworkHandler()).getConnection().disconnect(reason);
-            this.minecraft.disconnect();
-            this.minecraft.setScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), new LiteralText("AFKPeaceDisconnect"), reason));
+            Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).getConnection().disconnect(reason);
+            MinecraftClient.getInstance().disconnect();
+        MinecraftClient.getInstance().setScreen(new DisconnectedScreen(new MultiplayerScreen(new TitleScreen()), new LiteralText("AFKPeaceDisconnect"), reason));
         } else {
             if (AFKPeaceClient.currentServerEntry != null) startReconnect(AFKPeaceClient.currentServerEntry);
         }

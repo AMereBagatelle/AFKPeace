@@ -5,7 +5,6 @@ import draylar.omegaconfiggui.OmegaConfigGui;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -54,7 +53,7 @@ public class AFKPeaceClient implements ClientModInitializer {
 		});
 
 		HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
-			if((CONFIG.reconnectEnabled || CONFIG.damageLogoutEnabled) && CONFIG.featuresEnabledIndicator) {
+			if((CONFIG.reconnectEnabled || CONFIG.damageLogoutEnabled || AFKManager.isAfk()) && CONFIG.featuresEnabledIndicator) {
 				TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 				textRenderer.draw(matrices, I18n.translate("afkpeace.hud.featuresEnabled"), 10, 10, 0xFFFFFF);
 			}

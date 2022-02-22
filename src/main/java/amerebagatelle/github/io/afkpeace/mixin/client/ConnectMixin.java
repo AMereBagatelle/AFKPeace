@@ -45,25 +45,22 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method = "onDisconnected", at = @At("HEAD"), cancellable = true)
     public void tryReconnect(Text reason, CallbackInfo cbi) {
-        if(!(loginScreen instanceof RealmsScreen)) {
-            ConnectionManager connectionManager = ConnectionManager.INSTANCE;
-            ServerInfo target = AFKPeaceClient.currentServerEntry;
-            String reasonString = reason.toString();
-            if (AFKPeaceClient.CONFIG.reconnectEnabled || AFKManager.isAfk()) {
-                if (!reasonString.contains("multiplayer.disconnect.kicked")) {
-                    if (!connectionManager.isDisconnecting) {
-                        if (target != null) {
-                            connectionManager.startReconnect(target);
-                            cbi.cancel();
-                        }
-                    } else {
-                        connectionManager.isDisconnecting = false;
-                    }
-                }
+        if(loginScreen instanceof RealmsScreen) {
+            client.setScreen(new RealmsMainScreen(new TitleScreen()));
+            return;
+        }
+
+        if (!(AFKPeaceClient.CONFIG.reconnectEnabled || AFKManager.isAfk())) return;
+        if (reason.toString().contains("multiplayer.disconnect.kicked")) return;
+
+        ServerInfo target = AFKPeaceClient.currentServerEntry;
+        if (!ConnectionManager.isDisconnecting) {
+            if (target != null) {
+                ConnectionManager.startReconnect(target);
+                cbi.cancel();
             }
         } else {
-            // TODO better realms support (#14)
-            client.setScreen(new RealmsMainScreen(new TitleScreen()));
+            ConnectionManager.isDisconnecting = false;
         }
     }
 
@@ -76,7 +73,7 @@ public abstract class ConnectMixin {
         if (AFKPeaceClient.CONFIG.damageLogoutEnabled || AFKManager.isAfk()) {
             try {
                 if (packet.getHealth() < lastHealth && packet.getHealth() < AFKPeaceClient.CONFIG.damageLogoutTolerance) {
-                    ConnectionManager.INSTANCE.disconnectFromServer(new TranslatableText("afkpeace.reason.damagelogout"));
+                    ConnectionManager.disconnectFromServer(new TranslatableText("afkpeace.reason.damagelogout"));
                 }
             } catch (NullPointerException ignored) {
             }

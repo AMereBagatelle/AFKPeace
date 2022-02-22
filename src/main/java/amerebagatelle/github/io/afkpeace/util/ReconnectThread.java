@@ -1,7 +1,6 @@
 package amerebagatelle.github.io.afkpeace.util;
 
 import amerebagatelle.github.io.afkpeace.AFKPeaceClient;
-import amerebagatelle.github.io.afkpeace.AFKPeaceConfig;
 import amerebagatelle.github.io.afkpeace.ConnectionManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -37,14 +36,14 @@ public class ReconnectThread extends Thread {
                 }
                 synchronized (this) {
                     AFKPeaceClient.LOGGER.info("Reconnecting to server.");
-                    MinecraftClient.getInstance().execute(() -> ConnectionManager.INSTANCE.finishReconnect());
+                    MinecraftClient.getInstance().execute(ConnectionManager::finishReconnect);
                 }
                 return;
             } catch (IOException | InterruptedException e) {
                 AFKPeaceClient.LOGGER.debug("Attempt failed.  Reason: " + e.getMessage() + " Attempt #: " + i + 1);
             }
         }
-        MinecraftClient.getInstance().execute(() -> ConnectionManager.INSTANCE.cancelReconnect());
+        MinecraftClient.getInstance().execute(ConnectionManager::cancelReconnect);
     }
 
     private void pingServer() throws IOException, InterruptedException {
