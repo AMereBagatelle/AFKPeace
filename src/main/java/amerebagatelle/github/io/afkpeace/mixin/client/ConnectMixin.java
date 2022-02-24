@@ -6,13 +6,11 @@ import amerebagatelle.github.io.afkpeace.ConnectionManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.realms.gui.screen.RealmsScreen;
-import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -27,17 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ConnectMixin {
     @Shadow @Final
     private MinecraftClient client;
-    @Shadow @Final private Screen loginScreen;
     private float lastHealth;
-
-    /**
-     * Gathers server data so that we know what to reconnect to.
-     */
-    @Environment(EnvType.CLIENT)
-    @Inject(method = "onGameJoin", at = @At("RETURN"))
-    private void onConnectedToServerEvent(GameJoinS2CPacket packet, CallbackInfo cbi) {
-        AFKPeaceClient.currentServerEntry = client.getCurrentServerEntry();
-    }
 
     /**
      * Checks if we should try to automatically reconnect, and if not opens a custom screen with a reconnect button
@@ -45,7 +33,7 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method = "onDisconnected", at = @At("HEAD"), cancellable = true)
     public void tryReconnect(Text reason, CallbackInfo cbi) {
-        if(loginScreen instanceof RealmsScreen) {
+        if(AFKPeaceClient.loginScreen instanceof RealmsScreen) {
             client.setScreen(new RealmsMainScreen(new TitleScreen()));
             return;
         }

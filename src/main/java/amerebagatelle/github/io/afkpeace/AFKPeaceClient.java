@@ -7,10 +7,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.resource.language.I18n;
@@ -32,6 +34,8 @@ public class AFKPeaceClient implements ClientModInitializer {
 	public static KeyBinding settingsKeybind;
 
 	public static ServerInfo currentServerEntry;
+	public static Screen loginScreen;
+
 	public static boolean disabled;
 
 	@Override
@@ -58,6 +62,8 @@ public class AFKPeaceClient implements ClientModInitializer {
 				textRenderer.draw(matrices, I18n.translate("afkpeace.hud.featuresEnabled"), 10, 10, 0xFFFFFF);
 			}
 		});
+
+		ClientPlayConnectionEvents.JOIN.register((networkHandler, packetSender, client) -> currentServerEntry = client.getCurrentServerEntry());
 
 		//noinspection OptionalGetWithoutIsPresent
 		LOGGER.info("AFKPeace " + FabricLoader.getInstance().getModContainer(MODID).get().getMetadata().getVersion() + " Initialized");
