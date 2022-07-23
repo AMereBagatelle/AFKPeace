@@ -66,7 +66,7 @@ public class ConnectionManager {
      * @param reason Why the client disconnected.
      */
     public static void disconnectFromServer(Text reason) {
-        if (!AFKPeaceClient.CONFIG.reconnectOnDamageLogout) {
+        if (!AFKPeaceClient.CONFIG.configurations.reconnectOnDamageLogout) {
             isDisconnecting = true;
             Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).getConnection().disconnect(reason);
             MinecraftClient.getInstance().disconnect();

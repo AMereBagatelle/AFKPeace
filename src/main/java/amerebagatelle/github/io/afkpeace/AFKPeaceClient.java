@@ -51,16 +51,16 @@ public class AFKPeaceClient implements ClientModInitializer {
 
 		ClientTickEvents.END.register((client) -> {
 			if(settingsKeybind.wasPressed()) {
-				// TODO: reimplement settings keybind
+
 			}
 
-			if (AFKPeaceClient.CONFIG.autoAfk) {
+			if (AFKPeaceClient.CONFIG.toggles.autoAfk) {
 				AFKManager.tickAfkStatus();
 			}
 		});
 
 		HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
-			if((CONFIG.reconnectEnabled || CONFIG.damageLogoutEnabled || AFKManager.isAfk()) && CONFIG.featuresEnabledIndicator) {
+			if((CONFIG.toggles.reconnectEnabled || CONFIG.toggles.damageLogoutEnabled || AFKManager.isAfk()) && CONFIG.toggles.featuresEnabledIndicator) {
 				TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 				textRenderer.draw(matrices, I18n.translate("afkpeace.hud.featuresEnabled"), 10, 10, 0xFFFFFF);
 			}

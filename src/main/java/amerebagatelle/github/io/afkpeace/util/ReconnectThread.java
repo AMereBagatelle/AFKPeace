@@ -13,8 +13,6 @@ import java.net.Socket;
 
 @Environment(EnvType.CLIENT)
 public class ReconnectThread extends Thread {
-    private final int timesToAttempt = AFKPeaceClient.CONFIG.reconnectAttemptNumber;
-    private final int secondsBetweenAttempts = AFKPeaceClient.CONFIG.secondsBetweenReconnectAttempts;
 
     private final ServerAddress serverAddress;
 
@@ -28,8 +26,10 @@ public class ReconnectThread extends Thread {
      */
     @Override
     public void run() {
+        int timesToAttempt = AFKPeaceClient.CONFIG.configurations.reconnectAttemptNumber;
         for (int i = 0; i < timesToAttempt; i++) {
             try {
+                int secondsBetweenAttempts = AFKPeaceClient.CONFIG.configurations.secondsBetweenReconnectAttempts;
                 Thread.sleep(secondsBetweenAttempts * 1000L);
                 for (int i1 = 0; i1 < 10; i1++) {
                     pingServer();

@@ -17,6 +17,10 @@ repositories {
 		name = "TerraformersMC"
 		url = "https://maven.terraformersmc.com/"
 	}
+	maven {
+		name 'Gegy'
+		url 'https://maven.gegy.dev'
+	}
 }
 
 dependencies {
@@ -30,6 +34,8 @@ dependencies {
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
 	modImplementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
+
+	include modImplementation("dev.lambdaurora:spruceui:${project.spruceui_version}")
 }
 
 processResources {
