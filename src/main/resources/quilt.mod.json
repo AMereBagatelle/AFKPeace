@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "amerebagatelle.github.io",
+    "id": "afkpeace",
+    "version": "${version}",
+    "metadata": {
+      "name": "AFKPeace",
+      "description": "A mod to make going AFK on servers much easier, with rejoining and respawning features.",
+      "contributors": {
+        "AMereBagatelle": "Owner"
+      },
+      "contact": {
+        "issues": "https://github.com/AMereBagatelle/AFKPeace/issues",
+        "sources": "https://github.com/AMereBagatelle/AFKPeace"
+      },
+      "icon": "assets/afkpeace/icon.png"
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "entrypoints": {
+      "client_init": "amerebagatelle.github.io.afkpeace.AFKPeaceClient"
+    },
+    "depends": [
+      {
+        "id": "quilt_loader",
+        "versions": ">=0.17.0-"
+      },
+      {
+        "id": "quilted_fabric_api",
+        "versions": ">=2.0.0-"
+      },
+      {
+        "id": "minecraft",
+        "versions": ">=1.19"
+      }
+    ]
+  },
+  "mixin": "afkpeace.mixins.json"
+}

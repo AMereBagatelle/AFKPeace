@@ -13,7 +13,6 @@ import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.realms.gui.screen.RealmsScreen;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -61,7 +60,7 @@ public abstract class ConnectMixin {
         if (AFKPeaceClient.CONFIG.damageLogoutEnabled || AFKManager.isAfk()) {
             try {
                 if (packet.getHealth() < lastHealth && packet.getHealth() < AFKPeaceClient.CONFIG.damageLogoutTolerance) {
-                    ConnectionManager.disconnectFromServer(new TranslatableText("afkpeace.reason.damagelogout"));
+                    ConnectionManager.disconnectFromServer(Text.translatable("afkpeace.reason.damagelogout"));
                 }
             } catch (NullPointerException ignored) {
             }
