@@ -22,5 +22,15 @@
   "afkpeace.afkmode.off": "AFKMode Off",
   "afkpeace.override.autoAfk": "AutoAFK disabled by server.",
   "afkpeace.override.reconnectEnabled": "Auto-reconnection disabled by server.",
-  "afkpeace.override.damageLogoutEnabled": "Damage logout disabled by server."
+  "afkpeace.override.damageLogoutEnabled": "Damage logout disabled by server.",
+  "config.afkpeace.afkpeace": "AFKPeace Config",
+  "configEntry.afkpeace.autoAfk": "Turn all features on when AFK for longer than Auto AFK Timer seconds",
+  "configEntry.afkpeace.reconnectEnabled": "Reconnect on disconnect",
+  "configEntry.afkpeace.damageLogoutEnabled": "Disconnect on damage",
+  "configEntry.afkpeace.featuresEnabledIndicator": "Show AFKPeace indicator when active",
+  "configEntry.afkpeace.autoAfkTimerSeconds": "Auto AFK Timer (Seconds)",
+  "configEntry.afkpeace.reconnectOnDamageLogout": "Reconnect after damage logout",
+  "configEntry.afkpeace.secondsBetweenReconnectAttempts": "Seconds between reconnection attempts",
+  "configEntry.afkpeace.reconnectAttemptNumber": "Number of reconnection attempts",
+  "configEntry.afkpeace.damageLogoutTolerance": "Damage logout tolerance"
 }
