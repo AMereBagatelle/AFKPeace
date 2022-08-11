@@ -58,7 +58,7 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method = "onHealthUpdate", at = @At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
-        if (AFKPeaceClient.CONFIG.damageLogoutEnabled || AFKManager.isAfk()) {
+        if (AFKPeaceClient.CONFIG.damageLogoutEnabled && AFKManager.isAfk()) {
             try {
                 if (packet.getHealth() < lastHealth && packet.getHealth() < AFKPeaceClient.CONFIG.damageLogoutTolerance) {
                     ConnectionManager.disconnectFromServer(new TranslatableText("afkpeace.reason.damagelogout"));
