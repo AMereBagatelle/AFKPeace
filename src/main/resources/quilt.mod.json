@@ -11,6 +11,7 @@
         "AMereBagatelle": "Owner"
       },
       "contact": {
+        "homepage": "https://github.com/AMereBagatelle/AFKPeace",
         "issues": "https://github.com/AMereBagatelle/AFKPeace/issues",
         "sources": "https://github.com/AMereBagatelle/AFKPeace"
       },
@@ -18,7 +19,8 @@
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "client_init": "amerebagatelle.github.io.afkpeace.AFKPeaceClient"
+      "client_init": "amerebagatelle.github.io.afkpeace.AFKPeaceClient",
+      "modmenu": "amerebagatelle.github.io.afkpeace.config.AFKPeaceModMenu"
     },
     "depends": [
       {
