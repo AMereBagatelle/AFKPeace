@@ -71,4 +71,5 @@ modrinth {
 	dependencies {
 		required.project "qsl"
 	}
+	syncBodyFrom = rootProject.file("README.md").text
 }
