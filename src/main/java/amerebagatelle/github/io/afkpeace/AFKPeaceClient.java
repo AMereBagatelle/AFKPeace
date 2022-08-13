@@ -1,5 +1,7 @@
 package amerebagatelle.github.io.afkpeace;
 
+import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigManager;
+import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -12,31 +14,16 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.resource.language.I18n;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.quiltmc.config.api.values.TrackedValue;
 import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.loader.api.QuiltLoader;
-import org.quiltmc.loader.api.config.QuiltConfig;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 import org.quiltmc.qsl.networking.api.client.ClientPlayConnectionEvents;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.List;
-import java.util.Properties;
-
 @Environment(EnvType.CLIENT)
 public class AFKPeaceClient implements ClientModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger("AFKPeace");
+	@SuppressWarnings("unused")
 	public static final String MODID = "afkpeace";
-
-	public static final AFKPeaceConfig CONFIG = QuiltConfig.create(
-			"afkpeace",
-			"config",
-			AFKPeaceConfig.class
-	);
 
 	public static KeyBinding settingsKeybind;
 
@@ -51,16 +38,16 @@ public class AFKPeaceClient implements ClientModInitializer {
 
 		ClientTickEvents.END.register((client) -> {
 			if(settingsKeybind.wasPressed()) {
-
+				client.setScreen(new AFKPeaceConfigScreen(client.currentScreen));
 			}
 
-			if (AFKPeaceClient.CONFIG.toggles.autoAfk) {
+			if (AFKPeaceConfigManager.AUTO_AFK.value()) {
 				AFKManager.tickAfkStatus();
 			}
 		});
 
 		HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
-			if((CONFIG.toggles.reconnectEnabled || CONFIG.toggles.damageLogoutEnabled || AFKManager.isAfk()) && CONFIG.toggles.featuresEnabledIndicator) {
+			if ((AFKPeaceConfigManager.AUTO_AFK.value() || AFKPeaceConfigManager.DAMAGE_LOGOUT_ENABLED.value() || AFKManager.isAfk()) && AFKPeaceConfigManager.FEATURES_ENABLED_INDICATOR.value()) {
 				TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 				textRenderer.draw(matrices, I18n.translate("afkpeace.hud.featuresEnabled"), 10, 10, 0xFFFFFF);
 			}

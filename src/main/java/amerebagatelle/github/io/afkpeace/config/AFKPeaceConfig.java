@@ -1,7 +1,8 @@
-package amerebagatelle.github.io.afkpeace;
+package amerebagatelle.github.io.afkpeace.config;
 
 import org.quiltmc.config.api.WrappedConfig;
 
+@SuppressWarnings({"unused"})
 public class AFKPeaceConfig extends WrappedConfig {
     public final Toggles toggles = new Toggles();
     public final Configurations configurations = new Configurations();

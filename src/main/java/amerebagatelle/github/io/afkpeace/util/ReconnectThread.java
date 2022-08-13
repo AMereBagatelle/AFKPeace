@@ -2,6 +2,7 @@ package amerebagatelle.github.io.afkpeace.util;
 
 import amerebagatelle.github.io.afkpeace.AFKPeaceClient;
 import amerebagatelle.github.io.afkpeace.ConnectionManager;
+import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -26,10 +27,10 @@ public class ReconnectThread extends Thread {
      */
     @Override
     public void run() {
-        int timesToAttempt = AFKPeaceClient.CONFIG.configurations.reconnectAttemptNumber;
+        int timesToAttempt = AFKPeaceConfigManager.RECONNECT_ATTEMPT_NUMBER.value();
         for (int i = 0; i < timesToAttempt; i++) {
             try {
-                int secondsBetweenAttempts = AFKPeaceClient.CONFIG.configurations.secondsBetweenReconnectAttempts;
+                int secondsBetweenAttempts = AFKPeaceConfigManager.SECONDS_BETWEEN_RECONNECT_ATTEMPTS.value();
                 Thread.sleep(secondsBetweenAttempts * 1000L);
                 for (int i1 = 0; i1 < 10; i1++) {
                     pingServer();

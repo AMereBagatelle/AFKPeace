@@ -3,6 +3,7 @@ package amerebagatelle.github.io.afkpeace.mixin.client;
 import amerebagatelle.github.io.afkpeace.AFKManager;
 import amerebagatelle.github.io.afkpeace.AFKPeaceClient;
 import amerebagatelle.github.io.afkpeace.ConnectionManager;
+import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -37,7 +38,7 @@ public abstract class ConnectMixin {
             return;
         }
 
-        if (!(AFKPeaceClient.CONFIG.toggles.reconnectEnabled || AFKManager.isAfk())) return;
+        if (!(AFKPeaceConfigManager.RECONNECT_ENABLED.value() || AFKManager.isAfk())) return;
         if (reason.toString().contains("multiplayer.disconnect.kicked")) return;
 
         ServerInfo target = AFKPeaceClient.currentServerEntry;
@@ -57,9 +58,9 @@ public abstract class ConnectMixin {
     @Environment(EnvType.CLIENT)
     @Inject(method = "onHealthUpdate", at = @At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
-        if (AFKPeaceClient.CONFIG.toggles.damageLogoutEnabled || AFKManager.isAfk()) {
+        if (AFKPeaceConfigManager.DAMAGE_LOGOUT_ENABLED.value() || AFKManager.isAfk()) {
             try {
-                if (packet.getHealth() < lastHealth && packet.getHealth() < AFKPeaceClient.CONFIG.configurations.damageLogoutTolerance) {
+                if (packet.getHealth() < lastHealth && packet.getHealth() < AFKPeaceConfigManager.DAMAGE_LOGOUT_TOLERANCE.value()) {
                     ConnectionManager.disconnectFromServer(Text.translatable("afkpeace.reason.damagelogout"));
                 }
             } catch (NullPointerException ignored) {
