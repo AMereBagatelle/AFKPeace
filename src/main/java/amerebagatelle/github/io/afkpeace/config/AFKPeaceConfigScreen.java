@@ -60,10 +60,10 @@ public class AFKPeaceConfigScreen extends SpruceScreen {
                 Text.translatable("afkpeace.option.featuresEnabledIndicator.tooltip")
         );
 
-        autoAfkTimerSeconds = new SpruceIntegerInputOption("afkpeace.option.autoAfkTimerSeconds",
+        autoAfkTimerSeconds = new SpruceIntegerInputOption("afkpeace.option.autoAfkTimer",
                 AFKPeaceConfigManager.AUTO_AFK_TIMER_SECONDS::value,
                 newValue -> AFKPeaceConfigManager.setConfigValue(AFKPeaceConfigManager.AUTO_AFK_TIMER_SECONDS, newValue),
-                Text.translatable("afkpeace.option.autoAfkTimerSeconds.tooltip")
+                Text.translatable("afkpeace.option.autoAfkTimer.tooltip")
         );
         reconnectOnDamageLogout = new SpruceToggleBooleanOption("afkpeace.option.reconnectOnDamageLogout",
                 AFKPeaceConfigManager.RECONNECT_ON_DAMAGE_LOGOUT::value,
@@ -75,15 +75,15 @@ public class AFKPeaceConfigScreen extends SpruceScreen {
                 newValue -> AFKPeaceConfigManager.setConfigValue(AFKPeaceConfigManager.SECONDS_BETWEEN_RECONNECT_ATTEMPTS, newValue),
                 Text.translatable("afkpeace.option.secondsBetweenReconnectAttempts.tooltip")
         );
-        reconnectAttemptNumber = new SpruceIntegerInputOption("afkpeace.option.autoAfkTimerSeconds",
+        reconnectAttemptNumber = new SpruceIntegerInputOption("afkpeace.option.reconnectAttemptNumber",
                 AFKPeaceConfigManager.RECONNECT_ATTEMPT_NUMBER::value,
                 newValue -> AFKPeaceConfigManager.setConfigValue(AFKPeaceConfigManager.RECONNECT_ATTEMPT_NUMBER, newValue),
-                Text.translatable("afkpeace.option.autoAfkTimerSeconds.tooltip")
+                Text.translatable("afkpeace.option.reconnectAttemptNumber.tooltip")
         );
-        damageLogoutTolerance = new SpruceIntegerInputOption("afkpeace.option.autoAfkTimerSeconds",
+        damageLogoutTolerance = new SpruceIntegerInputOption("afkpeace.option.damageLogoutTolerance",
                 AFKPeaceConfigManager.DAMAGE_LOGOUT_TOLERANCE::value,
                 newValue -> AFKPeaceConfigManager.setConfigValue(AFKPeaceConfigManager.DAMAGE_LOGOUT_TOLERANCE, newValue),
-                Text.translatable("afkpeace.option.autoAfkTimerSeconds.tooltip")
+                Text.translatable("afkpeace.option.damageLogoutTolerance.tooltip")
         );
     }
 
