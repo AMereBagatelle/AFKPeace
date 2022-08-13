@@ -55,6 +55,6 @@ public class AFKPeaceClient implements ClientModInitializer {
 
 		ClientPlayConnectionEvents.JOIN.register((networkHandler, packetSender, client) -> currentServerEntry = client.getCurrentServerEntry());
 
-		LOGGER.info("AFKPeace " + mod.metadata().version() + " Initialized");
+		LOGGER.info("AFKPeace " + mod.metadata().version().raw() + " Initialized");
 	}
 }
