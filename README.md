@@ -1,7 +1,7 @@
 # AFKPeace
 
 [![Discord Shield](https://discordapp.com/api/guilds/756203400089305128/widget.png?style=shield)](https://discord.gg/quvzkaV)
-[![Modrinth Shield](https://img.shields.io/badge/dynamic/json?color=blue&label=Modrinth&query=downloads&url=https%3A%2F%2Fapi.modrinth.com%2Fapi%2Fv1%2Fmod%2F65jTHvHz)](https://modrinth.com/mod/afkpeace)
+[![Modrinth Shield](https://img.shields.io/modrinth/dt/afkpeace?color=blue&label=Modrinth)](https://modrinth.com/mod/afkpeace)
 
 The mod to give you peace of mind while AFK!
 
