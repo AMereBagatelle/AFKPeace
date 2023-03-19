@@ -9,8 +9,9 @@
   "afkpeace.disconnectscreen.time": "Time of disconnect: %s",
   "afkpeace.config.back": "Back",
   "afkpeace.config.title": "AFKPeace Config",
+  "afkpeace.option.generalOptions": "General Configuration",
   "afkpeace.option.autoAfk": "AutoAFK",
-  "afkpeace.option.autoAfk.tooltip": "Turns on all features of AFKPeace when the player is left AFK",
+  "afkpeace.option.autoAfk.tooltip": "Turns on selected features of AFKPeace when the player is left AFK",
   "afkpeace.option.reconnectEnabled": "Reconnection",
   "afkpeace.option.reconnectEnabled.tooltip": "Reconnect your client upon disconnection",
   "afkpeace.option.damageLogoutEnabled": "Damage Logout",
@@ -28,8 +29,5 @@
   "afkpeace.option.damageLogoutTolerance": "Damage Logout Tolerance",
   "afkpeace.option.damageLogoutTolerance.tooltip": "Minimum amount of health remaining before the damage logout feature activates",
   "afkpeace.afkmode.on": "AFKMode On",
-  "afkpeace.afkmode.off": "AFKMode Off",
-  "afkpeace.override.autoAfk": "AutoAFK disabled by server.",
-  "afkpeace.override.reconnectEnabled": "Auto-reconnection disabled by server.",
-  "afkpeace.override.damageLogoutEnabled": "Damage logout disabled by server."
+  "afkpeace.afkmode.off": "AFKMode Off"
 }

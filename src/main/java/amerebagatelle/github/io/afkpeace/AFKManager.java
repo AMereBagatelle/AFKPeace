@@ -31,12 +31,20 @@ public class AFKManager {
                 }
                 isAfk = false;
             }
-            wasAfk = afk;
+            wasAfk = afk && AFKPeaceConfigManager.AUTO_AFK.value();
             lastUpdate = System.nanoTime();
         }
     }
 
     public static boolean isAfk() {
         return isAfk;
+    }
+
+    public static boolean damageLogoutOverride() {
+        return isAfk && AFKPeaceConfigManager.AUTO_AFK_DAMAGE_LOGOUT_ENABLED.value();
+    }
+
+    public static boolean reconnectOverride() {
+        return isAfk && AFKPeaceConfigManager.AUTO_AFK_RECONNECT_ENABLED.value();
     }
 }

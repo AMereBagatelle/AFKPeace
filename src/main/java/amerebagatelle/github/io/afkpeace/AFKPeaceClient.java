@@ -2,7 +2,6 @@ package amerebagatelle.github.io.afkpeace;
 
 import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigManager;
 import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigScreen;
-import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
@@ -45,7 +44,7 @@ public class AFKPeaceClient implements ClientModInitializer {
 		});
 
 		HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
-			if ((AFKPeaceConfigManager.AUTO_AFK.value() || AFKPeaceConfigManager.DAMAGE_LOGOUT_ENABLED.value() || AFKManager.isAfk()) && AFKPeaceConfigManager.FEATURES_ENABLED_INDICATOR.value()) {
+			if ((AFKPeaceConfigManager.DAMAGE_LOGOUT_ENABLED.value() || AFKManager.isAfk()) && AFKPeaceConfigManager.FEATURES_ENABLED_INDICATOR.value()) {
 				TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 				textRenderer.draw(matrices, I18n.translate("afkpeace.hud.featuresEnabled"), 10, 10, 0xFFFFFF);
 			}

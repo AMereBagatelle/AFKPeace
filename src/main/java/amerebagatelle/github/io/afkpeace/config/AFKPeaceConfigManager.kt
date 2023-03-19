@@ -11,9 +11,6 @@ object AFKPeaceConfigManager {
     )
 
     @JvmField
-    val AUTO_AFK = CONFIG.getValue(listOf("toggles", "autoAfk")) as TrackedValue<Boolean>
-
-    @JvmField
     val RECONNECT_ENABLED = CONFIG.getValue(listOf("toggles", "reconnectEnabled")) as TrackedValue<Boolean>
 
     @JvmField
@@ -41,6 +38,17 @@ object AFKPeaceConfigManager {
     @JvmField
     val DAMAGE_LOGOUT_TOLERANCE =
         CONFIG.getValue(listOf("configurations", "damageLogoutTolerance")) as TrackedValue<Int>
+
+    @JvmField
+    val AUTO_AFK = CONFIG.getValue(listOf("afkMode", "autoAfk")) as TrackedValue<Boolean>
+
+    @JvmField
+    val AUTO_AFK_RECONNECT_ENABLED =
+        CONFIG.getValue(listOf("afkMode", "autoAfkReconnectEnabled")) as TrackedValue<Boolean>
+
+    @JvmField
+    val AUTO_AFK_DAMAGE_LOGOUT_ENABLED =
+        CONFIG.getValue(listOf("afkMode", "autoAfkDamageLogoutEnabled")) as TrackedValue<Boolean>
 
     @JvmStatic
     fun <T : Any> setConfigValue(value: TrackedValue<T>, setpoint: T) {

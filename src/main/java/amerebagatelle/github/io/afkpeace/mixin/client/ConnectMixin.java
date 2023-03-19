@@ -35,7 +35,7 @@ public abstract class ConnectMixin {
             return;
         }
 
-        if (!(AFKPeaceConfigManager.RECONNECT_ENABLED.value() || AFKManager.isAfk())) return;
+        if (!(AFKPeaceConfigManager.RECONNECT_ENABLED.value() || AFKManager.reconnectOverride())) return;
         if (reason.toString().contains("multiplayer.disconnect.kicked")) return;
 
         ServerInfo target = AFKPeaceClient.currentServerEntry;
@@ -54,7 +54,7 @@ public abstract class ConnectMixin {
      */
     @Inject(method = "onHealthUpdate", at = @At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
-        if (AFKPeaceConfigManager.DAMAGE_LOGOUT_ENABLED.value() || AFKManager.isAfk()) {
+        if (AFKPeaceConfigManager.DAMAGE_LOGOUT_ENABLED.value() || AFKManager.damageLogoutOverride()) {
             try {
                 if (packet.getHealth() < lastHealth && packet.getHealth() < AFKPeaceConfigManager.DAMAGE_LOGOUT_TOLERANCE.value()) {
                     ConnectionManagerKt.disconnectFromServer(Text.translatable("afkpeace.reason.damagelogout"));

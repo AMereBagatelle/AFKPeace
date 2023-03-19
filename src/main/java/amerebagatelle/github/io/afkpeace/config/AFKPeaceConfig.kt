@@ -6,10 +6,10 @@ import org.quiltmc.config.api.WrappedConfig
 @Suppress("unused")
 class AFKPeaceConfig : WrappedConfig() {
     val toggles = Toggles()
-    val configurations: Configurations = Configurations()
+    val configurations = Configurations()
+    val afkMode = AFKMode()
 
     inner class Toggles : Config.Section {
-        val autoAfk = false
         val reconnectEnabled = false
         val damageLogoutEnabled = false
         val featuresEnabledIndicator = true
@@ -21,5 +21,11 @@ class AFKPeaceConfig : WrappedConfig() {
         val secondsBetweenReconnectAttempts = 3
         val reconnectAttemptNumber = 10
         val damageLogoutTolerance = 20
+    }
+
+    inner class AFKMode : Config.Section {
+        val autoAfk = false
+        val autoAfkReconnectEnabled = false
+        val autoAfkDamageLogoutEnabled = false
     }
 }
