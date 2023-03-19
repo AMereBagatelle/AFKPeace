@@ -26,7 +26,7 @@
   "afkpeace.option.reconnectAttemptNumber": "Reconnect Attempts",
   "afkpeace.option.reconnectAttemptNumber.tooltip": "Amount of attempts before the client gives up attempting to reconnect",
   "afkpeace.option.damageLogoutTolerance": "Damage Logout Tolerance",
-  "afkpeace.option.damageLogoutTolerance.tooltip": "Amount of damage (in hitpoints) allowed before the damage logout feature activates",
+  "afkpeace.option.damageLogoutTolerance.tooltip": "Minimum amount of health remaining before the damage logout feature activates",
   "afkpeace.afkmode.on": "AFKMode On",
   "afkpeace.afkmode.off": "AFKMode Off",
   "afkpeace.override.autoAfk": "AutoAFK disabled by server.",
