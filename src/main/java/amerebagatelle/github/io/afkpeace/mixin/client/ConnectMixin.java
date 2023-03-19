@@ -2,10 +2,8 @@ package amerebagatelle.github.io.afkpeace.mixin.client;
 
 import amerebagatelle.github.io.afkpeace.AFKManager;
 import amerebagatelle.github.io.afkpeace.AFKPeaceClient;
-import amerebagatelle.github.io.afkpeace.ConnectionManager;
+import amerebagatelle.github.io.afkpeace.ConnectionManagerKt;
 import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigManager;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -41,13 +39,13 @@ public abstract class ConnectMixin {
         if (reason.toString().contains("multiplayer.disconnect.kicked")) return;
 
         ServerInfo target = AFKPeaceClient.currentServerEntry;
-        if (!ConnectionManager.isDisconnecting) {
+        if (!ConnectionManagerKt.isDisconnecting) {
             if (target != null) {
-                ConnectionManager.startReconnect(target);
+                ConnectionManagerKt.startReconnect(target);
                 cbi.cancel();
             }
         } else {
-            ConnectionManager.isDisconnecting = false;
+            ConnectionManagerKt.isDisconnecting = false;
         }
     }
 
@@ -59,7 +57,7 @@ public abstract class ConnectMixin {
         if (AFKPeaceConfigManager.DAMAGE_LOGOUT_ENABLED.value() || AFKManager.isAfk()) {
             try {
                 if (packet.getHealth() < lastHealth && packet.getHealth() < AFKPeaceConfigManager.DAMAGE_LOGOUT_TOLERANCE.value()) {
-                    ConnectionManager.disconnectFromServer(Text.translatable("afkpeace.reason.damagelogout"));
+                    ConnectionManagerKt.disconnectFromServer(Text.translatable("afkpeace.reason.damagelogout"));
                 }
             } catch (NullPointerException ignored) {
             }

@@ -45,6 +45,7 @@ dependencies {
 	modImplementation(libs.modmenu)
 
 	modImplementation(libs.spruceui)
+	include(libs.spruceui)
 
 	compileOnly("com.google.code.findbugs:jsr305:3.0.2")
 }
