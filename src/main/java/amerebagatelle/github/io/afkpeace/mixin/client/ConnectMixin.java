@@ -30,7 +30,6 @@ public abstract class ConnectMixin {
     /**
      * Checks if we should try to automatically reconnect, and if not opens a custom screen with a reconnect button
      */
-    @Environment(EnvType.CLIENT)
     @Inject(method = "onDisconnected", at = @At("HEAD"), cancellable = true)
     public void tryReconnect(Text reason, CallbackInfo cbi) {
         if(AFKPeaceClient.loginScreen instanceof RealmsScreen) {
@@ -55,7 +54,6 @@ public abstract class ConnectMixin {
     /**
      * Gets when the player's health changes, and logs the player out if it has taken damage
      */
-    @Environment(EnvType.CLIENT)
     @Inject(method = "onHealthUpdate", at = @At("TAIL"))
     public void onPlayerHealthUpdate(HealthUpdateS2CPacket packet, CallbackInfo cbi) {
         if (AFKPeaceConfigManager.DAMAGE_LOGOUT_ENABLED.value() || AFKManager.isAfk()) {

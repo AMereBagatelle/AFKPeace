@@ -15,7 +15,6 @@ import net.minecraft.text.Text;
 
 import java.util.Objects;
 
-@Environment(EnvType.CLIENT)
 public class ConnectionManager {
     private static ReconnectThread reconnectThread;
     public static boolean isDisconnecting = false;

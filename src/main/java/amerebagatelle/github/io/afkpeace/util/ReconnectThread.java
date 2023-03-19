@@ -12,9 +12,7 @@ import net.minecraft.client.network.ServerInfo;
 import java.io.IOException;
 import java.net.Socket;
 
-@Environment(EnvType.CLIENT)
 public class ReconnectThread extends Thread {
-
     private final ServerAddress serverAddress;
 
     public ReconnectThread(ServerInfo serverInfo) {

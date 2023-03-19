@@ -1,0 +1,32 @@
+[versions]
+kotlin = "1.7.21"
+
+minecraft = "1.19.4"
+qfapi = "6.0.0-beta.2+0.76.0-1.19.4"
+qkl = "1.0.0+kt.1.7.20+flk.1.8.5"
+loader = "0.18.5"
+mappings = "1.19.4+build.5"
+loom = "1.+"
+
+mod_menu = "6.1.0-rc.4"
+
+spruce_ui = "4.2.0+1.19.4"
+
+[libraries]
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+qfapi = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api", version.ref = "qfapi" }
+qfapi_deprecated = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated", version.ref = "qfapi" }
+
+qkl = { module = "org.quiltmc.quilt-kotlin-libraries:quilt-kotlin-libraries", version.ref = "qkl"}
+quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "loader" }
+quilt_mappings = { module = "org.quiltmc:quilt-mappings", version.ref = "mappings" }
+
+modmenu = { module = "com.terraformersmc:modmenu", version.ref = "mod_menu" }
+spruceui = { module = "dev.lambdaurora:spruceui", version.ref = "spruce_ui" }
+
+[bundles]
+quilted_fabric_api = ["qfapi", "qfapi_deprecated"]
+
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+quilt_loom = { id = "org.quiltmc.loom", version.ref = "loom" }
