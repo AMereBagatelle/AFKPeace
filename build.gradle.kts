@@ -10,19 +10,19 @@ plugins {
 	id("com.modrinth.minotaur") version "2.+"
 }
 
-val archives_base_name: String by project
-val minecraft_version: String by project
-base.archivesName.set(archives_base_name + minecraft_version)
+val archivesBaseName: String by project
+val minecraftVersion: String by project
+base.archivesName.set(archivesBaseName + minecraftVersion)
 val version: String by project
 group = "amerebagatelle.github.io"
 
 val javaVersion = 17
 
 repositories {
-	maven (
+	maven(
 		url = "https://maven.quiltmc.org/repository/release"
 	)
-	maven (
+	maven(
 		url = "https://maven.terraformersmc.com/"
 	)
 	maven (
@@ -127,11 +127,11 @@ val javadoc = task("javadocJar", Jar::class) {
 modrinth {
 	token.set(System.getenv("MODRINTH_TOKEN"))
 	projectId.set("65jTHvHz")
-	versionName.set("$archives_base_name $version")
+	versionName.set("$archivesBaseName $version")
 	versionNumber.set(version)
 	changelog.set(System.getenv("CHANGELOG_BODY"))
 	uploadFile.set(tasks.remapJar.get())
-	gameVersions.addAll(minecraft_version)
+	gameVersions.addAll(minecraftVersion)
 	loaders.add("quilt")
 	dependencies {
 		required.project("qsl")
