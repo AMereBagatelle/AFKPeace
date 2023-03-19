@@ -1,24 +1,25 @@
-package amerebagatelle.github.io.afkpeace.config;
+package amerebagatelle.github.io.afkpeace.config
 
-import org.quiltmc.config.api.WrappedConfig;
+import org.quiltmc.config.api.Config
+import org.quiltmc.config.api.WrappedConfig
 
-@SuppressWarnings({"unused"})
-public class AFKPeaceConfig extends WrappedConfig {
-    public final Toggles toggles = new Toggles();
-    public final Configurations configurations = new Configurations();
+@Suppress("unused")
+class AFKPeaceConfig : WrappedConfig() {
+    val toggles = Toggles()
+    val configurations: Configurations = Configurations()
 
-    public class Toggles implements Section {
-        public final boolean autoAfk = false;
-        public final boolean reconnectEnabled = false;
-        public final boolean damageLogoutEnabled = false;
-        public final boolean featuresEnabledIndicator = true;
+    inner class Toggles : Config.Section {
+        val autoAfk = false
+        val reconnectEnabled = false
+        val damageLogoutEnabled = false
+        val featuresEnabledIndicator = true
     }
 
-    public class Configurations implements Section {
-        public final int autoAfkTimerSeconds = 300;
-        public final boolean reconnectOnDamageLogout = false;
-        public final int secondsBetweenReconnectAttempts = 3;
-        public final int reconnectAttemptNumber = 10;
-        public final int damageLogoutTolerance = 20;
+    inner class Configurations : Config.Section {
+        val autoAfkTimerSeconds = 300
+        val reconnectOnDamageLogout = false
+        val secondsBetweenReconnectAttempts = 3
+        val reconnectAttemptNumber = 10
+        val damageLogoutTolerance = 20
     }
 }

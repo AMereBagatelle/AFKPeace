@@ -1,30 +1,49 @@
-package amerebagatelle.github.io.afkpeace.config;
+package amerebagatelle.github.io.afkpeace.config
 
-import org.quiltmc.config.api.values.TrackedValue;
-import org.quiltmc.loader.api.config.QuiltConfig;
+import org.quiltmc.config.api.values.TrackedValue
+import org.quiltmc.loader.api.config.QuiltConfig
 
-import java.util.List;
+object AFKPeaceConfigManager {
+    private val CONFIG = QuiltConfig.create(
+        "afkpeace",
+        "config",
+        AFKPeaceConfig::class.java
+    )
 
-@SuppressWarnings("unchecked")
-public class AFKPeaceConfigManager {
-    private static final AFKPeaceConfig CONFIG = QuiltConfig.create(
-            "afkpeace",
-            "config",
-            AFKPeaceConfig.class
-    );
+    @JvmField
+    val AUTO_AFK = CONFIG.getValue(listOf("toggles", "autoAfk")) as TrackedValue<Boolean>
 
-    public static final TrackedValue<Boolean> AUTO_AFK = (TrackedValue<Boolean>) CONFIG.getValue(List.of("toggles", "autoAfk"));
-    public static final TrackedValue<Boolean> RECONNECT_ENABLED = (TrackedValue<Boolean>) CONFIG.getValue(List.of("toggles", "reconnectEnabled"));
-    public static final TrackedValue<Boolean> DAMAGE_LOGOUT_ENABLED = (TrackedValue<Boolean>) CONFIG.getValue(List.of("toggles", "damageLogoutEnabled"));
-    public static final TrackedValue<Boolean> FEATURES_ENABLED_INDICATOR = (TrackedValue<Boolean>) CONFIG.getValue(List.of("toggles", "featuresEnabledIndicator"));
+    @JvmField
+    val RECONNECT_ENABLED = CONFIG.getValue(listOf("toggles", "reconnectEnabled")) as TrackedValue<Boolean>
 
-    public static final TrackedValue<Integer> AUTO_AFK_TIMER_SECONDS = (TrackedValue<Integer>) CONFIG.getValue(List.of("configurations", "autoAfkTimerSeconds"));
-    public static final TrackedValue<Boolean> RECONNECT_ON_DAMAGE_LOGOUT = (TrackedValue<Boolean>) CONFIG.getValue(List.of("configurations", "reconnectOnDamageLogout"));
-    public static final TrackedValue<Integer> SECONDS_BETWEEN_RECONNECT_ATTEMPTS = (TrackedValue<Integer>) CONFIG.getValue(List.of("configurations", "secondsBetweenReconnectAttempts"));
-    public static final TrackedValue<Integer> RECONNECT_ATTEMPT_NUMBER = (TrackedValue<Integer>) CONFIG.getValue(List.of("configurations", "reconnectAttemptNumber"));
-    public static final TrackedValue<Integer> DAMAGE_LOGOUT_TOLERANCE = (TrackedValue<Integer>) CONFIG.getValue(List.of("configurations", "damageLogoutTolerance"));
+    @JvmField
+    val DAMAGE_LOGOUT_ENABLED = CONFIG.getValue(listOf("toggles", "damageLogoutEnabled")) as TrackedValue<Boolean>
 
-    public static <T> void setConfigValue(TrackedValue<T> value, T setpoint) {
-        value.setValue(setpoint, true);
+    @JvmField
+    val FEATURES_ENABLED_INDICATOR =
+        CONFIG.getValue(listOf("toggles", "featuresEnabledIndicator")) as TrackedValue<Boolean>
+
+    @JvmField
+    val AUTO_AFK_TIMER_SECONDS = CONFIG.getValue(listOf("configurations", "autoAfkTimerSeconds")) as TrackedValue<Int>
+
+    @JvmField
+    val RECONNECT_ON_DAMAGE_LOGOUT =
+        CONFIG.getValue(listOf("configurations", "reconnectOnDamageLogout")) as TrackedValue<Boolean>
+
+    @JvmField
+    val SECONDS_BETWEEN_RECONNECT_ATTEMPTS =
+        CONFIG.getValue(listOf("configurations", "secondsBetweenReconnectAttempts")) as TrackedValue<Int>
+
+    @JvmField
+    val RECONNECT_ATTEMPT_NUMBER =
+        CONFIG.getValue(listOf("configurations", "reconnectAttemptNumber")) as TrackedValue<Int>
+
+    @JvmField
+    val DAMAGE_LOGOUT_TOLERANCE =
+        CONFIG.getValue(listOf("configurations", "damageLogoutTolerance")) as TrackedValue<Int>
+
+    @JvmStatic
+    fun <T : Any> setConfigValue(value: TrackedValue<T>, setpoint: T) {
+        value.setValue(setpoint, true)
     }
 }

@@ -1,54 +1,50 @@
-package amerebagatelle.github.io.afkpeace.util;
+package amerebagatelle.github.io.afkpeace.util
 
-import amerebagatelle.github.io.afkpeace.AFKPeaceClient;
-import amerebagatelle.github.io.afkpeace.ConnectionManagerKt;
-import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigManager;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ServerAddress;
-import net.minecraft.client.network.ServerInfo;
+import amerebagatelle.github.io.afkpeace.AFKPeaceClient
+import amerebagatelle.github.io.afkpeace.cancelReconnect
+import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigManager
+import amerebagatelle.github.io.afkpeace.finishReconnect
+import net.minecraft.client.MinecraftClient
+import net.minecraft.client.network.ServerAddress
+import net.minecraft.client.network.ServerInfo
+import java.io.IOException
+import java.net.Socket
 
-import java.io.IOException;
-import java.net.Socket;
-
-public class ReconnectThread extends Thread {
-    private final ServerAddress serverAddress;
-
-    public ReconnectThread(ServerInfo serverInfo) {
-        super();
-        this.serverAddress = ServerAddress.parse(serverInfo.address);
-    }
+class ReconnectThread(serverInfo: ServerInfo) : Thread() {
+    private val serverAddress: ServerAddress = ServerAddress.parse(serverInfo.address)
 
     /**
      * Tries to connect to the server using a socket as many times as is set, and returns if it could connect
      */
-    @Override
-    public void run() {
-        int timesToAttempt = AFKPeaceConfigManager.RECONNECT_ATTEMPT_NUMBER.value();
-        for (int i = 0; i < timesToAttempt; i++) {
+    override fun run() {
+        val client = MinecraftClient.getInstance()
+        val timesToAttempt = AFKPeaceConfigManager.RECONNECT_ATTEMPT_NUMBER.value()
+        for (i in 0 until timesToAttempt) {
             try {
-                int secondsBetweenAttempts = AFKPeaceConfigManager.SECONDS_BETWEEN_RECONNECT_ATTEMPTS.value();
-                Thread.sleep(secondsBetweenAttempts * 1000L);
-                for (int i1 = 0; i1 < 10; i1++) {
-                    pingServer();
+                val secondsBetweenAttempts = AFKPeaceConfigManager.SECONDS_BETWEEN_RECONNECT_ATTEMPTS.value()
+                sleep(secondsBetweenAttempts * 1000L)
+                for (i1 in 0..9) {
+                    pingServer()
                 }
-                synchronized (this) {
-                    AFKPeaceClient.LOGGER.info("Reconnecting to server.");
-                    MinecraftClient.getInstance().execute(ConnectionManagerKt::finishReconnect);
+                synchronized(this) {
+                    AFKPeaceClient.LOGGER.info("Reconnecting to server.")
+                    client.execute { finishReconnect() }
                 }
-                return;
-            } catch (IOException | InterruptedException e) {
-                AFKPeaceClient.LOGGER.debug("Attempt failed.  Reason: " + e.getMessage() + " Attempt #: " + i + 1);
+                return
+            } catch (e: IOException) {
+                AFKPeaceClient.LOGGER.debug("Attempt failed.  Reason: " + e.message + " Attempt #: " + i + 1)
+            } catch (e: InterruptedException) {
+                AFKPeaceClient.LOGGER.debug("Attempt failed.  Reason: " + e.message + " Attempt #: " + i + 1)
             }
         }
-        MinecraftClient.getInstance().execute(ConnectionManagerKt::cancelReconnect);
+        client.execute { cancelReconnect() }
     }
 
-    private void pingServer() throws IOException, InterruptedException {
-        long startTime = System.nanoTime();
-        Socket connectionSocket = new Socket(serverAddress.getAddress(), serverAddress.getPort());
-        connectionSocket.close();
-        long endTime = System.nanoTime();
-        if (endTime - startTime > 2 * 1e+9)
-            throw new IOException("Ping was greater than five seconds, being " + (endTime - startTime) * 1e-9);
+    private fun pingServer() {
+        val startTime = System.nanoTime()
+        val connectionSocket = Socket(serverAddress.address, serverAddress.port)
+        connectionSocket.close()
+        val endTime = System.nanoTime()
+        if (endTime - startTime > 2 * 1e+9) throw IOException("Ping was greater than five seconds, being " + (endTime - startTime) * 1e-9)
     }
 }
