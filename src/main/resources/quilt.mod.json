@@ -32,6 +32,10 @@
         "versions": ">=2.0.0-"
       },
       {
+        "id": "qkl",
+        "versions": ">=1.1.1"
+      },
+      {
         "id": "minecraft",
         "versions": ">=1.19"
       }
