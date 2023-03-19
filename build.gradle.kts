@@ -135,5 +135,7 @@ modrinth {
 	loaders.add("quilt")
 	dependencies {
 		required.project("qsl")
+		required.project("qkl")
+		optional.project("modmenu")
 	}
 }
