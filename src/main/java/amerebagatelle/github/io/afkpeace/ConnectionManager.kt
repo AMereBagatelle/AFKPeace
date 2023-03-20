@@ -30,7 +30,7 @@ fun startReconnect(target: ServerInfo) {
     )
 }
 
-fun finishReconnect() = connectToServer(AFKPeaceClient.currentServerEntry)
+fun finishReconnect() = connectToServer(AFKPeaceClient.currentServerEntry!!)
 
 fun cancelReconnect() {
     try {
@@ -57,7 +57,7 @@ fun connectToServer(target: ServerInfo) =
 
 fun disconnectFromServer(reason: Text) {
     if (AFKPeaceConfigManager.RECONNECT_ON_DAMAGE_LOGOUT.value()) {
-        if (AFKPeaceClient.currentServerEntry != null) startReconnect(AFKPeaceClient.currentServerEntry)
+        if (AFKPeaceClient.currentServerEntry != null) startReconnect(AFKPeaceClient.currentServerEntry!!)
         return
     }
 

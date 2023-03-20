@@ -1,57 +1,62 @@
-package amerebagatelle.github.io.afkpeace;
+package amerebagatelle.github.io.afkpeace
 
-import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigManager;
-import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigScreen;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.network.ServerInfo;
-import net.minecraft.client.option.KeyBind;
-import net.minecraft.client.resource.language.I18n;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
-import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
-import org.quiltmc.qsl.networking.api.client.ClientPlayConnectionEvents;
+import amerebagatelle.github.io.afkpeace.AFKManager.isAfk
+import amerebagatelle.github.io.afkpeace.AFKManager.tickAfkStatus
+import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigManager
+import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigScreen
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
+import net.minecraft.client.MinecraftClient
+import net.minecraft.client.gui.screen.Screen
+import net.minecraft.client.network.ClientPlayNetworkHandler
+import net.minecraft.client.network.ServerInfo
+import net.minecraft.client.option.KeyBind
+import net.minecraft.client.resource.language.I18n
+import net.minecraft.client.util.math.MatrixStack
+import org.apache.logging.log4j.LogManager
+import org.quiltmc.loader.api.ModContainer
+import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer
+import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents
+import org.quiltmc.qsl.networking.api.PacketSender
+import org.quiltmc.qsl.networking.api.client.ClientPlayConnectionEvents
 
-public class AFKPeaceClient implements ClientModInitializer {
-	public static final Logger LOGGER = LogManager.getLogger("AFKPeace");
-	@SuppressWarnings("unused")
-	public static final String MODID = "afkpeace";
+class AFKPeaceClient : ClientModInitializer {
+    override fun onInitializeClient(mod: ModContainer) {
+        settingsKeybind = KeyBindingHelper.registerKeyBinding(KeyBind("afkpeace.keybind.settingsMenu", -1, "AFKPeace"))
+        ClientTickEvents.END.register(ClientTickEvents.End { client: MinecraftClient ->
+            if (settingsKeybind.wasPressed()) {
+                client.setScreen(AFKPeaceConfigScreen(client.currentScreen))
+            }
+            if (AFKPeaceConfigManager.AUTO_AFK.value()) {
+                tickAfkStatus()
+            }
+        })
+        HudRenderCallback.EVENT.register(HudRenderCallback { matrices: MatrixStack?, tickDelta: Float ->
+            if ((AFKPeaceConfigManager.DAMAGE_LOGOUT_ENABLED.value() || isAfk) && AFKPeaceConfigManager.FEATURES_ENABLED_INDICATOR.value()) {
+                val textRenderer = MinecraftClient.getInstance().textRenderer
+                textRenderer.draw(matrices, I18n.translate("afkpeace.hud.featuresEnabled"), 10f, 10f, 0xFFFFFF)
+            }
+        })
+        ClientPlayConnectionEvents.JOIN.register(ClientPlayConnectionEvents.Join { networkHandler: ClientPlayNetworkHandler?, packetSender: PacketSender?, client: MinecraftClient ->
+            currentServerEntry = client.currentServerEntry
+        })
+        LOGGER.info("AFKPeace " + mod.metadata().version().raw() + " Initialized")
+    }
 
-	public static KeyBind settingsKeybind;
+    companion object {
+        val LOGGER = LogManager.getLogger("AFKPeace")
 
-	public static ServerInfo currentServerEntry;
-	public static Screen loginScreen;
+        @Suppress("unused")
+        val MODID = "afkpeace"
+        lateinit var settingsKeybind: KeyBind
 
-	public static boolean disabled;
+        @JvmField
+        var currentServerEntry: ServerInfo? = null
 
-	@Override
-	public void onInitializeClient(ModContainer mod) {
-		settingsKeybind = KeyBindingHelper.registerKeyBinding(new KeyBind("afkpeace.keybind.settingsMenu", -1, "AFKPeace"));
+        @JvmField
+        var loginScreen: Screen? = null
 
-		ClientTickEvents.END.register((client) -> {
-			if(settingsKeybind.wasPressed()) {
-				client.setScreen(new AFKPeaceConfigScreen(client.currentScreen));
-			}
-
-			if (AFKPeaceConfigManager.AUTO_AFK.value()) {
-				AFKManager.tickAfkStatus();
-			}
-		});
-
-		HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
-			if ((AFKPeaceConfigManager.DAMAGE_LOGOUT_ENABLED.value() || AFKManager.isAfk()) && AFKPeaceConfigManager.FEATURES_ENABLED_INDICATOR.value()) {
-				TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-				textRenderer.draw(matrices, I18n.translate("afkpeace.hud.featuresEnabled"), 10, 10, 0xFFFFFF);
-			}
-		});
-
-		ClientPlayConnectionEvents.JOIN.register((networkHandler, packetSender, client) -> currentServerEntry = client.getCurrentServerEntry());
-
-		LOGGER.info("AFKPeace " + mod.metadata().version().raw() + " Initialized");
-	}
+        @JvmField
+        var disabled = false
+    }
 }
