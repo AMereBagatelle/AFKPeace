@@ -3,11 +3,11 @@ package amerebagatelle.github.io.afkpeace.mixin.client;
 import amerebagatelle.github.io.afkpeace.AFKPeaceClient;
 import amerebagatelle.github.io.afkpeace.ConnectionManagerKt;
 import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigManager;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -41,9 +41,9 @@ public abstract class DisconnectedScreenMixin extends Screen {
     }
 
     @Inject(method = "render", at = @At("TAIL"))
-    public void onRender(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+    public void onRender(GuiGraphics graphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (AFKPeaceClient.disabled)
-            drawCenteredText(matrices, textRenderer, I18n.translate("afkpeace.disconnectscreen.disabled"), width / 2, height - 70, 16777215);
-        drawCenteredText(matrices, textRenderer, I18n.translate("afkpeace.disconnectscreen.time", timeOfDisconnect), width / 2, height - 50, 16777215);
+            graphics.drawCenteredShadowedText(textRenderer, I18n.translate("afkpeace.disconnectscreen.disabled"), width / 2, height - 70, 16777215);
+        graphics.drawCenteredShadowedText(textRenderer, I18n.translate("afkpeace.disconnectscreen.time", timeOfDisconnect), width / 2, height - 50, 16777215);
     }
 }

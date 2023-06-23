@@ -13,8 +13,8 @@ import dev.lambdaurora.spruceui.screen.SpruceScreen
 import dev.lambdaurora.spruceui.widget.SpruceButtonWidget
 import dev.lambdaurora.spruceui.widget.SpruceSeparatorWidget
 import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget
+import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screen.Screen
-import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.text.Text
 
 class AFKPeaceConfigScreen(private val parent: Screen?) : SpruceScreen(Text.translatable("afkpeace.config.title")) {
@@ -126,8 +126,8 @@ class AFKPeaceConfigScreen(private val parent: Screen?) : SpruceScreen(Text.tran
         addDrawableChild(afkMode)
     }
 
-    override fun renderTitle(matrices: MatrixStack, mouseX: Int, mouseY: Int, delta: Float) {
-        drawCenteredText(matrices, textRenderer, title, width / 2, 8, 16777215)
+    override fun renderTitle(graphics: GuiGraphics?, mouseX: Int, mouseY: Int, delta: Float) {
+        graphics?.drawCenteredShadowedText(textRenderer, title, width / 2, 8, 16777215)
     }
 
     companion object {

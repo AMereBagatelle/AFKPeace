@@ -7,12 +7,12 @@ import amerebagatelle.github.io.afkpeace.config.AFKPeaceConfigScreen
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
 import net.minecraft.client.MinecraftClient
+import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.client.network.ClientPlayNetworkHandler
 import net.minecraft.client.network.ServerInfo
 import net.minecraft.client.option.KeyBind
 import net.minecraft.client.resource.language.I18n
-import net.minecraft.client.util.math.MatrixStack
 import org.apache.logging.log4j.LogManager
 import org.quiltmc.loader.api.ModContainer
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer
@@ -31,13 +31,20 @@ class AFKPeaceClient : ClientModInitializer {
                 tickAfkStatus()
             }
         })
-        HudRenderCallback.EVENT.register(HudRenderCallback { matrices: MatrixStack?, tickDelta: Float ->
+        HudRenderCallback.EVENT.register(HudRenderCallback { guiGraphics: GuiGraphics?, tickDelta: Float ->
             if ((AFKPeaceConfigManager.DAMAGE_LOGOUT_ENABLED.value() || isAfk) && AFKPeaceConfigManager.FEATURES_ENABLED_INDICATOR.value()) {
                 val textRenderer = MinecraftClient.getInstance().textRenderer
-                textRenderer.draw(matrices, I18n.translate("afkpeace.hud.featuresEnabled"), 10f, 10f, 0xFFFFFF)
+                guiGraphics?.drawText(
+                    textRenderer,
+                    I18n.translate("afkpeace.hud.featuresEnabled"),
+                    10,
+                    10,
+                    0xFFFFFF,
+                    false
+                )
             }
         })
-        ClientPlayConnectionEvents.JOIN.register(ClientPlayConnectionEvents.Join { networkHandler: ClientPlayNetworkHandler?, packetSender: PacketSender?, client: MinecraftClient ->
+        ClientPlayConnectionEvents.JOIN.register(ClientPlayConnectionEvents.Join { _: ClientPlayNetworkHandler?, _: PacketSender?, client: MinecraftClient ->
             currentServerEntry = client.currentServerEntry
         })
         LOGGER.info("AFKPeace " + mod.metadata().version().raw() + " Initialized")

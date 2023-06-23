@@ -41,6 +41,7 @@ dependencies {
 	modImplementation(libs.quilt.loader)
 
 	modImplementation(libs.qfapi)
+	modImplementation(libs.qkl)
 
 	modImplementation(libs.modmenu)
 
@@ -54,8 +55,7 @@ tasks {
 	withType<KotlinCompile> {
 		kotlinOptions {
 			jvmTarget = javaVersion.toString()
-			languageVersion = libs.plugins.kotlin.get().version.strictVersion
-			incremental = true
+			languageVersion = rootProject.libs.plugins.kotlin.get().version.requiredVersion.substringBeforeLast(".")
 		}
 	}
 
@@ -70,7 +70,8 @@ tasks {
 		inputs.property("version", project.version)
 
 		filesMatching("quilt.mod.json") {
-			expand(
+
+		expand(
 				mapOf(
 					"version" to project.version
 				)

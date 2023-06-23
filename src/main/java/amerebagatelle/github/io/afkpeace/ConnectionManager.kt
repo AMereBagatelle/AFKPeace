@@ -52,7 +52,8 @@ fun connectToServer(target: ServerInfo) =
         MultiplayerScreen(TitleScreen()),
         MinecraftClient.getInstance(),
         ServerAddress.parse(target.address),
-        target
+        target,
+        false
     )
 
 fun disconnectFromServer(reason: Text) {
